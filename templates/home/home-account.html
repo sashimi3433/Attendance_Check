@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block mainclass %}home-account{% endblock mainclass %}
+{% block excss %}
+<link rel="stylesheet" href="{% static 'css/home-account.css' %}">
+{% endblock excss %}
+{% block exjs %}{% endblock exjs %}
+{% block content %}
+
+<div class="card">
+    <p class="username">{{ user.username }}</p>
+
+    <ul>
+        <li>アカウント設定</li>
+        <li>着せ替え設定</li>
+        <li>重要な設定</li>
+    </ul>
+    <ul>
+        <li>アカウント設定</li>
+        <li>着せ替え設定</li>
+        <li>着せ替え設定</li>
+        <li>重要な設定</li>
+    </ul>
+
+    <a href="#" class="danger txtbtn">ログアウト</a>
+</div>
+{% endblock content %}

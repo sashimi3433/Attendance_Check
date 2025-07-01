@@ -1,0 +1,46 @@
+.home {
+    padding: 15px;
+    max-width: 800px;
+    min-height: 100vh;
+
+    .card {
+        padding: 20px;
+        border: #00000027 solid 1px;
+        margin: 20px auto;
+        border-radius: 15px;
+        box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.35);
+    }
+
+    .bar {
+        display: flex;
+        background-color: #e65151;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.35);
+        margin: 20px auto;
+        color: white;
+        font-weight: bold;
+        font-size: 1.5rem;
+
+        .balance {
+            margin-left: auto;
+
+            span {
+                margin-right: 1rem;
+            }
+        }
+    }
+
+    #barcode {
+        display: block;
+        width: 100%;
+        margin: 0 auto;
+        margin-bottom: 15px;
+    }
+
+    #qrcode {
+        display: block;
+        width: 30%;
+        margin: 0 auto;
+    }
+}

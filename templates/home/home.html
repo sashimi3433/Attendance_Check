@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block mainclass %}home{% endblock mainclass %}
+{% block excss %}
+    <link rel="stylesheet" href="{% static 'css/home-home.css' %}">
+{% endblock excss %}
+{% block exjs %}
+{% endblock exjs %}
+{% block content %}
+    <div class="card">
+        <img src="https://barcode.orcascan.com/?type=code128&data=4609a0974c9791da&fontsize=20" id="barcode"></img>
+        <img src="https://hexdocs.pm/qr_code/docs/qrcode.svg" id="qrcode"></img>
+    </div>
+    <div class="bar">
+        残高<p class="balance"><span>{{user.balance | intcomma }}</span>円</p>
+    </div>
+
+{% endblock content %}
