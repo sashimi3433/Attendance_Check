@@ -4,7 +4,7 @@
   min-height: 100vh;
 }
 .home-account .card {
-  background-color: #fff;
+  background-color: #efefef;
   padding: 15px;
   border-radius: 15px 15px 0 0;
   min-height: 95vh;
@@ -25,16 +25,15 @@
   margin: 7vh auto;
 }
 .home-account .card ul li {
-  border: rgba(20, 20, 20, 0.1764705882) solid 1px;
-  border-bottom: none;
   padding: 15px;
   text-align: center;
   color: #333;
+  background-color: #fff;
+  margin: 3px 0;
 }
 .home-account .card ul li:first-child {
   border-radius: 10px 10px 0 0;
 }
 .home-account .card ul li:last-child {
   border-radius: 0 0 10px 10px;
-  border: rgba(20, 20, 20, 0.1764705882) solid 1px;
 }/*# sourceMappingURL=home-account.css.map */
