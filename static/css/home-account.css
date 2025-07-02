@@ -1,3 +1,7 @@
+.bottombar .bottombar-inner ul .account-item {
+  color: #e65151;
+}
+
 .home-account {
   padding-top: 5vh;
   background-color: #e65151;
@@ -8,6 +12,8 @@
   padding: 15px;
   border-radius: 15px 15px 0 0;
   min-height: 95vh;
+  max-width: 800px;
+  margin: 0 auto;
 }
 .home-account .card .username {
   text-align: center;
@@ -19,21 +25,34 @@
 .home-account .card .txtbtn {
   text-align: center;
   display: block;
-  width: 100%;
+  margin: 0 auto;
+  transition: all 0.25s;
+}
+.home-account .card .txtbtn:hover {
+  background-color: rgba(0, 0, 0, 0.0666666667);
 }
 .home-account .card ul {
-  margin: 7vh auto;
+  margin: 5vh auto;
 }
 .home-account .card ul li {
-  padding: 15px;
+  margin: 3px 0;
   text-align: center;
   color: #333;
   background-color: #fff;
-  margin: 3px 0;
+  border-radius: 0;
+  transition: all 0.25s;
 }
-.home-account .card ul li:first-child {
+.home-account .card ul li:hover {
+  background-color: rgba(0, 0, 0, 0.0666666667);
+}
+.home-account .card ul li a {
+  padding: 15px;
+  display: block;
+  width: 100%;
+}
+.home-account .card ul li:first-of-type {
   border-radius: 10px 10px 0 0;
 }
-.home-account .card ul li:last-child {
+.home-account .card ul li:last-of-type {
   border-radius: 0 0 10px 10px;
 }/*# sourceMappingURL=home-account.css.map */

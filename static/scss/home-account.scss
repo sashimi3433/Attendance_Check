@@ -1,3 +1,14 @@
+.bottombar {
+
+    .bottombar-inner {
+        ul {
+            .account-item {
+                color: #e65151;
+            }
+        }
+    }
+}
+
 .home-account {
     padding-top: 5vh;
     background-color: #e65151;
@@ -8,6 +19,8 @@
         padding: 15px;
         border-radius: 15px 15px 0 0;
         min-height: 95vh;
+        max-width: 800px;
+        margin: 0 auto;
 
         .username {
             text-align: center;
@@ -21,27 +34,44 @@
         .txtbtn {
             text-align: center;
             display: block;
-            width: 100%;
+            margin: 0 auto;
+            transition: all .25s;
+
+            &:hover {
+                background-color: #00000011;
+            }
         }
 
 
         ul {
-            margin: 7vh auto;
+            margin: 5vh auto;
 
             li {
-                padding: 15px;
+                margin: 3px 0;
                 text-align: center;
                 color: #333;
                 background-color: #fff;
-                margin: 3px 0;
+                border-radius: 0;
+                transition: all .25s;
 
-                &:first-child {
+                &:hover {
+                    background-color: #00000011;
+                }
+
+                a {
+                    padding: 15px;
+                    display: block;
+                    width: 100%;
+                }
+
+                &:first-of-type {
                     border-radius: 10px 10px 0 0;
                 }
 
-                &:last-child {
+                &:last-of-type {
                     border-radius: 0 0 10px 10px;
                 }
+
             }
         }
     }

@@ -1,14 +1,12 @@
-<!doctype html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-</head>
-<body>
-  <form action="{% url 'login' %}" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="login" />
-    <input type="hidden" name="next" value="{{ next }}" />
+{% extends 'base.html' %}
+{% block excss %}{% endblock excss %}
+{% block exjs %}{% endblock exjs %}
+{% block mainclass %}{% endblock mainclass %}
+{% block content %}
+<h2>ログイン</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">ログイン</button>
 </form>
-</body>
-</html>
+{% endblock %}

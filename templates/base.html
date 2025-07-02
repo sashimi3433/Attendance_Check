@@ -20,24 +20,30 @@
         <div class="bottombar-inner">
             <nav>
                 <ul>
-                    <li>
+                    <li class="home-item">
                         <a href="{% url 'home:index' %}">
                         <i class="fa-solid fa-house"></i>
                         ホーム
                         </a>
                     </li>
-                    <li>
+                    <li class="qrcode-item">
                         <i class="fa-solid fa-qrcode"></i>
                         <a href="{% url 'home:index' %}">
                         QRコード
                         </a>
                     </li>
-                    <li>
+                    <li class="account-item">
                         <a href="{% url 'home:account' %}">
                         <i class="fa-solid fa-user"></i>
-                        アカウント
+                        {% if user.is_authenticated %}
+                            アカウント
+                        {% else %}
+                            ログイン
+                        {% endif %}
                         </a>
                     </li>
+                    {% if user.is_authenticated %}
+                    {% endif %}
                 </ul>
             </nav>
         </div>

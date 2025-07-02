@@ -13,17 +13,19 @@
     <p class="username">{{ user.username }}</p>
 
     <ul>
-        <li>アカウント設定</li>
-        <li>着せ替え設定</li>
-        <li>重要な設定</li>
+        <li><a href="#">アカウント設定</a></li>
+        <li><a href="#">アカウント設定</a></li>
+        <li><a href="#">アカウント設定</a></li>
     </ul>
     <ul>
-        <li>アカウント設定</li>
-        <li>着せ替え設定</li>
-        <li>着せ替え設定</li>
-        <li>重要な設定</li>
+        <li><a href="#">アカウント設定</a></li>
+        <li><a href="#">アカウント設定</a></li>
+        <li><a href="#">アカウント設定</a></li>
+        <li><a href="#">アカウント設定</a></li>
     </ul>
-
-    <a href="#" class="danger txtbtn">ログアウト</a>
+<form action="{% url "accounts:logout" %}" method="POST">
+    {% csrf_token %}
+    <button class="danger txtbtn">ログアウト</button>
+</form>
 </div>
 {% endblock content %}
