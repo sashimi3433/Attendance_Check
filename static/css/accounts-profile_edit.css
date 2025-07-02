@@ -1,0 +1,44 @@
+.bottombar {
+  display: none;
+}
+
+.profile_edit {
+  background-color: #e65151;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.profile_edit h2 {
+  color: white;
+  padding: 20px;
+  font-size: 2rem;
+  font-weight: bold;
+}
+.profile_edit .card {
+  background-color: #efefef;
+  padding: 15px;
+  border-radius: 15px 15px 0 0;
+  min-height: 95vh;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.profile_edit form {
+  text-align: center;
+}
+.profile_edit form input {
+  background-color: #fff;
+  border-bottom: 1px solid #e65151;
+  padding: 5px;
+}
+.profile_edit .txtbtn {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  transition: all 0.25s;
+}
+.profile_edit .txtbtn:hover {
+  background-color: rgba(0, 0, 0, 0.0666666667);
+}/*# sourceMappingURL=accounts-profile_edit.css.map */

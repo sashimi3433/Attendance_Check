@@ -11,13 +11,15 @@
 <script>
     const userId = "{{ user.id }}";
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"></script>
 <script src="{% static "js/home-home.js" %}"></script>
 {% endblock exjs %}
 {% block content %}
     <div class="card">
         {% comment %} <img src="https://barcode.orcascan.com/?type=code128&data=4609a0974c9791da&fontsize=20" id="barcode"></img> {% endcomment %}
         <img id="barcode"/>
-        <img src="https://hexdocs.pm/qr_code/docs/qrcode.svg" id="qrcode"></img>
+        {% comment %} <img src="https://hexdocs.pm/qr_code/docs/qrcode.svg" id="qrcode"></img> {% endcomment %}
+        <div id="qrcode"></div>
     </div>
     <div class="bar">
         残高<p class="balance"><span>{{user.balance | intcomma }}</span>円</p>

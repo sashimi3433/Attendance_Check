@@ -17,9 +17,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
-    'api',
     'home',
     'show_qr',
+    'qr_token',
     'django.contrib.humanize',
 ]
 
