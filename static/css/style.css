@@ -1,8 +1,11 @@
 @font-face {
-  font-family: "LINE Seed JP";
-  src: url("../fonts/LINESeedJP_OTF.otf") format("opentype");
+  font-family: "LINESeedJP_OTF_Rg";
+  src: url("../fonts/LINESeedJP_OTF_Rg.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
+}
+body {
+  font-family: "LINESeedJP_OTF_Rg";
 }
 body main .txtbtn {
   padding: 15px;

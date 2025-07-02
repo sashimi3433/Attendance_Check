@@ -14,31 +14,36 @@
   border-radius: 15px;
   box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.35);
 }
-.home .bar {
-  display: flex;
-  background-color: #e65151;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.35);
-  margin: 20px auto;
-  color: white;
-  font-weight: bold;
-  font-size: 1.5rem;
-}
-.home .bar .balance {
-  margin-left: auto;
-}
-.home .bar .balance span {
-  margin-right: 1rem;
-}
-.home #barcode {
+.home .card #barcode {
   display: block;
   width: 100%;
   margin: 0 auto;
   margin-bottom: 15px;
 }
-.home #qrcode {
+.home .card #qrcode {
   display: block;
-  width: 30%;
+  width: 25%;
   margin: 0 auto;
+}
+.home .bar {
+  display: flex;
+  background-color: #e65151;
+  padding: 15px;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.35);
+  margin: 20px auto;
+  color: white;
+  font-size: 1.5rem;
+}
+.home .bar .balance {
+  margin-left: auto;
+}
+.home .bar button {
+  border-radius: 5px;
+  padding: 10px 15px;
+  color: #e65151;
+  font-size: 1rem;
+  background-color: #fff;
+  margin-left: 1rem;
 }/*# sourceMappingURL=home-home.css.map */
