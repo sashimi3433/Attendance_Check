@@ -1,59 +1,30 @@
-{% extends 'base.html' %}
+{% extends 'form-base.html' %}
 
 {% block title %}新規登録{% endblock title %}
-{% block excss %}{% endblock excss %}
+{% block excss %}
+{% endblock excss %}
 {% block exjs %}{% endblock exjs %}
-{% block mainclass %}{% endblock mainclass %}
+{% block mainclass %}passwordless_login{% endblock mainclass %}
 {% block content %}
-<div class="container">
-    <h2>新規アカウント作成</h2>
-    <p>パスワードは不要です。ユーザー名だけでログインできます。</p>
-    
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
-    
+<h2>新規登録</h2>
+
+<div class="card">
     <form method="post">
         {% csrf_token %}
-        <div class="form-group">
-            {{ form.username.label_tag }}
-            {{ form.username }}
-            {% if form.username.errors %}
-                <div class="text-danger">{{ form.username.errors }}</div>
+        {% for field in form %}
+        <div class="fieldWrapper">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <div class="text-danger">{{ field.errors }}</div>
             {% endif %}
         </div>
+        {% endfor %}
         
-        <div class="form-group">
-            {{ form.name.label_tag }}
-            {{ form.name }}
-            {% if form.name.errors %}
-                <div class="text-danger">{{ form.name.errors }}</div>
-            {% endif %}
-        </div>
-        
-        <div class="form-group">
-            {{ form.grade.label_tag }}
-            {{ form.grade }}
-            {% if form.grade.errors %}
-                <div class="text-danger">{{ form.grade.errors }}</div>
-            {% endif %}
-        </div>
-        
-        <div class="form-group">
-            {{ form.age.label_tag }}
-            {{ form.age }}
-            {% if form.age.errors %}
-                <div class="text-danger">{{ form.age.errors }}</div>
-            {% endif %}
-        </div>
-        
-        <button type="submit" class="btn btn-primary">アカウント作成</button>
+        <button type="submit" class="btn btn-primary">新規登録</button>
     </form>
-    
-    <p class="mt-3">
-        <a href="{% url 'accounts:login' %}">既にアカウントをお持ちの方はこちら</a>
+    <p class="txtbtn">
+        <a href="{% url 'accounts:signup' %}">ログインはこちら</a>
     </p>
 </div>
 {% endblock %}

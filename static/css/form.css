@@ -37,6 +37,15 @@
   margin: 10px 0;
   background-color: #fff;
 }
+.form .card form .fieldWrapper input:focus,
+.form .card form .fieldWrapper select:focus {
+  outline: none;
+}
+.form .card form .fieldWrapper input[type=number]::-webkit-outer-spin-button,
+.form .card form .fieldWrapper input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 .form .card form button {
   background-color: #fff;
   border: #e65151 solid 1px;
@@ -51,4 +60,13 @@
 .form .card form button:hover {
   background-color: #e65151;
   color: #fff;
+}
+.form .txtbtn {
+  text-align: center;
+  display: block;
+  margin: 20px auto;
+  transition: all 0.25s;
+}
+.form .txtbtn:hover {
+  background-color: rgba(0, 0, 0, 0.0666666667);
 }/*# sourceMappingURL=form.css.map */

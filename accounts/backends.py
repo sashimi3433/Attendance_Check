@@ -8,15 +8,20 @@ class PasswordlessAuthBackend(BaseBackend):
     パスワードなしでの認証を可能にするカスタム認証バックエンド
     """
     
-    def authenticate(self, request, username=None, **kwargs):
+    def authenticate(self, request, username=None, name=None, grade=None, age=None, **kwargs):
         """
-        ユーザー名のみで認証を行う
+        ユーザー名、名前、学年、年齢で認証を行う
         """
-        if username is None:
+        if username is None or name is None or grade is None or age is None:
             return None
             
         try:
-            user = User.objects.get(username=username)
+            user = User.objects.get(
+                username=username,
+                name=name,
+                grade=grade,
+                age=age
+            )
             return user
         except User.DoesNotExist:
             return None

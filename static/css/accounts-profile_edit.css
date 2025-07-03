@@ -1,9 +1,0 @@
-.profile_edit .txtbtn {
-  text-align: center;
-  display: block;
-  margin: 20px auto;
-  transition: all 0.25s;
-}
-.profile_edit .txtbtn:hover {
-  background-color: rgba(0, 0, 0, 0.0666666667);
-}/*# sourceMappingURL=accounts-profile_edit.css.map */

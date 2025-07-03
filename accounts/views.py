@@ -11,7 +11,7 @@ def profile_edit(request):
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('home:home-account')  # Redirect to the account page after a successful edit
+            return redirect('home:account')  # Redirect to the account page after a successful edit
     else:
         form = CustomUserChangeForm(instance=request.user)
     return render(request, 'accounts/profile_edit.html', {'form': form})
@@ -40,13 +40,16 @@ def passwordless_login(request):
         form = PasswordlessLoginForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
-            user = authenticate(request, username=username)
+            name = form.cleaned_data['name']
+            grade = form.cleaned_data['grade']
+            age = form.cleaned_data['age']
+            user = authenticate(request, username=username, name=name, grade=grade, age=age)
             if user is not None:
                 login(request, user, backend='accounts.backends.PasswordlessAuthBackend')
                 messages.success(request, 'ログインしました。')
                 return redirect('home:index')
             else:
-                messages.error(request, 'ユーザー名が見つかりません。')
+                messages.error(request, '入力された情報と一致するユーザーが見つかりません。')
     else:
         form = PasswordlessLoginForm()
     return render(request, 'accounts/passwordless_login.html', {'form': form})

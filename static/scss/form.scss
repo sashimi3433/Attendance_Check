@@ -43,6 +43,16 @@
                     width: 100%;
                     margin: 10px 0;
                     background-color: #fff;
+
+                    &:focus {
+                        outline: none;
+                    }
+                }
+
+                input[type="number"]::-webkit-outer-spin-button,
+                input[type="number"]::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
                 }
             }
 
@@ -62,6 +72,17 @@
                     color: #fff;
                 }
             }
+        }
+    }
+
+    .txtbtn {
+        text-align: center;
+        display: block;
+        margin: 20px auto;
+        transition: all .25s;
+
+        &:hover {
+            background-color: #00000011;
         }
     }
 }

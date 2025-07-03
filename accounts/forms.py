@@ -9,6 +9,18 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
         fields = ('username', 'name', 'grade', 'age')
+        labels = {
+            'username': 'ユーザー名',
+            'name': '名前',
+            'grade': '学年',
+            'age': '年齢',
+        }
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'grade': forms.Select(attrs={'class': 'form-control'}),
+            'age': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -55,5 +67,36 @@ class PasswordlessLoginForm(forms.Form):
             'class': 'form-control',
             'placeholder': 'ユーザー名を入力してください',
             'autofocus': True
+        })
+    )
+    
+    name = forms.CharField(
+        label='名前',
+        max_length=20,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': '名前を入力してください'
+        })
+    )
+    
+    grade = forms.ChoiceField(
+        label='学年',
+        choices=[
+            ('1', '1年生'),
+            ('2', '2年生'),
+            ('3', '3年生'),
+            ('4', '4年生'),
+            ('5', '5年生'),
+            ('6', '6年生'),
+            ('Other', 'その他'),
+        ],
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+    
+    age = forms.IntegerField(
+        label='年齢',
+        widget=forms.NumberInput(attrs={
+            'class': 'form-control',
+            'placeholder': '年齢を入力してください'
         })
     )
