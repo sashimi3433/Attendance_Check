@@ -94,6 +94,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
+# カスタム認証バックエンド
+AUTHENTICATION_BACKENDS = [
+    'accounts.backends.PasswordlessAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',  # デフォルトのバックエンドも保持
+]
+
 LOGIN_URL = 'accounts:login'
 LOGOUT_REDIRECT_URL = 'accounts:login'
 LOGIN_REDIRECT_URL = 'home:index'

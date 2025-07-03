@@ -1,20 +1,27 @@
-{% extends "base.html" %}
+{% extends "form-base.html" %}
 {% load static %}
+
+{% block title %}プロフィール編集{% endblock title %}
 {% block mainclass %}profile_edit{% endblock mainclass %}
 {% block excss %}
 <link rel="stylesheet" href="{% static 'css/accounts-profile_edit.css' %}">
 {% endblock excss %}
 {% block exjs %}{% endblock exjs %}
 {% block content %}
-<div class="back-btn"><i class="fa-solid fa-arrow-left"></i></div>
   <h2>プロフィール編集</h2>
   <div class="card">
     <form method="post">
       {% csrf_token %}
-      {{ form.as_p }}
+      {% for field in form %}
+      <div class="fieldWrapper">
+          {{ field.errors }}
+          {{ field.label_tag }}
+          {{ field }}
+      </div>
+{% endfor %}
       <button type="submit">更新</button>
     </form>
 
-    <a href="{% url 'home:account' %}" class="txtbtn">プロフィールへ戻る</a>
+    <a href="{% url 'home:account' %}" class="txtbtn">キャンセル</a>
   </div>
 {% endblock %}

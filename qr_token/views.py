@@ -11,10 +11,6 @@ from .models import QR_Token # 同じアプリ内のモデルをインポート
 
 @csrf_exempt # 警告: 開発・テスト用です。本番環境ではCSRF対策を適切に行ってください。
 def token_generator(request): # userid引数は不要になりました
-    """
-    POSTリクエストでユーザー名とパスワードを受け取り、認証成功時に
-    常に新しいQRトークンを生成し、ユーザーに紐付けてDBに保存、JSONで返却するAPI。
-    """
     if request.method == 'POST':
         try:
             data = json.loads(request.body)

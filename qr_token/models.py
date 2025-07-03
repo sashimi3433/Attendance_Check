@@ -3,14 +3,16 @@ from accounts.models import CustomUser as User
 from datetime import datetime, timedelta
 import secrets
 
+
+
 class QR_Token(models.Model):
-    # secrets.token_urlsafe(32) は約43文字の文字列を生成するので、max_lengthを64に設定
     token = models.CharField(max_length=64, unique=True, db_index=True)
-    is_used = models.BooleanField(default=False) # 'used' との重複を避けるため名前を変更
+    is_used = models.BooleanField(default=False)
     expires = models.DateTimeField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='qr_tokens')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    usage = models.Choices
 
     def __str__(self):
         return f"QR_Token for {self.user.username} (Key: {self.token[:10]}...)"
