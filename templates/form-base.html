@@ -8,11 +8,12 @@
     <title>{% block title %}{% endblock title %} | アプリ名</title>
     <link rel="stylesheet" href="{% static 'css/destyle.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
     {% block excss %}
     {% endblock excss %}
 </head>
 <body>
-    <main class="{% block mainclass %}{% endblock mainclass %}">
+    <main class="form {% block mainclass %}{% endblock mainclass %}">
     {% block content %}
     {% endblock %}
     </main>

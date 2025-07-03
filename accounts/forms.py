@@ -4,9 +4,17 @@ from django import forms
 from .models import CustomUser
 
 class CustomUserChangeForm(UserChangeForm):
+    password = None  # パスワードフィールドを完全に除外
+    
     class Meta:
         model = CustomUser
         fields = ('username', 'name', 'grade', 'age')
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # パスワード関連のフィールドを削除
+        if 'password' in self.fields:
+            del self.fields['password']
 
 class CustomUserCreationForm(forms.ModelForm):
     """

@@ -1,0 +1,54 @@
+.form {
+  background-color: #e65151;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.form h2 {
+  color: white;
+  padding: 20px;
+  font-size: 2rem;
+  font-weight: bold;
+}
+.form .card {
+  background-color: #efefef;
+  padding: 15px;
+  border-radius: 15px 15px 0 0;
+  min-height: 95vh;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+}
+.form .card form .fieldWrapper {
+  display: block;
+}
+.form .card form .fieldWrapper label {
+  display: block;
+  margin-top: 20px;
+}
+.form .card form .fieldWrapper input,
+.form .card form .fieldWrapper select {
+  display: block;
+  border-bottom: 1px solid #e65151;
+  padding: 15px;
+  width: 100%;
+  margin: 10px 0;
+  background-color: #fff;
+}
+.form .card form button {
+  background-color: #fff;
+  border: #e65151 solid 1px;
+  color: #e65151;
+  padding: 10px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  width: 100%;
+  text-align: center;
+  transition: all 0.25s;
+}
+.form .card form button:hover {
+  background-color: #e65151;
+  color: #fff;
+}/*# sourceMappingURL=form.css.map */
