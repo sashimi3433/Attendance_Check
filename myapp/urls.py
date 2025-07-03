@@ -7,5 +7,5 @@ urlpatterns = [
     # path('show_qr/', include('show_qr.urls')),
     # path('accounts/', include('accounts.urls')),
     path('accounts/', include('accounts.urls')),
-    path('api/', include('qr_token.urls')),
+    path('api/', include('qr_token.urls', namespace='qr_token')),
 ]

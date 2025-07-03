@@ -9,6 +9,7 @@
 {% endblock excss %}
 {% block exjs %}
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/barcodes/JsBarcode.code128.min.js"></script>
+<script id="generate-token-url" type="application/json">{% url 'qr_token:generate_token_api' %}</script>
 <script>
     const userId = "{{ user.id }}";
 </script>
@@ -28,3 +29,10 @@
     </div>
 
 {% endblock content %}
+
+<div class="card">
+    <p>ユーザー名: {{ user.username }}</p>
+    <p>学年: {{ user.grade }}</p>
+    <p>年齢: {{ user.age }}</p>
+    <p>残高: {{ user.balance }}</p>
+</div>

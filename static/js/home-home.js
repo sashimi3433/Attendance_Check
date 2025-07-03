@@ -6,53 +6,45 @@ let tokenExpiresAt = null;
 let tokenUsername = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
-    // APIのURL。myapp/urls.pyとqr_token/urls.pyの設定に合わせてください
-    const apiUrl = 'http://localhost:8000/api/generate-token/'; 
-
-    // --- 重要: テスト/開発目的のみです。本番環境では認証情報をハードコードしないでください！ ---
-    const testUsername = 'hoge'; // あなたのCustomUserモデルに存在するユーザー名に置き換えてください
-    const testPassword = 'hoge'; // そのユーザーのパスワードに置き換えてください
-    // --- 重要事項の終わり ---
+    // APIのURLはHTMLから取得
+    const apiUrl = document.getElementById('generate-token-url').textContent;
 
     console.log('APIから新しいトークンを取得しようとしています...');
 
     try {
         const response = await fetch(apiUrl, {
-            method: 'POST', // ユーザー名とパスワードを送信するためPOSTリクエストを使用
+            method: 'POST', // POSTリクエストを維持
             headers: {
-                'Content-Type': 'application/json', // ボディがJSON形式であることを示す
+                'Content-Type': 'application/json',
+                // CSRFトークンをヘッダーに追加
+                'X-CSRFToken': getCookie('csrftoken'),
             },
-            body: JSON.stringify({ // ユーザー名とパスワードをJSON形式でリクエストボディに含めます
-                username: testUsername,
-                password: testPassword
-            }),
+            // ボディは空にする
+            body: JSON.stringify({}),
         });
 
         if (!response.ok) {
-            // HTTPステータスコードが200番台以外の場合
-            const errorData = await response.json(); // エラーレスポンスもJSONと仮定
+            const errorData = await response.json();
             throw new Error(`HTTPエラー! ステータス: ${response.status}, メッセージ: ${errorData.error || '不明なエラー'}`);
         }
 
-        // APIからのJSONレスポンスをパース
         const data = await response.json();
 
-        // 受信したトークンと関連情報をグローバル変数に格納
-        generatedToken = data.token; // 'token'という変数名を維持
-        tokenExpiresAt = new Date(data.expires_at); // 文字列をDateオブジェクトに変換
+        generatedToken = data.token;
+        tokenExpiresAt = new Date(data.expires_at);
         tokenUsername = data.username;
 
         console.log('--- APIからの応答を受信し、トークンが変数に格納されました ---');
         console.log('生成されたトークン:', generatedToken);
         console.log('トークン有効期限:', tokenExpiresAt);
         console.log('トークンユーザー名:', tokenUsername);
-        console.log('トークンは使用済みか:', data.is_used); // 新しいトークンなのでfalseになります
+        console.log('トークンは使用済みか:', data.is_used);
 
         JsBarcode("#barcode", generatedToken, {
-        format: "code128",
-        height:50,
-        width:2,
-        displayValue: false
+            format: "code128",
+            height:50,
+            width:2,
+            displayValue: false
         });
 
         const qrCodeElement = document.getElementById("qrcode");
@@ -68,17 +60,27 @@ document.addEventListener('DOMContentLoaded', async () => {
             correctLevel : QRCode.CorrectLevel.H
         });
 
-
-
-
-        // 必要に応じて、ここで格納した変数を使って他のJavaScript処理を実行できます
-
     } catch (error) {
         console.error('API呼び出し中にエラーが発生しました:', error);
-        // エラー発生時は変数をnullにリセット
         generatedToken = null;
         tokenExpiresAt = null;
         tokenUsername = null;
     }
 });
+
+// CSRFトークンを取得するためのヘルパー関数
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
 
