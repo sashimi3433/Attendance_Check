@@ -72,6 +72,22 @@
                     color: #fff;
                 }
             }
+
+            .messages {
+                background-color: #e65151;
+                color: white;
+                border-radius: 5px;
+                padding: 10px;
+                width: 100%;
+                margin: 20px auto;
+                text-align: center;
+
+                p {
+                    margin-bottom: 25px;
+                    font-size: 1.75rem;
+                    font-weight: bold;
+                }
+            }
         }
     }
 
