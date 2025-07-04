@@ -1,11 +1,73 @@
 @font-face {
-  font-family: "LINESeedJP_OTF_Rg";
+  font-family: "LINESeedJP";
+  src: url("../fonts/LINESeedJP_OTF_Th.woff2") format("woff2");
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: "LINESeedJP";
   src: url("../fonts/LINESeedJP_OTF_Rg.woff2") format("woff2");
-  font-weight: normal;
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "LINESeedJP";
+  src: url("../fonts/LINESeedJP_OTF_Bd.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "LINESeedJP";
+  src: url("../fonts/LINESeedJP_OTF_Eb.woff2") format("woff2");
+  font-weight: 800;
   font-style: normal;
 }
 body {
-  font-family: "LINESeedJP_OTF_Rg";
+  font-family: "LINESeedJP", sans-serif;
+}
+body .menu {
+  background-color: #e65151;
+  min-height: 100vh;
+}
+body .menu h2 {
+  color: white;
+  padding: 20px;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+}
+body .menu .card {
+  background-color: #efefef;
+  padding: 15px;
+  border-radius: 15px 15px 0 0;
+  min-height: 95vh;
+  max-width: 800px;
+  margin: 0 auto;
+}
+body .menu .card ul {
+  margin: 5vh auto;
+}
+body .menu .card ul li {
+  margin: 3px 0;
+  text-align: center;
+  color: #333;
+  background-color: #fff;
+  border-radius: 0;
+  transition: all 0.25s;
+}
+body .menu .card ul li:hover {
+  background-color: rgba(0, 0, 0, 0.0666666667);
+}
+body .menu .card ul li a {
+  padding: 15px;
+  display: block;
+  width: 100%;
+}
+body .menu .card ul li:first-of-type {
+  border-radius: 10px 10px 0 0;
+}
+body .menu .card ul li:last-of-type {
+  border-radius: 0 0 10px 10px;
 }
 body main .txtbtn {
   padding: 15px;
@@ -19,7 +81,7 @@ body .bottombar {
   position: sticky;
   bottom: 0;
   left: 0;
-  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.555);
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.555);
   background-color: #fff;
 }
 body .bottombar .bottombar-inner {
@@ -42,7 +104,6 @@ body .bottombar .bottombar-inner nav ul li {
   color: #333;
   text-align: center;
   width: 30%;
-  font-weight: bold;
   min-height: auto;
 }
 body .bottombar .bottombar-inner nav ul li i {
@@ -50,6 +111,6 @@ body .bottombar .bottombar-inner nav ul li i {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  font-size: 1.5rem;
+  font-size: 2rem;
   margin-bottom: 5px;
 }/*# sourceMappingURL=style.css.map */

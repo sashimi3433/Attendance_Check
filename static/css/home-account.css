@@ -2,19 +2,6 @@
   color: #e65151;
 }
 
-.home-account {
-  padding-top: 5vh;
-  background-color: #e65151;
-  min-height: 100vh;
-}
-.home-account .card {
-  background-color: #efefef;
-  padding: 15px;
-  border-radius: 15px 15px 0 0;
-  min-height: 95vh;
-  max-width: 800px;
-  margin: 0 auto;
-}
 .home-account .card .username {
   text-align: center;
   font-size: 1.5rem;
@@ -30,29 +17,4 @@
 }
 .home-account .card .txtbtn:hover {
   background-color: rgba(0, 0, 0, 0.0666666667);
-}
-.home-account .card ul {
-  margin: 5vh auto;
-}
-.home-account .card ul li {
-  margin: 3px 0;
-  text-align: center;
-  color: #333;
-  background-color: #fff;
-  border-radius: 0;
-  transition: all 0.25s;
-}
-.home-account .card ul li:hover {
-  background-color: rgba(0, 0, 0, 0.0666666667);
-}
-.home-account .card ul li a {
-  padding: 15px;
-  display: block;
-  width: 100%;
-}
-.home-account .card ul li:first-of-type {
-  border-radius: 10px 10px 0 0;
-}
-.home-account .card ul li:last-of-type {
-  border-radius: 0 0 10px 10px;
 }/*# sourceMappingURL=home-account.css.map */

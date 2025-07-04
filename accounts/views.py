@@ -1,9 +1,20 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from .forms import CustomUserChangeForm, CustomUserCreationForm, PasswordlessLoginForm
+from .models import CustomUser
+from django.shortcuts import get_object_or_404
+
+# Staff check decorator
+def staff_required(view_func):
+    decorated_view_func = user_passes_test(
+        lambda u: u.is_active and u.is_staff,
+        login_url='home:index'  # Redirect if not staff
+    )(view_func)
+    return decorated_view_func
+
 
 @login_required
 def profile_edit(request):
@@ -53,3 +64,30 @@ def passwordless_login(request):
     else:
         form = PasswordlessLoginForm()
     return render(request, 'accounts/passwordless_login.html', {'form': form})
+
+
+@staff_required
+def admin_menu(request):
+    if request.method == 'POST':
+        user_id = request.POST.get('user_id')
+        if user_id:
+            return redirect('accounts:admin_user_detail', user_id=user_id)
+    return render(request, 'accounts/admin/admin_menu.html')
+
+@staff_required
+def admin_user_detail(request, user_id):
+    target_user = get_object_or_404(CustomUser, pk=user_id)
+    return render(request, 'accounts/admin/user_detail.html', {'target_user': target_user})
+
+@staff_required
+def admin_edit_user(request, user_id):
+    target_user = get_object_or_404(CustomUser, pk=user_id)
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance=target_user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'{target_user.username}の情報を更新しました。')
+            return redirect('accounts:admin_user_detail', user_id=user_id)
+    else:
+        form = CustomUserChangeForm(instance=target_user)
+    return render(request, 'accounts/admin/edit_user.html', {'form': form, 'target_user': target_user})

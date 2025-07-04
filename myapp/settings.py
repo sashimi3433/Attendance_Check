@@ -18,7 +18,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'home',
-    'show_qr',
+    'adminmenu',
     'qr_token',
     'django.contrib.humanize',
 ]

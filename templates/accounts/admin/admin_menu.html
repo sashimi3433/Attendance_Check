@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}管理者メニュー{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>管理者メニュー</h1>
+    <p>QRコードから読み取ったユーザーIDを入力してください。</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="user_id">ユーザーID</label>
+            <input type="text" name="user_id" id="user_id" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">ユーザー情報を表示</button>
+    </form>
+</div>
+{% endblock %}

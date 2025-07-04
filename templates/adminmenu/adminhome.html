@@ -1,0 +1,36 @@
+{% extends "form-base.html" %}
+{% load static %}
+
+{% block mainclass %}adminhome menu{% endblock mainclass %}
+{% block title %}管理画面{% endblock title %}
+
+{% block excss %}
+<link rel="stylesheet" href="{% static 'css/adminmenu-home.css' %}">
+{% endblock excss %}
+{% block exjs %}{% endblock exjs %}
+
+{% block content %}
+<h2>管理画面</h2>
+<div class="card">
+    <p class="username">
+        QRコードから読み取ったユーザーIDを入力してください。
+    </p>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="post" class="user-id-form">
+        {% csrf_token %}
+        <div class="fieldWrapper">
+            <label for="user_id">ユーザーID</label>
+            <input type="text" name="user_id" id="user_id" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">ユーザー情報を表示</button>
+    </form>
+</div>
+{% endblock content %}

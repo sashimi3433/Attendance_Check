@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}ユーザー情報詳細{% endblock %}
+{% block mainclass %}menu{% endblock mainclass %}
+{% block content %}
+    <h2>ユーザー情報詳細</h2>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+<div class="card">
+    <p><strong>ユーザー名:</strong> {{ target_user.username }}</p>
+    <p><strong>名前:</strong> {{ target_user.name }}</p>
+    <p><strong>学年:</strong> {{ target_user.get_grade_display }}</p>
+    <p><strong>年齢:</strong> {{ target_user.age }}</p>
+
+    <ul>
+        <li>
+            <a href="{% url 'adminmenu:edit_user' target_user.id %}">情報を編集する</a>
+        </li>
+        <li>
+            <a href="{% url 'adminmenu:menu' %}">残高を追加する</a>
+        </li>
+        <li>
+            <a href="{% url 'adminmenu:menu' %}">管理者メニューに戻る</a>
+        </li>
+    </ul>
+</div>
+{% endblock %}
