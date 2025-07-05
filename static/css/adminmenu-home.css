@@ -1,3 +1,10 @@
 .bottombar {
   display: none;
+}
+
+.adminhome .card {
+  border-radius: 0;
+}
+.adminhome .search-results-card {
+  border-radius: 0px;
 }/*# sourceMappingURL=adminmenu-home.css.map */

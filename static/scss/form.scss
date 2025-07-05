@@ -35,7 +35,8 @@
                 }
 
 
-                input,
+                input[type="text"],
+                input[type="number"],
                 select {
                     display: block;
                     border-bottom: 1px solid #e65151;
@@ -54,6 +55,12 @@
                     -webkit-appearance: none;
                     margin: 0;
                 }
+
+                input[type="radio"] {
+                    display: inline;
+                    width: auto;
+                    appearance: revert;
+                }
             }
 
             button {
@@ -66,6 +73,7 @@
                 width: 100%;
                 text-align: center;
                 transition: all .25s;
+                margin: 20px auto;
 
                 &:hover {
                     background-color: #e65151;
@@ -94,7 +102,6 @@
     .txtbtn {
         text-align: center;
         display: block;
-        margin: 20px auto;
         transition: all .25s;
 
         &:hover {

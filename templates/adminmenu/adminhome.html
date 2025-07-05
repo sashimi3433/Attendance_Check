@@ -2,35 +2,41 @@
 {% load static %}
 
 {% block mainclass %}adminhome menu{% endblock mainclass %}
-{% block title %}管理画面{% endblock title %}
+{% block title %}ユーザー検索{% endblock title %}
 
 {% block excss %}
 <link rel="stylesheet" href="{% static 'css/adminmenu-home.css' %}">
 {% endblock excss %}
-{% block exjs %}{% endblock exjs %}
-
 {% block content %}
-<h2>管理画面</h2>
-<div class="card">
-    <p class="username">
-        QRコードから読み取ったユーザーIDを入力してください。
-    </p>
-
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+<h2>ユーザー検索</h2>
+<div class="card menu">
+    <form method="get" action="{% url 'adminmenu:menu' %}">
+        <div class="fieldWrapper">
+            {% for field in form %}
+            <div class="fieldWrapper">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+            </div>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary">検索</button>
+    </form>
+    {% if users is not None %}
+    <h2>検索結果</h2>
+    {% if users %}
+        <ul class="user-list">
+            {% for user in users %}
+                <li class="user-item">
+                    <a href="{% url 'adminmenu:user_detail' user.id %}" class="btn btn-secondary btn-sm">{{ user.username }} ({{ user.name }})</a>
+                </li>
             {% endfor %}
         </ul>
+    {% else %}
+        <p>該当するユーザーは見つかりませんでした。</p>
     {% endif %}
-
-    <form method="post" class="user-id-form">
-        {% csrf_token %}
-        <div class="fieldWrapper">
-            <label for="user_id">ユーザーID</label>
-            <input type="text" name="user_id" id="user_id" class="form-control" required>
-        </div>
-        <button type="submit" class="btn btn-primary">ユーザー情報を表示</button>
-    </form>
 </div>
+{% endif %}
+
+</div>
+
 {% endblock content %}

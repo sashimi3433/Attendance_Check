@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
+from django.db.models import Q
 from accounts.models import CustomUser
 from accounts.forms import CustomUserChangeForm
+from .forms import UserSearchForm # Add this import
 
 # Staff check decorator
 def staff_required(view_func):
@@ -13,16 +15,48 @@ def staff_required(view_func):
 
 @staff_required
 def admin_menu(request):
-    if request.method == 'POST':
-        user_id = request.POST.get('user_id')
-        # Check if user exists
-        if CustomUser.objects.filter(pk=user_id).exists():
-            return redirect('adminmenu:user_detail', user_id=user_id)
+    form = UserSearchForm(request.GET or None)
+    users = None
+
+    if form.is_valid():
+        username = form.cleaned_data.get('username')
+        name = form.cleaned_data.get('name')
+        grade = form.cleaned_data.get('grade')
+        age = form.cleaned_data.get('age')
+        search_type = form.cleaned_data.get('search_type', 'AND')
+
+        query = Q()
+        # Build query based on search_type
+        if search_type == 'OR':
+            # OR search: any condition match
+            if username:
+                query |= Q(username__icontains=username)
+            if name:
+                query |= Q(name__icontains=name)
+            if grade:
+                query |= Q(grade=grade)
+            if age:
+                query |= Q(age=age)
         else:
-            messages.error(request, '指定されたIDのユーザーは見つかりませんでした。')
-            return render(request, 'adminmenu/adminhome.html')
-            
-    return render(request, 'adminmenu/adminhome.html')
+            # AND search: all conditions must match
+            if username:
+                query &= Q(username__icontains=username)
+            if name:
+                query &= Q(name__icontains=name)
+            if grade:
+                query &= Q(grade=grade)
+            if age:
+                query &= Q(age=age)
+        
+        # Only execute search if at least one field is filled
+        if query:
+            users = CustomUser.objects.filter(query)
+        else:
+            # If form is submitted but no criteria, show no one
+            users = CustomUser.objects.none()
+
+    return render(request, 'adminmenu/adminhome.html', {'form': form, 'users': users})
+
 
 @staff_required
 def user_detail(request, user_id):

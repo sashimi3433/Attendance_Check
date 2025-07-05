@@ -2,4 +2,13 @@
     display: none;
 }
 
-.adminhome {}
+.adminhome {
+
+    .card {
+        border-radius: 0;
+    }
+
+    .search-results-card {
+        border-radius: 0px;
+    }
+}
