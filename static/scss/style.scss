@@ -30,6 +30,27 @@ body {
 
     font-family: 'LINESeedJP', sans-serif;
 
+    .info {
+        padding: 15px;
+        border-radius: 15px;
+        font-size: 1.2rem;
+
+        .value {
+            padding: 15px;
+            text-align: start;
+            background-color: #ffffff;
+            margin: 5px auto;
+
+            &:first-of-type {
+                border-radius: 10px 10px 0 0;
+            }
+
+            &:last-of-type {
+                border-radius: 0 0 10px 10px;
+            }
+        }
+    }
+
     .menu {
         background-color: #e65151;
         min-height: 100vh;

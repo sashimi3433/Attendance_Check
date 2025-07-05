@@ -12,10 +12,12 @@
         </ul>
     {% endif %}
 <div class="card">
-    <p><strong>ユーザー名:</strong> {{ target_user.username }}</p>
-    <p><strong>名前:</strong> {{ target_user.name }}</p>
-    <p><strong>学年:</strong> {{ target_user.get_grade_display }}</p>
-    <p><strong>年齢:</strong> {{ target_user.age }}</p>
+    <div class="info">
+        <p class="value">ユーザー名: {{ target_user.username }}</p>
+        <p class="value">名前: {{ target_user.name }}</p>
+        <p class="value">学年: {{ target_user.get_grade_display }}</p>
+        <p class="value">年齢: {{ target_user.age }}</p>
+    </div>
 
     <ul>
         <li>
