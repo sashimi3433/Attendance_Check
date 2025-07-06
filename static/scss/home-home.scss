@@ -65,4 +65,43 @@
             margin-left: 1rem;
         }
     }
+
+    .transactions {
+
+        .title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        ul {
+
+            li {
+                margin: 3px 0;
+                text-align: center;
+                color: #333;
+                background-color: $GRAY_200;
+                border-radius: 0;
+                transition: all .25s;
+
+                &:hover {
+                    background-color: $GRAY_300;
+                }
+
+                a {
+                    padding: 15px;
+                    display: block;
+                    width: 100%;
+                }
+
+                &:first-of-type {
+                    border-radius: 10px 10px 0 0;
+                }
+
+                &:last-of-type {
+                    border-radius: 0 0 10px 10px;
+                }
+
+            }
+        }
+    }
 }

@@ -47,4 +47,30 @@
   font-size: 1rem;
   background-color: #fff;
   margin-left: 1rem;
+}
+.home .transactions .title {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+.home .transactions ul li {
+  margin: 3px 0;
+  text-align: center;
+  color: #333;
+  background-color: #EEEEEE;
+  border-radius: 0;
+  transition: all 0.25s;
+}
+.home .transactions ul li:hover {
+  background-color: #E0E0E0;
+}
+.home .transactions ul li a {
+  padding: 15px;
+  display: block;
+  width: 100%;
+}
+.home .transactions ul li:first-of-type {
+  border-radius: 10px 10px 0 0;
+}
+.home .transactions ul li:last-of-type {
+  border-radius: 0 0 10px 10px;
 }/*# sourceMappingURL=home-home.css.map */

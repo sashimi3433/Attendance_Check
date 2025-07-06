@@ -26,11 +26,14 @@
         <button>更新</button>
     </div>
 
-{% endblock content %}
+    <section class="transactions">
+        <h1 class="title">最近の取引</h1>
+        <ul>
+            <li><a href="#">テスト</a></li>
+            <li><a href="#">テスト</a></li>
+            <li><a href="#">テスト</a></li>
+            <li><a href="#">すべての取引</a></li>
+        </ul>
+    </section>
 
-<div class="card">
-    <p>ユーザー名: {{ user.username }}</p>
-    <p>学年: {{ user.grade }}</p>
-    <p>年齢: {{ user.age }}</p>
-    <p>残高: {{ user.balance }}</p>
-</div>
+{% endblock content %}
