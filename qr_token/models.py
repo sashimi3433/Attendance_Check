@@ -27,5 +27,5 @@ class QR_Token(models.Model):
 
     def generate_new_token_key(self):
         self.token = secrets.token_urlsafe(32)
-        self.expires = datetime.now() + timedelta(minutes=5) # 新しい有効期限
-        self.save() # 保存を忘れずに
+        self.expires = datetime.now() + timedelta(minutes=5)
+        self.save()

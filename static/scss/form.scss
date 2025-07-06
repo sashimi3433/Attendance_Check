@@ -1,5 +1,7 @@
+@import '_variables';
+
 .form {
-    background-color: #e65151;
+    background-color: $theme_color;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -39,7 +41,7 @@
                 input[type="number"],
                 select {
                     display: block;
-                    border-bottom: 1px solid #e65151;
+                    border-bottom: 1px solid $theme_color;
                     padding: 15px;
                     width: 100%;
                     margin: 10px 0;
@@ -65,8 +67,8 @@
 
             button {
                 background-color: #fff;
-                border: #e65151 solid 1px;
-                color: #e65151;
+                border: $theme_color solid 1px;
+                color: $theme_color;
                 padding: 10px;
                 font-size: 1.2rem;
                 border-radius: 5px;
@@ -76,13 +78,13 @@
                 margin: 20px auto;
 
                 &:hover {
-                    background-color: #e65151;
+                    background-color: $theme_color;
                     color: #fff;
                 }
             }
 
             .messages {
-                background-color: #e65151;
+                background-color: $theme_color;
                 color: white;
                 border-radius: 5px;
                 padding: 10px;

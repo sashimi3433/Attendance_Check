@@ -1,9 +1,12 @@
+@import '_variables';
+
 .bottombar {
 
     .bottombar-inner {
         ul {
             .account-item {
-                color: #e65151;
+                color: $theme_color;
+                ;
             }
         }
     }

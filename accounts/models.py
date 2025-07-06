@@ -16,3 +16,10 @@ class CustomUser(AbstractUser):
     grade = models.CharField(max_length=10, choices=grade, default='Other')
     age = models.IntegerField(default=0)
     name = models.CharField(max_length=20, blank=True, null=True)
+
+class Transaction(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    amount = models.IntegerField()
+    date = models.DateTimeField(auto_now_add=True)
+    type = models.CharField(max_length=10, choices=(('income', '入金'), ('expense', '出金')))
+    description = models.CharField(max_length=100, blank=True, null=True)

@@ -1,9 +1,11 @@
+@import '_variables';
+
 .bottombar {
     .bottombar-inner {
         nav {
             ul {
                 .home-item {
-                    color: #e65151;
+                    color: $theme_color;
                 }
             }
         }

@@ -1,3 +1,5 @@
+@import '_variables';
+
 @font-face {
     font-family: 'LINESeedJP';
     src: url('../fonts/LINESeedJP_OTF_Th.woff2') format('woff2');
@@ -52,7 +54,7 @@ body {
     }
 
     .menu {
-        background-color: #e65151;
+        background-color: $theme_color;
         min-height: 100vh;
 
         h2 {
@@ -113,7 +115,7 @@ body {
         }
 
         .danger {
-            color: #e65151;
+            color: $theme_color;
         }
     }
 
