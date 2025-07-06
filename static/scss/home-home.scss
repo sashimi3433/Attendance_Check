@@ -43,7 +43,7 @@
 
     .bar {
         display: flex;
-        background-color: #e65151;
+        background-color: $theme_color;
         padding: 15px;
         align-items: center;
         border-radius: 10px;
@@ -59,7 +59,7 @@
         button {
             border-radius: 5px;
             padding: 10px 15px;
-            color: #e65151;
+            color: $theme_color;
             font-size: 1rem;
             background-color: #fff;
             margin-left: 1rem;
