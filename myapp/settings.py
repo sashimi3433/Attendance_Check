@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'home',
     'adminmenu',
     'qr_token',
+    'pos',
     'django.contrib.humanize',
 ]
 

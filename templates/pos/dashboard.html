@@ -1,0 +1,15 @@
+{% extends "store-base.html" %}
+{% load static %}
+
+{% block mainclass %}dashboard{% endblock mainclass %}
+{% block content %}
+<h1>POSダッシュボード</h1>
+{% block excss %}
+<link rel="stylesheet" href="{% static 'css/pos-dashboard.css' %}">
+{% endblock excss %}
+<div class="cards">
+    <div class="card">
+        <a href="#">レジを開始</a>
+    </div>
+</div>
+{% endblock content %}
