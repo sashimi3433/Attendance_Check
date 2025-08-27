@@ -1,0 +1,24 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %} | 出席管理システム</title>
+    <link rel="stylesheet" href="{% static 'css/destyle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/teacher_dashboard.css' %}">
+    {% block excss %}
+    {% endblock excss %}
+</head>
+<body>
+    <main class="teacher_dashboard {% block mainclass %}{% endblock mainclass %}">
+    {% block content %}
+    {% endblock %}
+    </main>
+    {% block exjs %}
+<script src="https://kit.fontawesome.com/ec27cb450f.js" crossorigin="anonymous"></script>
+    {% endblock exjs %}
+</body>
+</html>

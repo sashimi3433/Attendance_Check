@@ -8,11 +8,10 @@ class CustomUserChangeForm(UserChangeForm):
     
     class Meta:
         model = CustomUser
-        fields = ('username', 'name', 'type', 'birth_date', 'admission_year', 'department')
+        fields = ('username', 'name', 'birth_date', 'admission_year', 'department')
         labels = {
             'username': 'ユーザー名',
             'name': '名前',
-            'type': 'アカウント種別',
             'birth_date': '生年月日',
             'admission_year': '入学年度',
             'department': '学科',
@@ -20,7 +19,6 @@ class CustomUserChangeForm(UserChangeForm):
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control'}),
             'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'type': forms.Select(attrs={'class': 'form-control'}),
             'birth_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'admission_year': forms.NumberInput(attrs={'class': 'form-control'}),
             'department': forms.Select(attrs={'class': 'form-control'}),
@@ -72,18 +70,10 @@ class CustomUserCreationForm(UserCreationForm):
         choices=department_choices,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
-    account_type = forms.ChoiceField(
-        label='アカウント種別',
-        choices=[
-            ('student', '生徒'),
-            ('teacher', '講師'),
-        ],
-        widget=forms.Select(attrs={'class': 'form-control'})
-    )
     
     class Meta:
         model = CustomUser
-        fields = ('invitation_code', 'username', 'password1', 'password2', 'name', 'birth_date', 'admission_year', 'department', 'account_type')
+        fields = ('invitation_code', 'username', 'password1', 'password2', 'name', 'birth_date', 'admission_year', 'department')
         labels = {
             'username': 'ユーザー名',
         }
@@ -98,19 +88,13 @@ class CustomUserCreationForm(UserCreationForm):
     
     def clean_invitation_code(self):
         """
-        招待コードの検証（アカウント種別との整合性もチェック）
+        招待コードの検証
         """
         code = self.cleaned_data.get('invitation_code')
-        account_type = self.cleaned_data.get('account_type')
-        
+
         if code:
             try:
                 invitation = InvitationCode.objects.get(code=code, is_active=True)
-                # アカウント種別と招待コードの種別が一致するかチェック
-                if account_type == 'teacher' and invitation.type != 'teacher':
-                    raise forms.ValidationError('講師アカウントの登録には講師用の招待コードが必要です。')
-                elif account_type == 'student' and invitation.type != 'student':
-                    raise forms.ValidationError('生徒アカウントの登録には生徒用の招待コードが必要です。')
                 return code
             except InvitationCode.DoesNotExist:
                 raise forms.ValidationError('無効な招待コードです。')
@@ -122,13 +106,12 @@ class CustomUserCreationForm(UserCreationForm):
         user.birth_date = self.cleaned_data['birth_date']
         user.admission_year = self.cleaned_data['admission_year']
         user.department = self.cleaned_data['department']
-        user.type = self.cleaned_data['account_type']  # アカウント種別を設定
-        
+
         # 招待コードを関連付け
         invitation_code = self.cleaned_data['invitation_code']
         invitation = InvitationCode.objects.get(code=invitation_code, is_active=True)
         user.invitation_code = invitation
-        
+
         if commit:
             user.save()
             # 招待コードの使用回数を増加

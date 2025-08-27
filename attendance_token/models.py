@@ -2,7 +2,7 @@
 # 出席管理用トークンモデル
 from django.db import models
 from django.utils import timezone
-from accounts.models import CustomUser as User, Kiosk
+from accounts.models import CustomUser as User
 from datetime import timedelta
 import secrets
 
@@ -16,6 +16,7 @@ class AttendanceToken(models.Model):
     is_used = models.BooleanField(default=False, verbose_name="使用済みフラグ")
     expires = models.DateTimeField(verbose_name="有効期限")
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attendance_tokens', verbose_name="ユーザー")
+    issued_ip = models.GenericIPAddressField(null=True, blank=True, verbose_name="発行元IPアドレス")
     created = models.DateTimeField(auto_now_add=True, verbose_name="作成日時")
     updated = models.DateTimeField(auto_now=True, verbose_name="更新日時")
 
@@ -102,7 +103,6 @@ class AttendanceRecord(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attendance_records', verbose_name="ユーザー")
     token = models.ForeignKey(AttendanceToken, on_delete=models.CASCADE, related_name='attendance_records', verbose_name="使用トークン")
-    kiosk = models.ForeignKey(Kiosk, on_delete=models.CASCADE, related_name='attendance_records', null=True, blank=True, verbose_name="読み取りキオスク")
     attended_at = models.DateTimeField(auto_now_add=True, verbose_name="出席確認日時")
     location = models.CharField(max_length=100, blank=True, null=True, verbose_name="出席場所")
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='present', verbose_name="出席状態")

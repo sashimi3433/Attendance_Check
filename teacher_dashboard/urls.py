@@ -4,24 +4,13 @@ from . import views
 app_name = 'teacher_dashboard'
 
 urlpatterns = [
-    # ダッシュボードホーム
-    path('', views.dashboard_home, name='dashboard_home'),
-    
-    # キオスク管理
-    path('kiosks/', views.kiosk_management, name='kiosk_management'),
-    path('kiosks/<int:kiosk_id>/', views.kiosk_detail, name='kiosk_detail'),
-    
-    # 出席履歴
-    path('attendance/', views.attendance_history, name='attendance_history'),
-    path('attendance/export/', views.attendance_export, name='attendance_export'),
-    
-    # 統計・分析
-    path('statistics/', views.statistics_analysis, name='statistics_analysis'),
-    path('api/statistics/', views.statistics_api, name='statistics_api'),
-    
-    # ダッシュボードAPI
-    path('api/dashboard-stats/', views.dashboard_stats_api, name='dashboard_stats_api'),
-    
-    # 設定
-    path('settings/', views.settings_view, name='settings'),
+    path('', views.index, name='index'),
+    path('generate_lesson/', views.generate_lesson, name='generate_lesson'),
+    path('start_checkin/', views.start_checkin, name='start_checkin'),
+    path('list_lessons/', views.list_lessons, name='list_lessons'),
+    path('edit_lesson/<int:lesson_id>/', views.edit_lesson, name='edit_lesson'),
+    # path('lesson/', views.lesson, name='lesson'),
+    # path('lesson/<int:pk>/', views.lesson_detail, name='lesson_detail'),
+    # path('lesson/<int:pk>/attendance/', views.attendance, name='attendance'),
+    # path('lesson/<int:pk>/attendance/<int:pk>/', views.attendance_detail, name='attendance_detail'),
 ]

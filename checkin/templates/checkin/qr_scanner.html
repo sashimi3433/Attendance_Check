@@ -112,7 +112,7 @@ function processToken(token, status) {
         body: JSON.stringify({
             token: token,
             status: status,
-            location: '{{ user.kiosk.location|default:"キオスク端末" }}'
+            location: '{{ user.name|default:user.username }}'
         })
     })
     .then(response => response.json())

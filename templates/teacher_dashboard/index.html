@@ -1,0 +1,30 @@
+{% extends "t-base.html" %}
+
+{% block title %}ホーム{% endblock title %}
+{% block mainclass %}menu{% endblock mainclass %}
+{% block excss %}
+{% endblock excss %}
+{% block content %}
+<h2>ダッシュボード</h2>
+<div class="card">
+    <ul>
+        <li>
+            <a href="{% url 'teacher_dashboard:generate_lesson' %}">授業を生成</a>
+        </li>
+        <li>
+            <a href="{% url 'teacher_dashboard:start_checkin' %}">授業の受付を開始</a>
+        </li>
+        <li>
+            <a href="{% url 'teacher_dashboard:list_lessons' %}">授業を編集</a>
+        </li>
+        {% comment %} <li>
+            <a href="">授業に生徒を追加</a>
+        </li> {% endcomment %}
+    </ul>
+
+    <form action="{% url 'accounts:logout' %}" method="post" class="txtbtn">
+        {% csrf_token %}
+        <button type="submit">ログアウト</button>
+    </form>
+</div>
+{% endblock content %}

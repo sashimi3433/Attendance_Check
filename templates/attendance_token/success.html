@@ -26,7 +26,7 @@
                                 <div id="countdown-progress" class="progress-bar bg-success" role="progressbar" style="width: 100%"></div>
                             </div>
                         </div>
-                        {% if user.type == 'kiosk' %}
+                        {% if not user.invitation_code %}
                             <a href="{% url 'checkin:qr_scanner' %}" class="btn btn-primary">
                                 <i class="fas fa-qrcode me-2"></i>
                                 QRコード読み取りに戻る
@@ -56,7 +56,7 @@ const timer = setInterval(() => {
     
     if (countdown <= 0) {
         clearInterval(timer);
-        {% if user.type == 'kiosk' %}
+        {% if not user.invitation_code %}
             window.location.href = "{% url 'checkin:qr_scanner' %}";
         {% else %}
             window.location.href = "{% url 'home:index' %}";

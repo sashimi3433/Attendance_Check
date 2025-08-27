@@ -1,0 +1,24 @@
+{% extends "form-base.html" %}
+
+{% block title %}授業を生成{% endblock title %}
+{% block mainclass %}generate_lesson{% endblock mainclass %}
+{% block excss %}
+{% endblock excss %}
+{% block content %}
+<h2>授業を生成</h2>
+<div class="card">
+    <form action="{% url 'teacher_dashboard:generate_lesson' %}" method="post">
+        {% csrf_token %}
+        <div class="fieldWrapper">
+        <label for="">授業名</label>
+        <input type="text" name="lesson_name" id="">
+        </div>
+        <div class="fieldWrapper">
+        <label for="">生成個数</label>
+        <input type="number" name="lesson_count" id="">
+        </div>
+        <button type="submit">授業を生成</button>
+        <a href="{% url 'teacher_dashboard:index' %}" class="txtbtn">キャンセル</a>
+    </form>
+</div>
+{% endblock content %}

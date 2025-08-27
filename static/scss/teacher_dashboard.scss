@@ -1,0 +1,67 @@
+@import '_variables';
+
+// Teacher dashboard specific styles
+.teacher_dashboard {
+    background-color: $theme_color;
+    min-height: 100vh;
+
+    h2 {
+        color: white;
+        padding: 20px;
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .card {
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 15px 15px 0 0;
+        min-height: 95vh;
+        max-width: 800px;
+        margin: 0 auto;
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+
+            th,
+            td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+            th {
+                background-color: $GRAY_200;
+                font-weight: bold;
+            }
+
+            tr:hover {
+                background-color: $GRAY_100;
+            }
+
+            a {
+                color: $theme_color;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .txtbtn {
+            padding: 15px;
+            color: $theme_color;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}

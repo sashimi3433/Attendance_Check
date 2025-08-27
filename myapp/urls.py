@@ -7,5 +7,5 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('attendance_token/', include('attendance_token.urls', namespace='attendance_token')),
     path('checkin/', include('checkin.urls', namespace='checkin')),
-    path('pos/', include('pos.urls', namespace='pos')),
+    path('teacher/', include('teacher_dashboard.urls', namespace='teacher_dashboard')),
 ]

@@ -49,80 +49,46 @@ class InvitationCode(models.Model):
         super().save(*args, **kwargs)
 
 class CustomUser(AbstractUser):
-    balance = models.IntegerField(default=200)
     name = models.CharField(max_length=20, blank=True, null=True, verbose_name='名前')
     birth_date = models.DateField(null=True, blank=True, verbose_name='生年月日')
     admission_year = models.IntegerField(null=True, blank=True, verbose_name='入学年度')
     department = models.CharField(
-        max_length=30, 
-        choices=department_choices, 
-        default='other', 
+        max_length=30,
+        choices=department_choices,
+        default='other',
         verbose_name='学科'
     )
-    type = models.CharField(max_length=10, choices=(
-        ('student', '生徒'), ('teacher', '講師'), ('kiosk', 'キオスク')), default='student', verbose_name='アカウント種別')
+    type = models.CharField(
+        max_length=10,
+        choices=[('student', '生徒'), ('teacher', '講師'), ('kiosk', 'キオスク')],
+        default='student',
+        verbose_name='アカウント種別'
+    )
     invitation_code = models.ForeignKey(
-        InvitationCode, 
-        on_delete=models.SET_NULL, 
-        null=True, 
-        blank=True, 
-        verbose_name='使用した招待コード'
-    )
-
-class Kiosk(models.Model):
-    """
-    キオスク端末管理モデル
-    """
-    user = models.OneToOneField(
-        CustomUser, 
-        on_delete=models.CASCADE, 
-        limit_choices_to={'type': 'kiosk'},
-        verbose_name='キオスクユーザー'
-    )
-    name = models.CharField(max_length=50, verbose_name='キオスク名')
-    location = models.CharField(max_length=100, verbose_name='設置場所')
-    teacher = models.ForeignKey(
-        CustomUser,
+        InvitationCode,
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        limit_choices_to={'type': 'teacher'},
-        related_name='kiosk_teacher',
-        verbose_name='担当講師'
+        verbose_name='使用した招待コード'
     )
-    is_active = models.BooleanField(default=True, verbose_name='有効フラグ')
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name='作成日時')
-    updated_at = models.DateTimeField(auto_now=True, verbose_name='更新日時')
-    
-    class Meta:
-        verbose_name = 'キオスク'
-        verbose_name_plural = 'キオスク'
-        ordering = ['-created_at']
-    
+
+
+
+class Teacher(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, limit_choices_to={'invitation_code__type': 'teacher'}, related_name='teacher_profile')
+    subject = models.CharField(max_length=20, default='デフォルト科目')
+
     def __str__(self):
-        return f"{self.name} ({self.location})"
+        return f"{self.user.username} - {self.subject}"
 
-class Transaction(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    amount = models.IntegerField()
-    date = models.DateTimeField(auto_now_add=True)
-    account_type = models.CharField(max_length=10, choices=(('income', '入金'), ('expense', '出金')))
-    description = models.CharField(max_length=100, blank=True, null=True)
-
-class Store(models.Model):
-    name = models.CharField(max_length=20)
-    balance = models.IntegerField(default=0)
-    items = models.ManyToManyField('Item')
-
-class Item(models.Model):
-    name = models.CharField(max_length=20)
-    price = models.IntegerField()
-    dealer = models.ManyToManyField(Store)
-    stock = models.IntegerField()
-    sold_out = models.BooleanField(default=False)
-    
-class Teaching(models.Model):
-    teacher = models.ForeignKey(CustomUser, on_delete=models.CASCADE, limit_choices_to={'type': 'teacher'})
+class Lesson(models.Model):
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     subject = models.CharField(max_length=20)
-    location = models.CharField(max_length=100)
-    times = models.IntegerField(default=0)
+    lesson_times = models.IntegerField(default=1)
+    location = models.CharField(max_length=100, blank=True, null=True)
+    lesson_date = models.DateTimeField(blank=True, null=True, verbose_name='授業日時')
+    reception = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.subject} - {self.teacher.user.username} (第{self.lesson_times}回)"

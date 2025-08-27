@@ -1,0 +1,240 @@
+DEBUG 2025-08-27 19:46:23,336 utils 1120 8627488192 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:46:23,336 utils 1120 8627488192 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:46:23,336 utils 1120 8627488192 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:46:23,336 utils 1120 8627488192 外部サービスからIP取得を試行: https://api.ipify.org
+WARNING 2025-08-27 19:46:23,590 utils 1120 8627488192 外部サービス https://api.ipify.org でエラー発生: HTTPSConnectionPool(host='api.ipify.org', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))
+DEBUG 2025-08-27 19:46:23,591 utils 1120 8627488192 外部サービスからIP取得を試行: https://httpbin.org/ip
+WARNING 2025-08-27 19:46:24,146 utils 1120 8627488192 外部サービス https://httpbin.org/ip でエラー発生: HTTPSConnectionPool(host='httpbin.org', port=443): Max retries exceeded with url: /ip (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))
+DEBUG 2025-08-27 19:46:24,146 utils 1120 8627488192 外部サービスからIP取得を試行: https://icanhazip.com
+WARNING 2025-08-27 19:46:24,203 utils 1120 8627488192 外部サービス https://icanhazip.com でエラー発生: HTTPSConnectionPool(host='icanhazip.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))
+DEBUG 2025-08-27 19:46:24,203 utils 1120 8627488192 外部サービスからIP取得を試行: https://ident.me
+WARNING 2025-08-27 19:46:24,806 utils 1120 8627488192 外部サービス https://ident.me でエラー発生: HTTPSConnectionPool(host='ident.me', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))
+WARNING 2025-08-27 19:46:24,807 utils 1120 8627488192 すべての外部IPサービスでIP取得に失敗しました
+WARNING 2025-08-27 19:46:24,807 utils 1120 8627488192 外部サービスからのIP取得に失敗
+DEBUG 2025-08-27 19:46:24,807 utils 1120 8627488192 HTTPヘッダーからのIP取得を試行
+DEBUG 2025-08-27 19:46:24,807 utils 1120 8627488192 IPアドレスをREMOTE_ADDRから取得: 127.0.0.1
+WARNING 2025-08-27 19:46:24,807 utils 1120 8627488192 ローカル環境でプライベートIP取得: 127.0.0.1 - 本番環境では適切なプロキシ設定が必要です
+INFO 2025-08-27 19:46:24,807 utils 1120 8627488192 HTTPヘッダーからIP取得: 127.0.0.1
+DEBUG 2025-08-27 19:46:24,808 utils 1120 8627488192 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:46:24,808 utils 1120 8627488192 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:46:24,808 utils 1120 8627488192 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:46:24,808 utils 1120 8627488192 外部サービスからIP取得を試行: https://api.ipify.org
+WARNING 2025-08-27 19:46:25,095 utils 1120 8627488192 外部サービス https://api.ipify.org でエラー発生: HTTPSConnectionPool(host='api.ipify.org', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))
+DEBUG 2025-08-27 19:46:25,095 utils 1120 8627488192 外部サービスからIP取得を試行: https://httpbin.org/ip
+WARNING 2025-08-27 19:46:25,666 utils 1120 8627488192 外部サービス https://httpbin.org/ip でエラー発生: HTTPSConnectionPool(host='httpbin.org', port=443): Max retries exceeded with url: /ip (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))
+DEBUG 2025-08-27 19:46:25,666 utils 1120 8627488192 外部サービスからIP取得を試行: https://icanhazip.com
+WARNING 2025-08-27 19:46:25,727 utils 1120 8627488192 外部サービス https://icanhazip.com でエラー発生: HTTPSConnectionPool(host='icanhazip.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))
+DEBUG 2025-08-27 19:46:25,728 utils 1120 8627488192 外部サービスからIP取得を試行: https://ident.me
+WARNING 2025-08-27 19:46:26,305 utils 1120 8627488192 外部サービス https://ident.me でエラー発生: HTTPSConnectionPool(host='ident.me', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))
+WARNING 2025-08-27 19:46:26,305 utils 1120 8627488192 すべての外部IPサービスでIP取得に失敗しました
+WARNING 2025-08-27 19:46:26,305 utils 1120 8627488192 外部サービスからのIP取得に失敗
+DEBUG 2025-08-27 19:46:26,306 utils 1120 8627488192 HTTPヘッダーからのIP取得を試行
+DEBUG 2025-08-27 19:46:26,306 utils 1120 8627488192 IPアドレスをHTTP_X_FORWARDED_FORから取得: 203.0.113.1
+WARNING 2025-08-27 19:46:26,306 utils 1120 8627488192 ローカル環境でプライベートIP取得: 203.0.113.1 - 本番環境では適切なプロキシ設定が必要です
+INFO 2025-08-27 19:46:26,306 utils 1120 8627488192 HTTPヘッダーからIP取得: 203.0.113.1
+DEBUG 2025-08-27 19:46:26,306 utils 1120 8627488192 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:46:26,306 utils 1120 8627488192 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:46:26,306 utils 1120 8627488192 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:46:26,307 utils 1120 8627488192 外部サービスからIP取得を試行: https://api.ipify.org
+WARNING 2025-08-27 19:46:26,459 utils 1120 8627488192 外部サービス https://api.ipify.org でエラー発生: HTTPSConnectionPool(host='api.ipify.org', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))
+DEBUG 2025-08-27 19:46:26,459 utils 1120 8627488192 外部サービスからIP取得を試行: https://httpbin.org/ip
+WARNING 2025-08-27 19:46:27,002 utils 1120 8627488192 外部サービス https://httpbin.org/ip でエラー発生: HTTPSConnectionPool(host='httpbin.org', port=443): Max retries exceeded with url: /ip (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))
+DEBUG 2025-08-27 19:46:27,002 utils 1120 8627488192 外部サービスからIP取得を試行: https://icanhazip.com
+WARNING 2025-08-27 19:46:27,065 utils 1120 8627488192 外部サービス https://icanhazip.com でエラー発生: HTTPSConnectionPool(host='icanhazip.com', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))
+DEBUG 2025-08-27 19:46:27,065 utils 1120 8627488192 外部サービスからIP取得を試行: https://ident.me
+WARNING 2025-08-27 19:46:27,642 utils 1120 8627488192 外部サービス https://ident.me でエラー発生: HTTPSConnectionPool(host='ident.me', port=443): Max retries exceeded with url: / (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)')))
+WARNING 2025-08-27 19:46:27,643 utils 1120 8627488192 すべての外部IPサービスでIP取得に失敗しました
+WARNING 2025-08-27 19:46:27,643 utils 1120 8627488192 外部サービスからのIP取得に失敗
+DEBUG 2025-08-27 19:46:27,643 utils 1120 8627488192 HTTPヘッダーからのIP取得を試行
+DEBUG 2025-08-27 19:46:27,643 utils 1120 8627488192 IPアドレスをREMOTE_ADDRから取得: 127.0.0.1
+WARNING 2025-08-27 19:46:27,643 utils 1120 8627488192 ローカル環境でプライベートIP取得: 127.0.0.1 - 本番環境では適切なプロキシ設定が必要です
+INFO 2025-08-27 19:46:27,643 utils 1120 8627488192 HTTPヘッダーからIP取得: 127.0.0.1
+DEBUG 2025-08-27 19:46:51,268 utils 1671 8627488192 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:46:51,269 utils 1671 8627488192 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:46:51,269 utils 1671 8627488192 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:46:51,269 utils 1671 8627488192 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:46:52,318 utils 1671 8627488192 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:46:52,319 utils 1671 8627488192 外部サービスからグローバルIP取得成功: 180.12.149.143
+DEBUG 2025-08-27 19:46:52,319 utils 1671 8627488192 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:46:52,320 utils 1671 8627488192 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:46:52,320 utils 1671 8627488192 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:46:52,320 utils 1671 8627488192 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:46:53,216 utils 1671 8627488192 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:46:53,218 utils 1671 8627488192 外部サービスからグローバルIP取得成功: 180.12.149.143
+DEBUG 2025-08-27 19:46:53,219 utils 1671 8627488192 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:46:53,219 utils 1671 8627488192 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:46:53,219 utils 1671 8627488192 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:46:53,219 utils 1671 8627488192 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:46:53,777 utils 1671 8627488192 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:46:53,779 utils 1671 8627488192 外部サービスからグローバルIP取得成功: 180.12.149.143
+DEBUG 2025-08-27 19:47:00,920 utils 2050 8627488192 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:47:01,671 utils 2050 8627488192 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+DEBUG 2025-08-27 19:47:49,451 utils 5958 6128971776 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:47:49,451 utils 5958 6128971776 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:47:49,460 utils 5958 6128971776 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:47:49,460 utils 5958 6128971776 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:47:50,250 utils 5958 6128971776 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:47:50,251 utils 5958 6128971776 外部サービスからグローバルIP取得成功: 180.12.149.143
+DEBUG 2025-08-27 19:47:50,254 utils 5958 6128971776 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:47:50,254 utils 5958 6128971776 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:47:50,254 utils 5958 6128971776 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:47:50,254 utils 5958 6128971776 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:47:50,870 utils 5958 6128971776 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:47:50,871 utils 5958 6128971776 外部サービスからグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:47:50,872 utils 5958 6128971776 IP: 180.12.149.143 | Action: token_generation | User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36 | Info: Token: 2K3isMQe...
+DEBUG 2025-08-27 19:47:54,060 utils 6056 6161330176 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:47:54,061 utils 6056 6161330176 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:47:54,061 utils 6056 6161330176 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:47:54,061 utils 6056 6161330176 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:47:54,728 utils 6056 6161330176 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:47:54,729 utils 6056 6161330176 外部サービスからグローバルIP取得成功: 180.12.149.143
+DEBUG 2025-08-27 19:47:54,730 utils 6056 6161330176 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:47:54,730 utils 6056 6161330176 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:47:54,730 utils 6056 6161330176 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:47:54,730 utils 6056 6161330176 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:47:54,971 utils 6056 6161330176 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:47:54,972 utils 6056 6161330176 外部サービスからグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:47:54,973 utils 6056 6161330176 IP: 180.12.149.143 | Action: token_generation | User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36 | Info: Token: BldhL2cz...
+DEBUG 2025-08-27 19:47:57,487 utils 6050 6158135296 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:47:57,487 utils 6050 6158135296 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:47:57,487 utils 6050 6158135296 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:47:57,487 utils 6050 6158135296 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:47:58,179 utils 6050 6158135296 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:47:58,187 utils 6050 6158135296 外部サービスからグローバルIP取得成功: 180.12.149.143
+DEBUG 2025-08-27 19:47:58,194 utils 6050 6158135296 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:47:58,195 utils 6050 6158135296 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:47:58,195 utils 6050 6158135296 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:47:58,195 utils 6050 6158135296 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:47:58,694 utils 6050 6158135296 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:47:58,695 utils 6050 6158135296 外部サービスからグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:47:58,695 utils 6050 6158135296 IP: 180.12.149.143 | Action: token_generation | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 | Info: Token: Dg2uuDcu...
+DEBUG 2025-08-27 19:47:59,110 utils 6056 6161330176 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:47:59,110 utils 6056 6161330176 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:47:59,110 utils 6056 6161330176 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:47:59,111 utils 6056 6161330176 外部サービスからIP取得を試行: https://api.ipify.org
+DEBUG 2025-08-27 19:47:59,452 utils 6050 6174961664 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:47:59,452 utils 6050 6174961664 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:47:59,452 utils 6050 6174961664 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:47:59,452 utils 6050 6174961664 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:47:59,575 utils 6056 6161330176 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:47:59,577 utils 6056 6161330176 外部サービスからグローバルIP取得成功: 180.12.149.143
+DEBUG 2025-08-27 19:47:59,580 utils 6056 6161330176 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:47:59,580 utils 6056 6161330176 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:47:59,580 utils 6056 6161330176 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:47:59,581 utils 6056 6161330176 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:47:59,744 utils 6050 6174961664 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:47:59,745 utils 6050 6174961664 外部サービスからグローバルIP取得成功: 180.12.149.143
+DEBUG 2025-08-27 19:47:59,748 utils 6050 6174961664 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:47:59,748 utils 6050 6174961664 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:47:59,748 utils 6050 6174961664 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:47:59,748 utils 6050 6174961664 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:48:00,333 utils 6056 6161330176 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:48:00,333 utils 6050 6174961664 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:48:00,334 utils 6050 6174961664 外部サービスからグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:48:00,334 utils 6056 6161330176 外部サービスからグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:48:00,334 utils 6050 6174961664 IP: 180.12.149.143 | Action: token_generation | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 | Info: Token: _CZmWNhX...
+INFO 2025-08-27 19:48:00,334 utils 6056 6161330176 IP: 180.12.149.143 | Action: token_generation | User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36 | Info: Token: pseVETxb...
+DEBUG 2025-08-27 19:48:03,572 utils 6056 6161330176 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:48:03,572 utils 6056 6161330176 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:48:03,573 utils 6056 6161330176 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:48:03,573 utils 6056 6161330176 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:48:03,826 utils 6056 6161330176 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:48:03,827 utils 6056 6161330176 外部サービスからグローバルIP取得成功: 180.12.149.143
+DEBUG 2025-08-27 19:48:03,829 utils 6056 6161330176 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:48:03,829 utils 6056 6161330176 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:48:03,829 utils 6056 6161330176 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:48:03,829 utils 6056 6161330176 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:48:04,588 utils 6056 6161330176 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:48:04,589 utils 6056 6161330176 外部サービスからグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:48:04,589 utils 6056 6161330176 IP: 180.12.149.143 | Action: token_generation | User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36 | Info: Token: reQwARd5...
+DEBUG 2025-08-27 19:48:07,769 utils 6056 6161330176 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:48:07,770 utils 6056 6161330176 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:48:07,770 utils 6056 6161330176 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:48:07,770 utils 6056 6161330176 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:48:08,041 utils 6056 6161330176 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:48:08,043 utils 6056 6161330176 外部サービスからグローバルIP取得成功: 180.12.149.143
+DEBUG 2025-08-27 19:48:08,046 utils 6056 6161330176 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:48:08,046 utils 6056 6161330176 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:48:08,046 utils 6056 6161330176 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:48:08,047 utils 6056 6161330176 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:48:08,325 utils 6056 6161330176 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:48:08,327 utils 6056 6161330176 外部サービスからグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:48:08,327 utils 6056 6161330176 IP: 180.12.149.143 | Action: token_generation | User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36 | Info: Token: ddt0C45y...
+DEBUG 2025-08-27 19:48:11,649 utils 6056 6161330176 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:48:11,650 utils 6056 6161330176 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:48:11,650 utils 6056 6161330176 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:48:11,650 utils 6056 6161330176 外部サービスからIP取得を試行: https://api.ipify.org
+DEBUG 2025-08-27 19:48:11,767 utils 6050 6192361472 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:48:11,767 utils 6050 6192361472 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:48:11,767 utils 6050 6192361472 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:48:11,767 utils 6050 6192361472 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:48:12,165 utils 6056 6161330176 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:48:12,167 utils 6056 6161330176 外部サービスからグローバルIP取得成功: 180.12.149.143
+DEBUG 2025-08-27 19:48:12,170 utils 6056 6161330176 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:48:12,170 utils 6056 6161330176 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:48:12,171 utils 6056 6161330176 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:48:12,171 utils 6056 6161330176 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:48:12,236 utils 6050 6192361472 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:48:12,237 utils 6050 6192361472 外部サービスからグローバルIP取得成功: 180.12.149.143
+DEBUG 2025-08-27 19:48:12,244 utils 6050 6192361472 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:48:12,244 utils 6050 6192361472 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:48:12,244 utils 6050 6192361472 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:48:12,244 utils 6050 6192361472 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:48:12,438 utils 6056 6161330176 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:48:12,439 utils 6056 6161330176 外部サービスからグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:48:12,439 utils 6056 6161330176 IP: 180.12.149.143 | Action: token_generation | User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36 | Info: Token: tDi1bWDe...
+INFO 2025-08-27 19:48:12,512 utils 6050 6192361472 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:48:12,513 utils 6050 6192361472 外部サービスからグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:48:12,513 utils 6050 6192361472 IP: 180.12.149.143 | Action: checkin_success | User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 | Info: User: hoge, Token: ddt0C45y..., IP: 180.12.149.143
+DEBUG 2025-08-27 19:48:16,709 utils 6056 6161330176 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:48:16,709 utils 6056 6161330176 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:48:16,709 utils 6056 6161330176 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:48:16,709 utils 6056 6161330176 外部サービスからIP取得を試行: https://api.ipify.org
+DEBUG 2025-08-27 19:48:17,266 utils 6056 6178729984 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:48:17,267 utils 6056 6178729984 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:48:17,267 utils 6056 6178729984 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:48:17,267 utils 6056 6178729984 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:48:17,320 utils 6056 6161330176 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:48:17,321 utils 6056 6161330176 外部サービスからグローバルIP取得成功: 180.12.149.143
+DEBUG 2025-08-27 19:48:17,323 utils 6056 6161330176 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:48:17,323 utils 6056 6161330176 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:48:17,323 utils 6056 6161330176 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:48:17,323 utils 6056 6161330176 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:48:17,804 utils 6056 6161330176 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:48:17,805 utils 6056 6161330176 外部サービスからグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:48:17,805 utils 6056 6161330176 IP: 180.12.149.143 | Action: token_generation | User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36 | Info: Token: SvtUTb0a...
+INFO 2025-08-27 19:48:17,870 utils 6056 6178729984 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:48:17,871 utils 6056 6178729984 外部サービスからグローバルIP取得成功: 180.12.149.143
+DEBUG 2025-08-27 19:48:17,874 utils 6056 6178729984 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:48:17,874 utils 6056 6178729984 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:48:17,875 utils 6056 6178729984 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:48:17,875 utils 6056 6178729984 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:48:18,125 utils 6056 6178729984 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:48:18,125 utils 6056 6178729984 外部サービスからグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:48:18,126 utils 6056 6178729984 IP: 180.12.149.143 | Action: token_generation | User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36 | Info: Token: oqyNVypL...
+DEBUG 2025-08-27 19:49:42,711 utils 6056 6161330176 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:49:42,712 utils 6056 6161330176 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:49:42,712 utils 6056 6161330176 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:49:42,712 utils 6056 6161330176 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:49:43,300 utils 6056 6161330176 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:49:43,301 utils 6056 6161330176 外部サービスからグローバルIP取得成功: 180.12.149.143
+DEBUG 2025-08-27 19:49:43,315 utils 6056 6161330176 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:49:43,316 utils 6056 6161330176 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:49:43,316 utils 6056 6161330176 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:49:43,316 utils 6056 6161330176 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:49:43,906 utils 6056 6161330176 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:49:43,908 utils 6056 6161330176 外部サービスからグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:49:43,908 utils 6056 6161330176 IP: 180.12.149.143 | Action: token_generation | User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36 | Info: Token: LdCRy3B6...
+DEBUG 2025-08-27 19:49:47,445 utils 6056 6161330176 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:49:47,446 utils 6056 6161330176 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:49:47,446 utils 6056 6161330176 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:49:47,446 utils 6056 6161330176 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:49:47,922 utils 6056 6161330176 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:49:47,922 utils 6056 6161330176 外部サービスからグローバルIP取得成功: 180.12.149.143
+DEBUG 2025-08-27 19:49:47,926 utils 6056 6161330176 IP取得開始 - 設定: ENABLED=True, FORCE_EXTERNAL_FOR_LOCAL=True, LOCAL_DEVELOPMENT_MODE=True
+DEBUG 2025-08-27 19:49:47,926 utils 6056 6161330176 ローカルリクエスト判定: True
+DEBUG 2025-08-27 19:49:47,926 utils 6056 6161330176 外部サービスからのIP取得を試行
+DEBUG 2025-08-27 19:49:47,926 utils 6056 6161330176 外部サービスからIP取得を試行: https://api.ipify.org
+INFO 2025-08-27 19:49:48,527 utils 6056 6161330176 外部サービス https://api.ipify.org からグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:49:48,528 utils 6056 6161330176 外部サービスからグローバルIP取得成功: 180.12.149.143
+INFO 2025-08-27 19:49:48,529 utils 6056 6161330176 IP: 180.12.149.143 | Action: token_generation | User-Agent: Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36 | Info: Token: rCLzMOoT...

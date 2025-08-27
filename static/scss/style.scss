@@ -117,6 +117,37 @@ body {
         .danger {
             color: $RED_A700;
         }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+
+            th,
+            td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+            th {
+                background-color: $GRAY_200;
+                font-weight: bold;
+            }
+
+            tr:hover {
+                background-color: $GRAY_100;
+            }
+
+            a {
+                color: $theme_color;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
     }
 
     .bottombar {

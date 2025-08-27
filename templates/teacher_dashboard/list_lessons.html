@@ -1,0 +1,43 @@
+{% extends "t-base.html" %}
+
+{% block title %}授業一覧{% endblock title %}
+{% block mainclass %}list_lessons{% endblock mainclass %}
+{% block excss %}
+{% endblock excss %}
+{% block content %}
+<h2>授業一覧</h2>
+<div class="card">
+    {% if lessons %}
+    <table>
+        <thead>
+            <tr>
+                <th>科目</th>
+                <th>回数</th>
+                <th>場所</th>
+                <th>授業日時</th>
+                <th>受付状態</th>
+                <th>作成日時</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for lesson in lessons %}
+            <tr>
+                <td>{{ lesson.subject }}</td>
+                <td>{{ lesson.lesson_times }}</td>
+                <td>{{ lesson.location|default:"未設定" }}</td>
+                <td>{{ lesson.lesson_date|date:"Y-m-d H:i"|default:"未設定" }}</td>
+                <td>{% if lesson.reception %}受付中{% else %}未受付{% endif %}</td>
+                <td>{{ lesson.created_at|date:"Y-m-d H:i" }}</td>
+                <td><a href="{% url 'teacher_dashboard:edit_lesson' lesson.id %}">編集</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>授業がありません。</p>
+    {% endif %}
+
+    <a href="{% url 'teacher_dashboard:index' %}" class="txtbtn">ダッシュボードに戻る</a>
+</div>
+{% endblock content %}

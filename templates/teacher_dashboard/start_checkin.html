@@ -1,0 +1,35 @@
+{% extends "form-base.html" %}
+
+{% block title %}授業の受付を開始{% endblock title %}
+{% block mainclass %}start_checkin{% endblock mainclass %}
+{% block excss %}
+{% endblock excss %}
+{% block content %}
+<h2>授業の受付を開始</h2>
+<div class="card">
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="fieldWrapper">
+            <label for="lesson_id">授業を選択</label>
+            <select name="lesson_id" id="lesson_id">
+                <option value="">-- 授業を選択 --</option>
+                {% for lesson in lessons %}
+                <option value="{{ lesson.id }}">{{ lesson.subject }} ({{ lesson.lesson_times }}回目)</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="fieldWrapper">
+            <label for="location">授業の場所</label>
+            <select name="location" id="location">
+                <option value="">-- 授業の場所 --</option>
+                {% for location in locations %}
+                <option value="{{ location }}">{{ location }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit">受付を開始</button>
+        <a href="{% url 'teacher_dashboard:index' %}" class="txtbtn">キャンセル</a>
+    </form>
+</div>
+{% endblock content %}

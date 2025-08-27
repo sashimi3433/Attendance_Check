@@ -1,0 +1,56 @@
+.teacher_dashboard {
+  background-color: #e65151;
+  min-height: 100vh;
+}
+.teacher_dashboard h2 {
+  color: white;
+  padding: 20px;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+}
+.teacher_dashboard .card {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 15px 15px 0 0;
+  min-height: 95vh;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.teacher_dashboard .card table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+.teacher_dashboard .card table th,
+.teacher_dashboard .card table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+.teacher_dashboard .card table th {
+  background-color: #EEEEEE;
+  font-weight: bold;
+}
+.teacher_dashboard .card table tr:hover {
+  background-color: #F5F5F5;
+}
+.teacher_dashboard .card table a {
+  color: #e65151;
+  text-decoration: none;
+}
+.teacher_dashboard .card table a:hover {
+  text-decoration: underline;
+}
+.teacher_dashboard .card .txtbtn {
+  padding: 15px;
+  color: #e65151;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 10px;
+}
+.teacher_dashboard .card .txtbtn:hover {
+  text-decoration: underline;
+}
+
+/*# sourceMappingURL=teacher_dashboard.css.map */

@@ -1,0 +1,47 @@
+{% extends "form-base.html" %}
+
+{% block title %}授業の編集{% endblock title %}
+{% block mainclass %}edit_lesson{% endblock mainclass %}
+{% block excss %}
+{% endblock excss %}
+{% block content %}
+<h2>授業の編集</h2>
+<div class="card">
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="fieldWrapper">
+            <label for="subject">科目</label>
+            <input type="text" name="subject" id="subject" value="{{ lesson.subject }}" required>
+        </div>
+
+        <div class="fieldWrapper">
+            <label for="lesson_times">回数</label>
+            <input type="number" name="lesson_times" id="lesson_times" value="{{ lesson.lesson_times }}" min="1" required>
+        </div>
+
+        <div class="fieldWrapper">
+            <label for="lesson_date">授業日時</label>
+            <input type="datetime-local" name="lesson_date" id="lesson_date" value="{% if lesson.lesson_date %}{{ lesson.lesson_date|date:'Y-m-d\TH:i' }}{% endif %}">
+        </div>
+
+        <div class="fieldWrapper">
+            <label for="location">授業の場所</label>
+            <select name="location" id="location">
+                <option value="">-- 授業の場所 --</option>
+                {% for location in locations %}
+                <option value="{{ location }}" {% if lesson.location == location %}selected{% endif %}>{{ location }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="fieldWrapper">
+            <label for="reception">受付状態</label>
+            <input type="checkbox" name="reception" id="reception" {% if lesson.reception %}checked{% endif %}>
+            <label for="reception">受付中</label>
+        </div>
+
+        <button type="submit">更新</button>
+        <a href="{% url 'teacher_dashboard:index' %}" class="txtbtn">キャンセル</a>
+    </form>
+</div>
+{% endblock content %}

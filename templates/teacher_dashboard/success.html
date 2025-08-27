@@ -1,0 +1,12 @@
+{% extends "t-base.html" %}
+{% block title %}授業を生成{% endblock title %}
+{% block mainclass %}success{% endblock mainclass %}
+{% block excss %}
+{% endblock excss %}
+{% block content %}
+<div class="container">
+    <i class="fa-solid fa-circle-check"></i>
+    <p>{{ message|default:"正常に終了しました。" }}</p>
+    <a href="{% url 'teacher_dashboard:index' %}" class="txtbtn">ダッシュボードに戻る</a>
+</div>
+{% endblock content %}

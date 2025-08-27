@@ -1,0 +1,12 @@
+{% extends "t-base.html" %}
+{% block title %}エラー{% endblock title %}
+{% block mainclass %}error{% endblock mainclass %}
+{% block excss %}
+{% endblock excss %}
+{% block content %}
+<div class="container">
+    <i class="fa-solid fa-circle-xmark"></i>
+    <p>{{ message|default:"エラーが発生しました。" }}</p>
+    <a href="{% url 'teacher_dashboard:index' %}" class="txtbtn">ダッシュボードに戻る</a>
+</div>
+{% endblock content %}

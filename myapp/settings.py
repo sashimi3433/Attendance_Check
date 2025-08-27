@@ -20,7 +20,7 @@ INSTALLED_APPS = [
     'home',
     'attendance_token',
     'checkin',
-    'pos',
+    'teacher_dashboard',
     'django.contrib.humanize',
 ]
 
@@ -32,6 +32,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'accounts.middleware.UserTypeAccessMiddleware',  # 一時的に無効化
 ]
 
 ROOT_URLCONF = 'myapp.urls'
@@ -105,3 +106,58 @@ LOGOUT_REDIRECT_URL = 'accounts:login'
 LOGIN_REDIRECT_URL = 'home:index'
 
 NUMBER_GROUPING = 3
+
+# 外部IPアドレス取得サービス設定
+EXTERNAL_IP_SERVICES = {
+    'ENABLED': True,  # 外部サービスの有効/無効
+    'TIMEOUT': 5,     # タイムアウト秒数
+    'SERVICES': [
+        'https://api.ipify.org',
+        'https://httpbin.org/ip',
+        'https://icanhazip.com',
+        'https://ident.me',
+    ],
+    'FALLBACK_TO_HEADERS': True,  # 外部サービス失敗時にHTTPヘッダーを使用
+    'FORCE_EXTERNAL_FOR_LOCAL': True,  # ローカル環境でも外部サービスを強制使用
+    'DEBUG_IP_DETECTION': True,  # IP取得プロセスの詳細ログを出力
+    'LOCAL_DEVELOPMENT_MODE': True,  # ローカル開発環境モード
+}
+
+# ログ設定
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'ip_detection.log'),
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'attendance_token.utils': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG' if DEBUG else 'INFO',
+            'propagate': False,
+        },
+        'ip_security': {
+            'handlers': ['console', 'file'],
+            'level': 'DEBUG' if DEBUG else 'INFO',
+            'propagate': False,
+        },
+    },
+}
