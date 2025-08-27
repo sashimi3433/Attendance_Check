@@ -37,6 +37,19 @@
                         非アクティブ
                     {% endif %}
                 </span>
+                <form method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="is_active" value="{{ kiosk.is_active|yesno:'false,true' }}">
+                    <button type="submit" class="btn {% if kiosk.is_active %}btn-warning{% else %}btn-success{% endif %}" style="font-size: 12px; padding: 6px 12px;">
+                        {% if kiosk.is_active %}
+                            <i class="fas fa-stop"></i>
+                            受付停止
+                        {% else %}
+                            <i class="fas fa-play"></i>
+                            受付開始
+                        {% endif %}
+                    </button>
+                </form>
                 {% if kiosk.last_activity %}
                 <span style="color: var(--text-secondary); font-size: 14px;">
                     <i class="fas fa-clock"></i>
