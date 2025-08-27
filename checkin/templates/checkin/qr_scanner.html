@@ -17,7 +17,37 @@ let html5QrcodeScanner;
 // ページ読み込み時にQRコードスキャナーを初期化
 document.addEventListener('DOMContentLoaded', function() {
     initQRScanner();
+    initEventListeners();
+    startRealTimeClock();
 });
+
+// イベントリスナーの初期化
+function initEventListeners() {
+    // メッセージを閉じるボタン
+    document.getElementById('close-message-btn').addEventListener('click', function() {
+        resetScanner();
+    });
+}
+
+// リアルタイム時計を開始
+function startRealTimeClock() {
+    updateClock();
+    setInterval(updateClock, 1000);
+}
+
+// 時計を更新
+function updateClock() {
+    const now = new Date();
+    const timeString = now.toLocaleString('ja-JP');
+    // 時計を表示する要素がないので、必要に応じて追加
+}
+
+// スキャナーをリセット
+function resetScanner() {
+    document.getElementById('message-container').style.display = 'none';
+    document.getElementById('qr-reader').style.display = 'block';
+    initQRScanner();
+}
 
 // QRコードスキャナーの初期化
 function initQRScanner() {
@@ -37,7 +67,31 @@ function initQRScanner() {
 // QRコード読み取り成功時の処理
 function onScanSuccess(decodedText, decodedResult) {
     console.log(`QRコード読み取り成功: ${decodedText}`);
-    processToken(decodedText);
+
+    // QRスキャナーを停止
+    if (html5QrcodeScanner) {
+        html5QrcodeScanner.clear();
+    }
+
+    // 読み取り時間を取得
+    const scanTime = new Date();
+
+    // 時間帯に基づいて出席状態を判定
+    const status = determineAttendanceStatus(scanTime);
+
+    // 即座にチェックイン処理を実行
+    processToken(decodedText, status);
+}
+
+// 時間帯に基づいて出席状態を判定
+function determineAttendanceStatus(scanTime) {
+    const minute = scanTime.getMinutes();
+    // 毎時20分から30分の間は出席、それ以外は遅刻
+    if (minute >= 20 && minute <= 30) {
+        return 'present';
+    } else {
+        return 'late';
+    }
 }
 
 // QRコード読み取り失敗時の処理
@@ -48,7 +102,7 @@ function onScanFailure(error) {
 
 
 // トークンの処理
-function processToken(token) {
+function processToken(token, status) {
     fetch('/checkin/confirm-attendance/', {
         method: 'POST',
         headers: {
@@ -57,24 +111,52 @@ function processToken(token) {
         },
         body: JSON.stringify({
             token: token,
+            status: status,
             location: '{{ user.kiosk.location|default:"キオスク端末" }}'
         })
     })
     .then(response => response.json())
     .then(data => {
         if (data.message) {
-            // 成功時は即座に成功ページへリダイレクト
-            window.location.href = '/checkin/success/';
+            // 遅刻の場合はlateタイプ、それ以外はsuccess
+            const messageType = status === 'late' ? 'late' : 'success';
+            showMessage(messageType, data.message);
         } else {
-            // エラー時はエラーページへリダイレクト
-            window.location.href = '/checkin/error/';
+            // エラー時は通知を表示
+            showMessage('error', data.error);
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        // エラー時はエラーページへリダイレクト
-        window.location.href = '/checkin/error/';
+        // エラー時は通知を表示
+        showMessage('error', 'ネットワークエラーが発生しました');
     });
+}
+
+// メッセージを表示
+function showMessage(type, message) {
+    const messageContainer = document.getElementById('message-container');
+    const messageText = document.getElementById('message-text');
+    const messageIcon = document.getElementById('message-icon');
+
+    messageContainer.className = `message-container ${type}`;
+    messageText.textContent = message;
+
+    if (type === 'success') {
+        messageIcon.textContent = '✓';
+    } else if (type === 'late') {
+        messageIcon.textContent = '⚠';
+    } else {
+        messageIcon.textContent = '✗';
+    }
+
+    document.getElementById('qr-reader').style.display = 'none';
+    messageContainer.style.display = 'block';
+
+    // 3秒後に自動でスキャナーを再開
+    setTimeout(() => {
+        resetScanner();
+    }, 3000);
 }
 
 
@@ -133,11 +215,20 @@ function logout() {
     <div class="card">
         <div class="box">
         <p>現在受付中の授業: {{ user.username }} ({{ user.name }})</p>
-        
+
         </div>
 
         <div id="qr-reader"></div>
-        
+
+        <!-- メッセージ表示コンテナ（初期は非表示） -->
+        <div id="message-container" class="message-container" style="display: none;">
+            <div class="message-content">
+                <span id="message-icon" class="message-icon"></span>
+                <span id="message-text" class="message-text"></span>
+            </div>
+            <button id="close-message-btn" class="txtbtn">閉じる</button>
+        </div>
+
         <button class="txtbtn" onclick="logout()">ログアウト</button>
     </div>
 </div>

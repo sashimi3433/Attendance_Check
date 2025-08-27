@@ -31,8 +31,9 @@ def confirm_attendance(request):
             
             data = json.loads(request.body)
             token_value = data.get('token')
+            status = data.get('status', 'present')  # デフォルトは出席
             location = data.get('location', kiosk.location)  # デフォルトはキオスクの設置場所
-            
+
             if not token_value:
                 return JsonResponse({'error': 'トークンが指定されていません'}, status=400)
             
@@ -64,7 +65,8 @@ def confirm_attendance(request):
                 user=attendance_token.user,  # トークンの所有者
                 token=attendance_token,
                 kiosk=kiosk,  # 読み取りを行ったキオスク
-                location=location
+                location=location,
+                status=status
             )
             
             # トークンを使用済みにマーク

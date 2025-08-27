@@ -95,11 +95,17 @@ class AttendanceRecord(models.Model):
     出席記録モデル
     実際の出席確認の記録を保存
     """
+    STATUS_CHOICES = [
+        ('present', '出席'),
+        ('late', '遅刻'),
+    ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attendance_records', verbose_name="ユーザー")
     token = models.ForeignKey(AttendanceToken, on_delete=models.CASCADE, related_name='attendance_records', verbose_name="使用トークン")
     kiosk = models.ForeignKey(Kiosk, on_delete=models.CASCADE, related_name='attendance_records', null=True, blank=True, verbose_name="読み取りキオスク")
     attended_at = models.DateTimeField(auto_now_add=True, verbose_name="出席確認日時")
     location = models.CharField(max_length=100, blank=True, null=True, verbose_name="出席場所")
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='present', verbose_name="出席状態")
     notes = models.TextField(blank=True, null=True, verbose_name="備考")
 
     def __str__(self):

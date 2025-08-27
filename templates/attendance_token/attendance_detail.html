@@ -27,7 +27,11 @@
                 </div>
                 <div class="detail-item">
                     <span class="detail-label">担当講師</span>
-                    <span class="detail-value">{{ record.kiosk.teacher.username|default:"未設定" }}</span>
+                    <span class="detail-value">{{ teacher_name }}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">出席状態</span>
+                    <span class="detail-value">{{ record.get_status_display }}</span>
                 </div>
                 <div class="detail-item">
                     <span class="detail-label">使用トークン</span>
