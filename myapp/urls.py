@@ -5,7 +5,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
     path('accounts/', include('accounts.urls')),
-    path('api/', include('qr_token.urls', namespace='qr_token')),
-    path('adminmenu/', include('adminmenu.urls', namespace='adminmenu')),
+    path('attendance_token/', include('attendance_token.urls', namespace='attendance_token')),
+    path('checkin/', include('checkin.urls', namespace='checkin')),
     path('pos/', include('pos.urls', namespace='pos')),
 ]

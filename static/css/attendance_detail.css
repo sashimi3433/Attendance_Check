@@ -1,0 +1,14 @@
+.attendance_detail .detail-grid {
+  margin: 20px auto;
+}
+.attendance_detail .detail-grid .detail-item {
+  margin-top: 20px;
+}
+.attendance_detail .detail-grid .detail-item .detail-value {
+  display: block;
+  border-bottom: 1px solid #e65151;
+  padding: 15px;
+  width: 100%;
+  margin: 10px 0;
+  background-color: #fff;
+}/*# sourceMappingURL=attendance_detail.css.map */

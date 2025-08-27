@@ -39,6 +39,7 @@
 
                 input[type="text"],
                 input[type="number"],
+                input[type="password"],
                 select {
                     display: block;
                     border-bottom: 1px solid $theme_color;
@@ -105,6 +106,15 @@
         text-align: center;
         display: block;
         transition: all .25s;
+        padding: 10px;
+        border-radius: 5px;
+
+        a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: inherit;
+        }
 
         &:hover {
             background-color: #00000011;

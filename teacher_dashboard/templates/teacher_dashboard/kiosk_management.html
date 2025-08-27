@@ -1,0 +1,262 @@
+{% extends 'teacher_dashboard/base.html' %}
+
+{% block title %}キオスク管理{% endblock title %}
+{% block page_title %}キオスク管理{% endblock page_title %}
+
+{% block content %}
+<!-- フィルター・検索バー -->
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 class="card-title" style="margin: 0;">
+            <i class="fas fa-desktop"></i>
+            キオスク一覧
+        </h2>
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <span style="color: var(--text-secondary); font-size: 14px;">合計: {{ kiosks|length }}台</span>
+        </div>
+    </div>
+    
+    <!-- 検索・フィルター -->
+    <form method="get" style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 200px;">
+            <input type="text" name="search" value="{{ request.GET.search }}" 
+                   placeholder="キオスク名・場所で検索" 
+                   style="width: 100%; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 6px;">
+        </div>
+        <div>
+            <select name="status" style="padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 6px;">
+                <option value="">すべてのステータス</option>
+                <option value="active" {% if request.GET.status == 'active' %}selected{% endif %}>アクティブ</option>
+                <option value="inactive" {% if request.GET.status == 'inactive' %}selected{% endif %}>非アクティブ</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-search"></i>
+            検索
+        </button>
+        {% if request.GET.search or request.GET.status %}
+        <a href="{% url 'teacher_dashboard:kiosk_management' %}" class="btn btn-secondary">
+            <i class="fas fa-times"></i>
+            クリア
+        </a>
+        {% endif %}
+    </form>
+</div>
+
+<!-- キオスク一覧 -->
+{% if kiosks %}
+    <div class="kiosk-list">
+        {% for kiosk in kiosks %}
+        <div class="card kiosk-item">
+            <div style="display: flex; justify-content: between; align-items: flex-start; gap: 20px;">
+                <!-- キオスク基本情報 -->
+                <div style="flex: 1;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                        <div>
+                            <h3 style="margin: 0 0 5px; font-size: 20px; color: var(--text-primary);">
+                                <i class="fas fa-desktop"></i>
+                                {{ kiosk.name }}
+                            </h3>
+                            <p style="margin: 0; color: var(--text-secondary);">
+                                <i class="fas fa-map-marker-alt"></i>
+                                {{ kiosk.location }}
+                            </p>
+                        </div>
+                        <span class="badge {% if kiosk.is_active %}badge-success{% else %}badge-warning{% endif %}" style="font-size: 14px;">
+                            {% if kiosk.is_active %}
+                                <i class="fas fa-check-circle"></i>
+                                アクティブ
+                            {% else %}
+                                <i class="fas fa-pause-circle"></i>
+                                非アクティブ
+                            {% endif %}
+                        </span>
+                    </div>
+                    
+                    <!-- 統計情報 -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; margin-bottom: 20px;">
+                        <div style="text-align: center; padding: 10px; background-color: var(--background-color); border-radius: 6px;">
+                            <div style="font-size: 20px; font-weight: bold; color: var(--primary-color);">{{ kiosk.today_attendance_count }}</div>
+                            <div style="font-size: 12px; color: var(--text-secondary);">今日の出席</div>
+                        </div>
+                        <div style="text-align: center; padding: 10px; background-color: var(--background-color); border-radius: 6px;">
+                            <div style="font-size: 20px; font-weight: bold; color: var(--accent-color);">{{ kiosk.active_tokens_count }}</div>
+                            <div style="font-size: 12px; color: var(--text-secondary);">有効トークン</div>
+                        </div>
+                        <div style="text-align: center; padding: 10px; background-color: var(--background-color); border-radius: 6px;">
+                            <div style="font-size: 20px; font-weight: bold; color: var(--secondary-color);">{{ kiosk.total_attendance_count }}</div>
+                            <div style="font-size: 12px; color: var(--text-secondary);">総出席数</div>
+                        </div>
+                        <div style="text-align: center; padding: 10px; background-color: var(--background-color); border-radius: 6px;">
+                            <div style="font-size: 20px; font-weight: bold; color: var(--text-primary);">{{ kiosk.last_activity|date:"H:i"|default:"--:--" }}</div>
+                            <div style="font-size: 12px; color: var(--text-secondary);">最終活動</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 最近の出席者 -->
+                    {% if kiosk.recent_attendance %}
+                    <div style="margin-bottom: 15px;">
+                        <h4 style="margin: 0 0 10px; font-size: 14px; color: var(--text-secondary);">最近の出席者</h4>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            {% for record in kiosk.recent_attendance|slice:":5" %}
+                            <span style="background-color: var(--background-color); padding: 4px 8px; border-radius: 4px; font-size: 12px; color: var(--text-primary);">
+                                {{ record.user.name|default:record.user.username }}
+                                <small style="color: var(--text-secondary);">({{ record.timestamp|date:"H:i" }})</small>
+                            </span>
+                            {% endfor %}
+                            {% if kiosk.recent_attendance|length > 5 %}
+                            <span style="color: var(--text-secondary); font-size: 12px; padding: 4px 8px;">他{{ kiosk.recent_attendance|length|add:"-5" }}名</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <!-- アクションボタン -->
+                <div style="display: flex; flex-direction: column; gap: 10px; min-width: 120px;">
+                    <a href="{% url 'teacher_dashboard:kiosk_detail' kiosk.id %}" class="btn btn-primary" style="text-align: center;">
+                        <i class="fas fa-eye"></i>
+                        詳細表示
+                    </a>
+                    <a href="{% url 'teacher_dashboard:attendance_history' %}?kiosk={{ kiosk.id }}" class="btn btn-secondary" style="text-align: center;">
+                        <i class="fas fa-history"></i>
+                        出席履歴
+                    </a>
+                    <a href="{% url 'teacher_dashboard:attendance_export' %}?kiosk={{ kiosk.id }}" class="btn btn-success" style="text-align: center;">
+                        <i class="fas fa-download"></i>
+                        CSV出力
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <!-- ページネーション（将来の拡張用） -->
+    {% comment %}
+    {% if is_paginated %}
+    <div style="text-align: center; margin-top: 30px;">
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page=1" class="btn btn-secondary">最初</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-secondary">前へ</a>
+            {% endif %}
+            
+            <span style="margin: 0 15px; color: var(--text-secondary);">
+                ページ {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+            </span>
+            
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-secondary">次へ</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-secondary">最後</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+    {% endcomment %}
+    
+{% else %}
+    <div class="card">
+        <div style="text-align: center; padding: 60px 20px; color: var(--text-secondary);">
+            <i class="fas fa-desktop" style="font-size: 64px; margin-bottom: 20px;"></i>
+            <h3 style="margin: 0 0 10px; color: var(--text-primary);">キオスクが見つかりません</h3>
+            {% if request.GET.search or request.GET.status %}
+                <p>検索条件に一致するキオスクがありません。</p>
+                <a href="{% url 'teacher_dashboard:kiosk_management' %}" class="btn btn-primary">
+                    <i class="fas fa-refresh"></i>
+                    すべてのキオスクを表示
+                </a>
+            {% else %}
+                <p>担当キオスクがありません。</p>
+                <p style="font-size: 14px;">管理者にキオスクの割り当てを依頼してください。</p>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+
+<!-- 一括操作（将来の拡張用） -->
+{% comment %}
+<div class="card" style="margin-top: 20px;">
+    <h3 class="card-title">
+        <i class="fas fa-tools"></i>
+        一括操作
+    </h3>
+    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+        <button class="btn btn-success" onclick="exportAllData()">
+            <i class="fas fa-download"></i>
+            全キオスクのデータをエクスポート
+        </button>
+        <button class="btn btn-secondary" onclick="refreshAllStats()">
+            <i class="fas fa-sync-alt"></i>
+            統計データを更新
+        </button>
+    </div>
+</div>
+{% endcomment %}
+{% endblock content %}
+
+{% block extra_css %}
+<style>
+    .kiosk-item {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .kiosk-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    @media (max-width: 768px) {
+        .kiosk-item > div {
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .kiosk-item .btn {
+            width: 100%;
+        }
+        
+        form {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        
+        form > div {
+            width: 100%;
+        }
+        
+        form input, form select {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock extra_css %}
+
+{% block extra_js %}
+<script>
+    // 自動更新機能（3分ごと）
+    setInterval(function() {
+        // ページをリロードして最新データを取得
+        if (!document.hidden) {
+            location.reload();
+        }
+    }, 180000); // 3分 = 180000ms
+    
+    // 一括操作関数（将来の拡張用）
+    function exportAllData() {
+        window.location.href = '{% url "teacher_dashboard:attendance_export" %}';
+    }
+    
+    function refreshAllStats() {
+        location.reload();
+    }
+    
+    // 検索フォームのエンターキー対応
+    document.querySelector('input[name="search"]').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            this.closest('form').submit();
+        }
+    });
+</script>
+{% endblock extra_js %}

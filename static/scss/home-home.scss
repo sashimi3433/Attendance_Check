@@ -33,11 +33,21 @@
             margin-bottom: 25px;
         }
 
-        #qrcode {
-            width: fit-content;
-            margin: 0 auto;
-            // margin-right: auto;
-            // margin-left: 10px;
+        .bottombox {
+            display: flex;
+            align-items: center;
+            text-align: end;
+
+            #qrcode {
+                width: fit-content;
+                // margin: 0 auto;
+                margin-right: auto;
+                margin-left: 10px;
+            }
+
+            .countdown-container {
+                margin-bottom: 1rem;
+            }
         }
     }
 

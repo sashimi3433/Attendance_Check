@@ -1,0 +1,22 @@
+@import '_variables.scss';
+
+.attendance_detail {
+    .detail-grid {
+        margin: 20px auto;
+
+        .detail-item {
+            margin-top: 20px;
+
+            .detail-label {}
+
+            .detail-value {
+                display: block;
+                border-bottom: 1px solid $theme_color;
+                padding: 15px;
+                width: 100%;
+                margin: 10px 0;
+                background-color: #fff;
+            }
+        }
+    }
+}

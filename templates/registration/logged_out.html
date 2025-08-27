@@ -1,0 +1,24 @@
+{% extends 'form-base.html' %}
+
+{% block title %}ログアウト完了{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="form-container">
+        <h2>ログアウト完了</h2>
+        <p>正常にログアウトしました。</p>
+        <p>3秒後に自動的にログインページに移動します。</p>
+        
+        <div class="button-group">
+            <a href="{% url 'accounts:login' %}" class="btn btn-primary">今すぐログインページへ</a>
+        </div>
+    </div>
+</div>
+
+<script>
+// 3秒後に自動的にログインページにリダイレクト
+setTimeout(function() {
+    window.location.href = "{% url 'accounts:login' %}";
+}, 3000);
+</script>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "form-base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}出席記録詳細{% endblock title %}
+{% block mainclass %}attendance_detail{% endblock mainclass %}
+{% block excss %}
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+    <link rel="stylesheet" href="{% static 'css/attendance_detail.css' %}">
+{% endblock excss %}
+
+{% block content %}
+        <h2>出席記録詳細</h2>
+        <div class="card">
+            <div class="detail-grid">
+                <div class="detail-item">
+                    <span class="detail-label">出席日時</span>
+                    <span class="detail-value">{{ record.attended_at|date:"Y年n月j日 H:i" }}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">出席場所</span>
+                    <span class="detail-value">{{ record.location|default:"未設定" }}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">使用キオスク</span>
+                    <span class="detail-value">{{ kiosk_name }}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">担当講師</span>
+                    <span class="detail-value">{{ record.kiosk.teacher.username|default:"未設定" }}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">使用トークン</span>
+                    <span class="detail-value token-display">{{ record.token.token }}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">トークン有効期限</span>
+                    <span class="detail-value">{{ record.token.expires|date:"Y年n月j日 H:i" }}</span>
+                </div>
+            </div>
+            <a href="{% url 'home:index' %}" class="txtbtn">ホームに戻る</a>
+        </div>
+</div>
+{% endblock content %}

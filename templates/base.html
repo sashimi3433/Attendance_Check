@@ -5,7 +5,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock title %} | アプリ名</title>
+    <title>{% block title %}{% endblock title %} | 出席管理システム</title>
+    
+    <!-- PWA対応メタタグ -->
+    <meta name="description" content="QRコードを使用した出席管理システム">
+    <meta name="theme-color" content="#007bff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="出席管理">
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="{% static 'manifest.json' %}">
+    
+    <!-- アイコン設定 -->
+    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'icons/icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="512x512" href="{% static 'icons/icon-512x512.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'icons/icon-192x192.png' %}">
+    
     <link rel="stylesheet" href="{% static 'css/destyle.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% block excss %}
@@ -22,8 +38,8 @@
                 <ul>
                     <li class="home-item">
                         <a href="{% url 'home:index' %}">
-                        <i class="fa-solid fa-house"></i>
-                        ホーム
+                        <i class="fa-solid fa-qrcode"></i>
+                        出席管理
                         </a>
                     </li>
                     <li class="account-item">
@@ -43,6 +59,7 @@
         </div>
     </div>
     <script src="https://kit.fontawesome.com/ec27cb450f.js" crossorigin="anonymous"></script>
+    <script src="{% static 'js/pwa.js' %}"></script>
     {% block exjs %}
 
     {% endblock exjs %}

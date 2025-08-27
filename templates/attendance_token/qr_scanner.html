@@ -1,0 +1,146 @@
+{% extends "form-base.html" %}
+{% load static %}
+
+{% block title %}QRコード読み取り - キオスク端末{% endblock title %}
+
+{% block excss %}
+<link rel="stylesheet" href="{% static 'css/qr_scanner.css' %}">
+{% endblock excss %}
+{% block exjs %}
+
+<!-- QRコードリーダーライブラリ -->
+<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+<script>
+let html5QrcodeScanner;
+
+// ページ読み込み時にQRコードスキャナーを初期化
+document.addEventListener('DOMContentLoaded', function() {
+    initQRScanner();
+});
+
+// QRコードスキャナーの初期化
+function initQRScanner() {
+    html5QrcodeScanner = new Html5QrcodeScanner(
+        "qr-reader",
+        { 
+            fps: 10,
+            qrbox: { width: 250, height: 250 },
+            aspectRatio: 1.0
+        },
+        false
+    );
+    
+    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+}
+
+// QRコード読み取り成功時の処理
+function onScanSuccess(decodedText, decodedResult) {
+    console.log(`QRコード読み取り成功: ${decodedText}`);
+    processToken(decodedText);
+}
+
+// QRコード読み取り失敗時の処理
+function onScanFailure(error) {
+    // エラーログは出力しない（連続的に発生するため）
+}
+
+
+
+// トークンの処理
+function processToken(token) {
+    fetch('/attendance_token/confirm-attendance/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({
+            token: token,
+            location: '{{ user.kiosk.location|default:"キオスク端末" }}'
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.message) {
+            // 成功時は即座に成功ページへリダイレクト
+            window.location.href = '/attendance_token/success/';
+        } else {
+            // エラー時はエラーページへリダイレクト
+            window.location.href = '/attendance_token/error/';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        // エラー時はエラーページへリダイレクト
+        window.location.href = '/attendance_token/error/';
+    });
+}
+
+
+
+// CSRFトークンの取得
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+// ログアウト処理
+function logout() {
+    console.log('ログアウト処理を開始します');
+    if (confirm('ログアウトしますか？')) {
+        try {
+            // QRスキャナーを停止
+            if (html5QrcodeScanner) {
+                html5QrcodeScanner.clear();
+            }
+            
+            // POSTリクエストでログアウトを実行
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/accounts/logout/';
+            
+            // CSRFトークンを追加
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = 'csrfmiddlewaretoken';
+            csrfInput.value = getCookie('csrftoken');
+            form.appendChild(csrfInput);
+            
+            // フォームをDOMに追加して送信
+            document.body.appendChild(form);
+            form.submit();
+        } catch (error) {
+            console.error('ログアウト処理中にエラーが発生しました:', error);
+            // エラーが発生した場合はGETリクエストでフォールバック
+            window.location.href = '/accounts/logout/';
+        }
+    }
+}
+</script>
+{% endblock exjs %}
+{% block mainclass %}qr_scanner{% endblock mainclass %}
+{% block content %}
+<h2>チェックイン</h2>
+    <div class="card">
+        <div class="box">
+        <p>現在受付中の授業: {{ user.username }} ({{ user.name }})</p>
+        
+        </div>
+
+        <div id="qr-reader"></div>
+        
+        <button class="txtbtn" onclick="logout()">ログアウト</button>
+    </div>
+</div>
+{% endblock content %}

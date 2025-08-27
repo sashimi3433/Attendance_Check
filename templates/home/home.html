@@ -2,37 +2,80 @@
 {% load static %}
 {% load humanize %}
 
-{% block title %}ホーム{% endblock title %}
+{% block title %}出席管理{% endblock title %}
 {% block mainclass %}home{% endblock mainclass %}
 {% block excss %}
     <link rel="stylesheet" href="{% static 'css/home-home.css' %}">
 {% endblock excss %}
 {% block exjs %}
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/barcodes/JsBarcode.code128.min.js"></script>
-<script id="generate-token-url" type="application/json">{% url 'qr_token:generate_token_api' %}</script>
+<script id="generate-token-url" type="application/json">{% url 'attendance_token:generate_token_api' %}</script>
 <script>
     const userId = "{{ user.id }}";
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.js"></script>
 <script src="{% static "js/home-home.js" %}"></script>
+<script src="{% static "js/pwa.js" %}"></script>
 {% endblock exjs %}
 {% block content %}
-    <div class="card">
-        <img id="barcode"/>
-        <div id="qrcode"></div>
-    </div>
-    <div class="bar">
-        残高<p class="balance"><span>{{user.balance | intcomma }}</span>円</p>
-        <button>更新</button>
+    <!-- PWAインストールボタン -->
+    <div class="pwa-install-container">
+        <button id="install-button" class="install-btn" style="display: none;">
+            <i class="fa-solid fa-download"></i>
+            アプリをインストール
+        </button>
     </div>
 
-    <section class="transactions">
-        <h1 class="title">最近の取引</h1>
+    <div class="card">
+        <img id="barcode"/>
+        <div class="bottombox">
+            <div id="qrcode"></div>
+            <div class="token-info">
+                <div class="countdown-container">
+                    <span class="countdown-label">有効期限: </span>
+                    <span id="countdown-timer" class="countdown-timer">--:--</span>
+                </div>
+                <div class="token-status">
+                    <span id="token-status" class="token-status-text">トークン生成中...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bar">
+        出席状況
+        <p class="attendance-status">
+            <span>
+                {% if has_attended_today %}
+                    本日出席済み ({{ today_attendance_count }}回)
+                {% else %}
+                    本日未出席
+                {% endif %}
+            </span>
+        </p>
+        <button id="attendance-btn">出席確認</button>
+    </div>
+    
+     <section class="transactions">
+        <h1 class="title">出席履歴</h1>
+
         <ul>
-            <li><a href="#">テスト</a></li>
-            <li><a href="#">テスト</a></li>
-            <li><a href="#">テスト</a></li>
-            <li><a href="#">すべての取引</a></li>
+            {% if attendance_records %}
+                {% for record in attendance_records|slice:":5" %}
+                    <li>
+                        <a href="{% url 'attendance_token:attendance_detail' record.id %}">
+                            {{ record.location|default:"未指定" }}
+                        </a>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <li>
+                    <div style="text-align: center; padding: 20px; color: #666;">
+                        <i class="fa-solid fa-calendar-xmark" style="font-size: 24px; margin-bottom: 10px;"></i><br>
+                        まだ出席履歴がありません<br>
+                        <small>QRコードをスキャンして出席確認を行ってください</small>
+                    </div>
+                </li>
+            {% endif %}
         </ul>
     </section>
 

@@ -19,12 +19,7 @@
         <li><a href="#">アカウント設定</a></li>
     </ul>
 
-    {% if user.is_staff %}
-        <ul>
-            <li><a href="{% url "adminmenu:menu" %}">管理者メニュー</a></li>
-            <li><a href="{% url "admin:index" %}">Django 管理サイト</a></li>
-        </ul>
-    {% endif %}
+
 <form action="{% url "accounts:logout" %}" method="POST">
     {% csrf_token %}
     <button class="danger txtbtn">ログアウト</button>

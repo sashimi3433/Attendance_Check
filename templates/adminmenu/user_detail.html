@@ -15,8 +15,10 @@
     <div class="info">
         <p class="value">ユーザー名: {{ target_user.username }}</p>
         <p class="value">名前: {{ target_user.name }}</p>
-        <p class="value">学年: {{ target_user.get_grade_display }}</p>
-        <p class="value">年齢: {{ target_user.age }}</p>
+        <p class="value">アカウント種別: {{ target_user.get_type_display }}</p>
+        <p class="value">生年月日: {{ target_user.birth_date|default:"未設定" }}</p>
+        <p class="value">入学年度: {{ target_user.admission_year|default:"未設定" }}</p>
+        <p class="value">学科: {{ target_user.get_department_display }}</p>
     </div>
 
     <ul>

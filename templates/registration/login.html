@@ -1,23 +1,33 @@
-{% extends 'base.html' %}
+{% extends 'form-base.html' %}
 
 {% block title %}ログイン{% endblock title %}
-{% block excss %}{% endblock excss %}
+{% block excss %}
+{% endblock excss %}
 {% block exjs %}{% endblock exjs %}
-{% block mainclass %}{% endblock mainclass %}
+{% block mainclass %}login{% endblock mainclass %}
 {% block content %}
-<div class="container">
-    <h2>ログイン</h2>
-    <p>このページは従来のパスワード認証用です。</p>
-    <p><a href="{% url 'accounts:login' %}">パスワードなしログインはこちら</a></p>
-    
+<h2>ログイン</h2>
+
+<div class="card">
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">ログイン</button>
+        {% for field in form %}
+        <div class="fieldWrapper">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+            {% endif %}
+            {% if field.errors %}
+                <div class="text-danger">{{ field.errors }}</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        
+        <button type="submit" class="btn btn-primary">ログイン</button>
     </form>
-    
-    <p class="mt-3">
-        <a href="{% url 'accounts:signup' %}">新規アカウント作成はこちら</a>
+    <p class="txtbtn">
+        <a href="{% url 'accounts:signup' %}">新規登録はこちら</a>
     </p>
 </div>
 {% endblock %}

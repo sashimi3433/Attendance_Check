@@ -4,7 +4,7 @@
 {% block excss %}
 {% endblock excss %}
 {% block exjs %}{% endblock exjs %}
-{% block mainclass %}passwordless_login{% endblock mainclass %}
+{% block mainclass %}signup{% endblock mainclass %}
 {% block content %}
 <h2>新規登録</h2>
 
@@ -15,6 +15,9 @@
         <div class="fieldWrapper">
             <label for="{{ field.id_for_label }}">{{ field.label }}</label>
             {{ field }}
+            {% if field.help_text %}
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+            {% endif %}
             {% if field.errors %}
                 <div class="text-danger">{{ field.errors }}</div>
             {% endif %}
@@ -24,7 +27,7 @@
         <button type="submit" class="btn btn-primary">新規登録</button>
     </form>
     <p class="txtbtn">
-        <a href="{% url 'accounts:signup' %}">ログインはこちら</a>
+        <a href="{% url 'accounts:login' %}">ログインはこちら</a>
     </p>
 </div>
 {% endblock %}

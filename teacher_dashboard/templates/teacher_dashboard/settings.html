@@ -1,0 +1,554 @@
+{% extends 'teacher_dashboard/base.html' %}
+
+{% block title %}設定{% endblock title %}
+{% block page_title %}設定{% endblock page_title %}
+
+{% block content %}
+<!-- 設定メニュー -->
+<div class="settings-container">
+    <!-- サイドメニュー -->
+    <div class="settings-sidebar">
+        <nav class="settings-nav">
+            <a href="#profile" class="settings-nav-item active" onclick="showSection('profile')">
+                <i class="fas fa-user"></i>
+                プロフィール
+            </a>
+            <a href="#dashboard" class="settings-nav-item" onclick="showSection('dashboard')">
+                <i class="fas fa-tachometer-alt"></i>
+                ダッシュボード設定
+            </a>
+            <a href="#notifications" class="settings-nav-item" onclick="showSection('notifications')">
+                <i class="fas fa-bell"></i>
+                通知設定
+            </a>
+            <a href="#export" class="settings-nav-item" onclick="showSection('export')">
+                <i class="fas fa-download"></i>
+                エクスポート設定
+            </a>
+            <a href="#security" class="settings-nav-item" onclick="showSection('security')">
+                <i class="fas fa-shield-alt"></i>
+                セキュリティ
+            </a>
+        </nav>
+    </div>
+    
+    <!-- 設定コンテンツ -->
+    <div class="settings-content">
+        <!-- プロフィール設定 -->
+        <div id="profile-section" class="settings-section active">
+            <div class="card">
+                <h3 class="card-title">
+                    <i class="fas fa-user"></i>
+                    プロフィール設定
+                </h3>
+                <form method="post" action="{% url 'teacher_dashboard:settings' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="section" value="profile">
+                    
+                    <div class="form-group">
+                        <label for="name">表示名</label>
+                        <input type="text" id="name" name="name" value="{{ user.name|default:user.username }}" 
+                               class="form-input" placeholder="表示名を入力">
+                        <small class="form-help">ダッシュボードで表示される名前です</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">メールアドレス</label>
+                        <input type="email" id="email" name="email" value="{{ user.email }}" 
+                               class="form-input" placeholder="メールアドレスを入力">
+                        <small class="form-help">通知の送信先として使用されます</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="department">所属部署</label>
+                        <input type="text" id="department" name="department" value="{{ user.department|default:'' }}" 
+                               class="form-input" placeholder="所属部署を入力">
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            保存
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- ダッシュボード設定 -->
+        <div id="dashboard-section" class="settings-section">
+            <div class="card">
+                <h3 class="card-title">
+                    <i class="fas fa-tachometer-alt"></i>
+                    ダッシュボード設定
+                </h3>
+                <form method="post" action="{% url 'teacher_dashboard:settings' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="section" value="dashboard">
+                    
+                    <div class="form-group">
+                        <label for="default_date_range">デフォルト表示期間</label>
+                        <select id="default_date_range" name="default_date_range" class="form-select">
+                            <option value="today" {% if settings.default_date_range == 'today' %}selected{% endif %}>今日</option>
+                            <option value="week" {% if settings.default_date_range == 'week' %}selected{% endif %}>今週</option>
+                            <option value="month" {% if settings.default_date_range == 'month' %}selected{% endif %}>今月</option>
+                        </select>
+                        <small class="form-help">ダッシュボードで最初に表示する期間</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="items_per_page">1ページあたりの表示件数</label>
+                        <select id="items_per_page" name="items_per_page" class="form-select">
+                            <option value="10" {% if settings.items_per_page == 10 %}selected{% endif %}>10件</option>
+                            <option value="25" {% if settings.items_per_page == 25 %}selected{% endif %}>25件</option>
+                            <option value="50" {% if settings.items_per_page == 50 %}selected{% endif %}>50件</option>
+                            <option value="100" {% if settings.items_per_page == 100 %}selected{% endif %}>100件</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="auto_refresh" {% if settings.auto_refresh %}checked{% endif %}>
+                                <span class="checkmark"></span>
+                                自動更新を有効にする
+                            </label>
+                            <small class="form-help">ダッシュボードのデータを定期的に自動更新します</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="show_statistics" {% if settings.show_statistics %}checked{% endif %}>
+                                <span class="checkmark"></span>
+                                統計カードを表示
+                            </label>
+                            <small class="form-help">ダッシュボードに統計情報を表示します</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            保存
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- 通知設定 -->
+        <div id="notifications-section" class="settings-section">
+            <div class="card">
+                <h3 class="card-title">
+                    <i class="fas fa-bell"></i>
+                    通知設定
+                </h3>
+                <form method="post" action="{% url 'teacher_dashboard:settings' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="section" value="notifications">
+                    
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="email_notifications" {% if settings.email_notifications %}checked{% endif %}>
+                                <span class="checkmark"></span>
+                                メール通知を有効にする
+                            </label>
+                            <small class="form-help">重要な更新をメールで受信します</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="daily_summary" {% if settings.daily_summary %}checked{% endif %}>
+                                <span class="checkmark"></span>
+                                日次サマリーを受信
+                            </label>
+                            <small class="form-help">毎日の出席状況サマリーをメールで受信します</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="weekly_report" {% if settings.weekly_report %}checked{% endif %}>
+                                <span class="checkmark"></span>
+                                週次レポートを受信
+                            </label>
+                            <small class="form-help">週間の出席統計レポートをメールで受信します</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notification_time">通知送信時刻</label>
+                        <input type="time" id="notification_time" name="notification_time" 
+                               value="{{ settings.notification_time|default:'09:00' }}" class="form-input">
+                        <small class="form-help">日次サマリーの送信時刻</small>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            保存
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- エクスポート設定 -->
+        <div id="export-section" class="settings-section">
+            <div class="card">
+                <h3 class="card-title">
+                    <i class="fas fa-download"></i>
+                    エクスポート設定
+                </h3>
+                <form method="post" action="{% url 'teacher_dashboard:settings' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="section" value="export">
+                    
+                    <div class="form-group">
+                        <label for="export_format">デフォルトエクスポート形式</label>
+                        <select id="export_format" name="export_format" class="form-select">
+                            <option value="csv" {% if settings.export_format == 'csv' %}selected{% endif %}>CSV</option>
+                            <option value="excel" {% if settings.export_format == 'excel' %}selected{% endif %}>Excel</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="export_encoding">文字エンコーディング</label>
+                        <select id="export_encoding" name="export_encoding" class="form-select">
+                            <option value="utf-8" {% if settings.export_encoding == 'utf-8' %}selected{% endif %}>UTF-8</option>
+                            <option value="shift_jis" {% if settings.export_encoding == 'shift_jis' %}selected{% endif %}>Shift_JIS</option>
+                        </select>
+                        <small class="form-help">CSVファイルの文字エンコーディング</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="include_student_details" {% if settings.include_student_details %}checked{% endif %}>
+                                <span class="checkmark"></span>
+                                学生詳細情報を含める
+                            </label>
+                            <small class="form-help">エクスポートに学生の詳細情報を含めます</small>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            保存
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- セキュリティ設定 -->
+        <div id="security-section" class="settings-section">
+            <div class="card">
+                <h3 class="card-title">
+                    <i class="fas fa-shield-alt"></i>
+                    セキュリティ設定
+                </h3>
+                
+                <!-- パスワード変更 -->
+                <div class="security-item">
+                    <h4>パスワード変更</h4>
+                    <form method="post" action="{% url 'teacher_dashboard:settings' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="section" value="password">
+                        
+                        <div class="form-group">
+                            <label for="current_password">現在のパスワード</label>
+                            <input type="password" id="current_password" name="current_password" 
+                                   class="form-input" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="new_password">新しいパスワード</label>
+                            <input type="password" id="new_password" name="new_password" 
+                                   class="form-input" required>
+                            <small class="form-help">8文字以上で、英数字を含めてください</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="confirm_password">パスワード確認</label>
+                            <input type="password" id="confirm_password" name="confirm_password" 
+                                   class="form-input" required>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-key"></i>
+                                パスワードを変更
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- セッション管理 -->
+                <div class="security-item">
+                    <h4>セッション管理</h4>
+                    <p style="color: var(--text-secondary); margin-bottom: 15px;">
+                        最終ログイン: {{ user.last_login|date:"Y年m月d日 H:i" }}
+                    </p>
+                    <form method="post" action="{% url 'teacher_dashboard:settings' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="section" value="logout_all">
+                        <button type="submit" class="btn btn-secondary" 
+                                onclick="return confirm('すべてのデバイスからログアウトしますか？')">
+                            <i class="fas fa-sign-out-alt"></i>
+                            すべてのデバイスからログアウト
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_css %}
+<style>
+    .settings-container {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        gap: 20px;
+        min-height: 600px;
+    }
+    
+    .settings-sidebar {
+        background-color: var(--card-background);
+        border-radius: 8px;
+        padding: 20px 0;
+        height: fit-content;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .settings-nav {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .settings-nav-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 20px;
+        color: var(--text-primary);
+        text-decoration: none;
+        transition: all 0.2s ease;
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-size: 14px;
+    }
+    
+    .settings-nav-item:hover,
+    .settings-nav-item.active {
+        background-color: var(--primary-color);
+        color: white;
+    }
+    
+    .settings-nav-item i {
+        width: 20px;
+        margin-right: 12px;
+    }
+    
+    .settings-content {
+        position: relative;
+    }
+    
+    .settings-section {
+        display: none;
+    }
+    
+    .settings-section.active {
+        display: block;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+        color: var(--text-primary);
+    }
+    
+    .form-input, .form-select {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        font-size: 14px;
+        background-color: white;
+    }
+    
+    .form-input:focus, .form-select:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+    }
+    
+    .form-help {
+        display: block;
+        margin-top: 5px;
+        font-size: 12px;
+        color: var(--text-secondary);
+    }
+    
+    .checkbox-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .checkbox-label {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        font-weight: normal;
+    }
+    
+    .checkbox-label input[type="checkbox"] {
+        margin-right: 10px;
+        width: 16px;
+        height: 16px;
+    }
+    
+    .form-actions {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border-color);
+    }
+    
+    .security-item {
+        margin-bottom: 40px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .security-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    
+    .security-item h4 {
+        margin: 0 0 15px;
+        color: var(--text-primary);
+        font-size: 16px;
+    }
+    
+    @media (max-width: 768px) {
+        .settings-container {
+            grid-template-columns: 1fr;
+            gap: 0;
+        }
+        
+        .settings-sidebar {
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 0;
+        }
+        
+        .settings-nav {
+            flex-direction: row;
+            overflow-x: auto;
+            padding: 0 10px;
+        }
+        
+        .settings-nav-item {
+            white-space: nowrap;
+            min-width: 120px;
+            justify-content: center;
+        }
+        
+        .settings-content {
+            background-color: var(--card-background);
+            border-radius: 0 0 8px 8px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .settings-content .card {
+            box-shadow: none;
+            border: 1px solid var(--border-color);
+        }
+    }
+</style>
+{% endblock extra_css %}
+
+{% block extra_js %}
+<script>
+    // セクション切り替え
+    function showSection(sectionName) {
+        // すべてのセクションを非表示
+        document.querySelectorAll('.settings-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        
+        // すべてのナビアイテムを非アクティブ
+        document.querySelectorAll('.settings-nav-item').forEach(item => {
+            item.classList.remove('active');
+        });
+        
+        // 指定されたセクションを表示
+        document.getElementById(sectionName + '-section').classList.add('active');
+        
+        // 対応するナビアイテムをアクティブ
+        document.querySelector(`[onclick="showSection('${sectionName}')"]`).classList.add('active');
+        
+        // URLハッシュを更新
+        window.location.hash = sectionName;
+    }
+    
+    // ページ読み込み時にハッシュに基づいてセクションを表示
+    document.addEventListener('DOMContentLoaded', function() {
+        const hash = window.location.hash.substring(1);
+        if (hash && document.getElementById(hash + '-section')) {
+            showSection(hash);
+        }
+    });
+    
+    // パスワード確認のバリデーション
+    document.getElementById('confirm_password')?.addEventListener('input', function() {
+        const newPassword = document.getElementById('new_password').value;
+        const confirmPassword = this.value;
+        
+        if (newPassword !== confirmPassword) {
+            this.setCustomValidity('パスワードが一致しません');
+        } else {
+            this.setCustomValidity('');
+        }
+    });
+    
+    // フォーム送信時の確認
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            const section = this.querySelector('input[name="section"]')?.value;
+            
+            if (section === 'password') {
+                const newPassword = this.querySelector('#new_password').value;
+                if (newPassword.length < 8) {
+                    e.preventDefault();
+                    alert('パスワードは8文字以上で入力してください');
+                    return;
+                }
+            }
+            
+            if (section === 'logout_all') {
+                if (!confirm('すべてのデバイスからログアウトしますか？')) {
+                    e.preventDefault();
+                }
+            }
+        });
+    });
+</script>
+{% endblock extra_js %}

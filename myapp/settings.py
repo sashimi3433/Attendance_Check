@@ -18,8 +18,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'home',
-    'adminmenu',
-    'qr_token',
+    'attendance_token',
+    'checkin',
     'pos',
     'django.contrib.humanize',
 ]
@@ -95,10 +95,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
-# カスタム認証バックエンド
+# 標準のDjango認証バックエンドのみ使用
 AUTHENTICATION_BACKENDS = [
-    'accounts.backends.PasswordlessAuthBackend',
-    'django.contrib.auth.backends.ModelBackend',  # デフォルトのバックエンドも保持
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 LOGIN_URL = 'accounts:login'

@@ -30,6 +30,7 @@
 }
 .form .card form .fieldWrapper input[type=text],
 .form .card form .fieldWrapper input[type=number],
+.form .card form .fieldWrapper input[type=password],
 .form .card form .fieldWrapper select {
   display: block;
   border-bottom: 1px solid #e65151;
@@ -40,6 +41,7 @@
 }
 .form .card form .fieldWrapper input[type=text]:focus,
 .form .card form .fieldWrapper input[type=number]:focus,
+.form .card form .fieldWrapper input[type=password]:focus,
 .form .card form .fieldWrapper select:focus {
   outline: none;
 }
@@ -87,6 +89,14 @@
   text-align: center;
   display: block;
   transition: all 0.25s;
+  padding: 10px;
+  border-radius: 5px;
+}
+.form .txtbtn a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: inherit;
 }
 .form .txtbtn:hover {
   background-color: rgba(0, 0, 0, 0.0666666667);

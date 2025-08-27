@@ -1,4 +1,4 @@
-#!/Users/sashimi/Library/CloudStorage/OneDrive-個人用/ドキュメント/Django/qrpay/.venv/bin/python3
+#!/Users/sashimi/Library/CloudStorage/OneDrive-個人用/ドキュメント/Django/qrpay/.venv/bin/python3.12
 # -*- coding: utf-8 -*-
 import re
 import sys
