@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from accounts.models import Lesson, Teacher
+from accounts.models import Lesson, Teacher, Kiosk
 from django.contrib.auth.decorators import login_required
 from accounts.views import user_type_required
+from django.utils import timezone
 import logging
 
 logger = logging.getLogger(__name__)
@@ -77,9 +78,30 @@ def start_checkin(request):
         lesson_id = request.POST['lesson_id']
         location = request.POST['location']
         lesson = Lesson.objects.get(id=lesson_id)
+
+        # 以前のアクティブなレッスンを終了
+        previous_active_lessons = Lesson.objects.filter(teacher=lesson.teacher, is_active=True)
+        for prev_lesson in previous_active_lessons:
+            prev_lesson.is_active = False
+            prev_lesson.save()
+            # 関連するAttendanceRecordのend_timeを設定
+            from attendance_token.models import AttendanceRecord
+            AttendanceRecord.objects.filter(lesson=prev_lesson, end_time__isnull=True).update(end_time=timezone.now())
+
+        # Kioskのcurrent_lessonをリセット
+        Kiosk.objects.filter(current_lesson__in=previous_active_lessons).update(current_lesson=None)
+
         lesson.location = location
         lesson.reception = True
+        lesson.is_active = True
         lesson.save()
+
+        # 対応するKioskのcurrent_lessonを設定
+        kiosk = Kiosk.objects.filter(location=location).first()
+        if kiosk:
+            kiosk.current_lesson = lesson
+            kiosk.save()
+
         return render(request, 'teacher_dashboard/success.html')
     # Ensure teacher profile exists
     teacher, created = Teacher.objects.get_or_create(
@@ -113,3 +135,27 @@ def edit_lesson(request, lesson_id):
         return render(request, 'teacher_dashboard/success.html', {'message': '授業を更新しました。'})
 
     return render(request, 'teacher_dashboard/edit_lesson.html', {'lesson': lesson, 'locations': locations.values()})
+
+@user_type_required('teacher')
+def end_lesson(request, lesson_id):
+    try:
+        lesson = Lesson.objects.get(id=lesson_id, teacher__user=request.user, is_active=True)
+    except Lesson.DoesNotExist:
+        return render(request, 'teacher_dashboard/error.html', {'message': 'アクティブな授業が見つかりません。'})
+
+    if request.method == 'POST':
+        # レッスンを終了
+        lesson.is_active = False
+        lesson.reception = False
+        lesson.save()
+
+        # 関連するAttendanceRecordのend_timeを設定
+        from attendance_token.models import AttendanceRecord
+        AttendanceRecord.objects.filter(lesson=lesson, end_time__isnull=True).update(end_time=timezone.now())
+
+        # Kioskのcurrent_lessonをリセット
+        Kiosk.objects.filter(current_lesson=lesson).update(current_lesson=None)
+
+        return render(request, 'teacher_dashboard/success.html', {'message': '授業を終了しました。'})
+
+    return render(request, 'teacher_dashboard/end_lesson.html', {'lesson': lesson})

@@ -2,7 +2,7 @@
 # 出席管理用トークンモデル
 from django.db import models
 from django.utils import timezone
-from accounts.models import CustomUser as User
+from accounts.models import CustomUser as User, Lesson
 from datetime import timedelta
 import secrets
 
@@ -103,7 +103,9 @@ class AttendanceRecord(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='attendance_records', verbose_name="ユーザー")
     token = models.ForeignKey(AttendanceToken, on_delete=models.CASCADE, related_name='attendance_records', verbose_name="使用トークン")
+    lesson = models.ForeignKey(Lesson, on_delete=models.SET_NULL, null=True, blank=True, related_name='attendance_records', verbose_name="レッスン")
     attended_at = models.DateTimeField(auto_now_add=True, verbose_name="出席確認日時")
+    end_time = models.DateTimeField(null=True, blank=True, verbose_name="終了時間")
     location = models.CharField(max_length=100, blank=True, null=True, verbose_name="出席場所")
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='present', verbose_name="出席状態")
     notes = models.TextField(blank=True, null=True, verbose_name="備考")

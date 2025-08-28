@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils import timezone
-from accounts.models import CustomUser as User
+from accounts.models import CustomUser as User, Lesson
 from accounts.views import user_type_required
 from attendance_token.models import AttendanceToken, AttendanceRecord
 from attendance_token.utils import get_client_ip, log_ip_access
@@ -38,7 +38,8 @@ def qr_scanner(request):
     QRスキャナーページを表示
     キオスクアカウントのみアクセス可能
     """
-    return render(request, 'checkin/qr_scanner.html')
+    current_lesson = Lesson.objects.filter(location=request.user.name, reception=True).first()
+    return render(request, 'checkin/qr_scanner.html', {'current_lesson': current_lesson})
 
 
 @csrf_exempt
@@ -114,10 +115,23 @@ def confirm_attendance(request):
                 'error': '既にこのトークンで出席確認済みです'
             }, status=400)
         
+        # 現在のレッスンを取得
+        current_lesson = None
+        if hasattr(request.user, 'kiosk_profile') and request.user.kiosk_profile.current_lesson:
+            current_lesson = request.user.kiosk_profile.current_lesson
+
+        # アクティブなレッスンの検証
+        if not current_lesson or not current_lesson.is_active:
+            return JsonResponse({
+                'success': False,
+                'error': 'アクティブなレッスンがありません。チェックインは許可されていません。'
+            }, status=400)
+
         # 出席記録の作成
         attendance_record = AttendanceRecord.objects.create(
             user=user,
             token=attendance_token,
+            lesson=current_lesson,
             status=status,
             location=data.get('location', ''),
             notes=f'キオスクからの出席確認 - {timezone.now().strftime("%Y/%m/%d %H:%M:%S")}'

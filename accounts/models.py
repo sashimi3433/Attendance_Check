@@ -81,6 +81,15 @@ class Teacher(models.Model):
     def __str__(self):
         return f"{self.user.username} - {self.subject}"
 
+class Kiosk(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, limit_choices_to={'type': 'kiosk'}, related_name='kiosk_profile')
+    location = models.CharField(max_length=100, verbose_name='場所')
+    current_lesson = models.ForeignKey('Lesson', on_delete=models.SET_NULL, null=True, blank=True, related_name='active_kiosks', verbose_name='現在のレッスン')
+    is_active = models.BooleanField(default=True, verbose_name='有効')
+
+    def __str__(self):
+        return f"{self.user.username} - {self.location}"
+
 class Lesson(models.Model):
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     subject = models.CharField(max_length=20)
@@ -89,6 +98,7 @@ class Lesson(models.Model):
     lesson_date = models.DateTimeField(blank=True, null=True, verbose_name='授業日時')
     reception = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=False, verbose_name='アクティブ')
 
     def __str__(self):
         return f"{self.subject} - {self.teacher.user.username} (第{self.lesson_times}回)"
