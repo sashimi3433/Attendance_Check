@@ -1,0 +1,20 @@
+.bottombar .bottombar-inner ul .account-item {
+  color: #e65151;
+}
+
+.home-account .card .username {
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 15px auto;
+  color: #333;
+  font-weight: bold;
+}
+.home-account .card .txtbtn {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  transition: all 0.25s;
+}
+.home-account .card .txtbtn:hover {
+  background-color: rgba(0, 0, 0, 0.0666666667);
+}

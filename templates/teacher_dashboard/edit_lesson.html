@@ -35,6 +35,25 @@
         </div>
 
         <div class="fieldWrapper">
+            <label for="target_grade">対象学年</label>
+            <select name="target_grade" id="target_grade">
+                <option value="">-- 学年を選択 --</option>
+                <option value="1" {% if lesson.target_grade == '1' %}selected{% endif %}>1年</option>
+                <option value="2" {% if lesson.target_grade == '2' %}selected{% endif %}>2年</option>
+                <option value="3" {% if lesson.target_grade == '3' %}selected{% endif %}>3年</option>
+            </select>
+        </div>
+
+        <div class="fieldWrapper">
+            <label for="target_major">対象専攻</label>
+            <select name="target_major" id="target_major">
+                <option value="">-- 専攻を選択 --</option>
+                <option value="SE" {% if lesson.target_major == 'SE' %}selected{% endif %}>システムエンジニア専攻</option>
+                <option value="WEB" {% if lesson.target_major == 'WEB' %}selected{% endif %}>WEBエンジニア専攻</option>
+            </select>
+        </div>
+
+        <div class="fieldWrapper">
             <label for="reception">受付状態</label>
             <input type="checkbox" name="reception" id="reception" {% if lesson.reception %}checked{% endif %}>
             <label for="reception">受付中</label>

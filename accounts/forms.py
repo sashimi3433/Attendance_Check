@@ -1,20 +1,22 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.forms import UserChangeForm, AuthenticationForm, UserCreationForm
 from django import forms
-from .models import CustomUser, InvitationCode, department_choices
+from .models import CustomUser, InvitationCode, department_choices, major_choices, grade_choices
 
 class CustomUserChangeForm(UserChangeForm):
     password = None  # パスワードフィールドを完全に除外
     
     class Meta:
         model = CustomUser
-        fields = ('username', 'name', 'birth_date', 'admission_year', 'department')
+        fields = ('username', 'name', 'birth_date', 'admission_year', 'department', 'major', 'grade')
         labels = {
             'username': 'ユーザー名',
             'name': '名前',
             'birth_date': '生年月日',
             'admission_year': '入学年度',
             'department': '学科',
+            'major': '専攻',
+            'grade': '学年',
         }
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control'}),
@@ -22,6 +24,8 @@ class CustomUserChangeForm(UserChangeForm):
             'birth_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'admission_year': forms.NumberInput(attrs={'class': 'form-control'}),
             'department': forms.Select(attrs={'class': 'form-control'}),
+            'major': forms.Select(attrs={'class': 'form-control'}),
+            'grade': forms.Select(attrs={'class': 'form-control'}),
         }
     
     def __init__(self, *args, **kwargs):
@@ -70,10 +74,22 @@ class CustomUserCreationForm(UserCreationForm):
         choices=department_choices,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
+    major = forms.ChoiceField(
+        label='専攻',
+        choices=major_choices,
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        required=True
+    )
+    grade = forms.ChoiceField(
+        label='学年',
+        choices=grade_choices,
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        required=True
+    )
     
     class Meta:
         model = CustomUser
-        fields = ('invitation_code', 'username', 'password1', 'password2', 'name', 'birth_date', 'admission_year', 'department')
+        fields = ('invitation_code', 'username', 'password1', 'password2', 'name', 'birth_date', 'admission_year', 'department', 'major', 'grade')
         labels = {
             'username': 'ユーザー名',
         }
@@ -106,6 +122,8 @@ class CustomUserCreationForm(UserCreationForm):
         user.birth_date = self.cleaned_data['birth_date']
         user.admission_year = self.cleaned_data['admission_year']
         user.department = self.cleaned_data['department']
+        user.major = self.cleaned_data['major']
+        user.grade = self.cleaned_data['grade']
 
         # 招待コードを関連付け
         invitation_code = self.cleaned_data['invitation_code']

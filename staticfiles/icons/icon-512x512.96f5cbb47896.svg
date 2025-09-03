@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="64" fill="#007bff"/>
+  <g transform="translate(96, 96)">
+    <!-- QRコードのようなパターン（大きいサイズ用） -->
+    <rect x="0" y="0" width="80" height="80" fill="white"/>
+    <rect x="16" y="16" width="48" height="48" fill="#007bff"/>
+    
+    <rect x="240" y="0" width="80" height="80" fill="white"/>
+    <rect x="256" y="16" width="48" height="48" fill="#007bff"/>
+    
+    <rect x="0" y="240" width="80" height="80" fill="white"/>
+    <rect x="16" y="256" width="48" height="48" fill="#007bff"/>
+    
+    <!-- 中央のパターン -->
+    <rect x="120" y="120" width="80" height="80" fill="white"/>
+    <rect x="136" y="136" width="48" height="48" fill="#007bff"/>
+    
+    <!-- その他のドット（大きいサイズ用） -->
+    <rect x="96" y="16" width="16" height="16" fill="white"/>
+    <rect x="128" y="16" width="16" height="16" fill="white"/>
+    <rect x="160" y="16" width="16" height="16" fill="white"/>
+    <rect x="192" y="16" width="16" height="16" fill="white"/>
+    
+    <rect x="16" y="96" width="16" height="16" fill="white"/>
+    <rect x="16" y="128" width="16" height="16" fill="white"/>
+    <rect x="16" y="160" width="16" height="16" fill="white"/>
+    <rect x="16" y="192" width="16" height="16" fill="white"/>
+    
+    <rect x="304" y="96" width="16" height="16" fill="white"/>
+    <rect x="304" y="128" width="16" height="16" fill="white"/>
+    <rect x="304" y="160" width="16" height="16" fill="white"/>
+    <rect x="304" y="192" width="16" height="16" fill="white"/>
+    
+    <rect x="96" y="304" width="16" height="16" fill="white"/>
+    <rect x="128" y="304" width="16" height="16" fill="white"/>
+    <rect x="160" y="304" width="16" height="16" fill="white"/>
+    <rect x="192" y="304" width="16" height="16" fill="white"/>
+    
+    <!-- 追加のパターン -->
+    <rect x="240" y="120" width="16" height="16" fill="white"/>
+    <rect x="272" y="120" width="16" height="16" fill="white"/>
+    <rect x="240" y="152" width="16" height="16" fill="white"/>
+    <rect x="272" y="152" width="16" height="16" fill="white"/>
+    
+    <rect x="120" y="240" width="16" height="16" fill="white"/>
+    <rect x="152" y="240" width="16" height="16" fill="white"/>
+    <rect x="120" y="272" width="16" height="16" fill="white"/>
+    <rect x="152" y="272" width="16" height="16" fill="white"/>
+  </g>
+  
+  <!-- アプリ名（大きいサイズ用） -->
+  <text x="256" y="450" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="36" font-weight="bold">出席管理システム</text>
+</svg>

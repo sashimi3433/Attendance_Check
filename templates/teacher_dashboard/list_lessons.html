@@ -15,6 +15,8 @@
                 <th>回数</th>
                 <th>場所</th>
                 <th>授業日時</th>
+                <th>対象学年</th>
+                <th>対象専攻</th>
                 <th>受付状態</th>
                 <th>作成日時</th>
                 <th>操作</th>
@@ -27,6 +29,8 @@
                 <td>{{ lesson.lesson_times }}</td>
                 <td>{{ lesson.location|default:"未設定" }}</td>
                 <td>{{ lesson.lesson_date|date:"Y-m-d H:i"|default:"未設定" }}</td>
+                <td>{% if lesson.target_grade %}{{ lesson.target_grade }}年{% else %}未設定{% endif %}</td>
+                <td>{% if lesson.target_major == 'SE' %}システムエンジニア専攻{% elif lesson.target_major == 'WEB' %}WEBエンジニア専攻{% else %}未設定{% endif %}</td>
                 <td>{% if lesson.reception %}受付中{% else %}未受付{% endif %}</td>
                 <td>{{ lesson.created_at|date:"Y-m-d H:i" }}</td>
                 <td><a href="{% url 'teacher_dashboard:edit_lesson' lesson.id %}">編集</a></td>

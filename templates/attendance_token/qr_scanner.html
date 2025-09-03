@@ -21,17 +21,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // QRコードスキャナーの初期化
 function initQRScanner() {
-    html5QrcodeScanner = new Html5QrcodeScanner(
-        "qr-reader",
-        { 
-            fps: 10,
-            qrbox: { width: 250, height: 250 },
-            aspectRatio: 1.0
-        },
-        false
-    );
-    
-    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+    // DOM要素の存在確認
+    const qrReaderElement = document.getElementById('qr-reader');
+    if (!qrReaderElement) {
+        console.error('QRリーダー要素が見つかりません');
+        return;
+    }
+
+    try {
+        // 既存のスキャナーがある場合はクリア
+        if (html5QrcodeScanner) {
+            html5QrcodeScanner.clear().catch(err => {
+                console.warn('スキャナーのクリアに失敗:', err);
+            });
+        }
+
+        html5QrcodeScanner = new Html5QrcodeScanner(
+            "qr-reader",
+            { 
+                fps: 10,
+                qrbox: { width: 250, height: 250 },
+                aspectRatio: 1.0
+            },
+            false
+        );
+        
+        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+    } catch (error) {
+        console.error('QRスキャナーの初期化に失敗:', error);
+        // エラーが発生した場合はエラーページへリダイレクト
+        window.location.href = '/attendance_token/error/';
+    }
 }
 
 // QRコード読み取り成功時の処理

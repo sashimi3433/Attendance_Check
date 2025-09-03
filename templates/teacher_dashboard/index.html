@@ -17,6 +17,12 @@
         <li>
             <a href="{% url 'teacher_dashboard:list_lessons' %}">授業を編集</a>
         </li>
+        <li>
+            <a href="{% url 'accounts:student_management' %}">生徒管理（CSV機能）</a>
+        </li>
+        <li>
+            <a href="{% url 'teacher_dashboard:attendance_list' %}">出席者一覧</a>
+        </li>
         {% comment %} <li>
             <a href="">授業に生徒を追加</a>
         </li> {% endcomment %}

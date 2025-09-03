@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
+# auditlog管理画面設定をインポート
+import auditlog_admin
 
 urlpatterns = [
     path('admin/', admin.site.urls),

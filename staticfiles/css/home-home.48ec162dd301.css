@@ -1,0 +1,85 @@
+.bottombar .bottombar-inner nav ul .home-item {
+  color: #e65151;
+}
+
+.home {
+  padding: 15px;
+  max-width: 800px;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+.home .card {
+  padding: 20px;
+  border: rgba(0, 0, 0, 0.1529411765) solid 1px;
+  margin: 20px auto;
+  border-radius: 15px;
+  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.35);
+  max-width: 500px;
+}
+.home .card #barcode {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 25px;
+}
+.home .card .bottombox {
+  display: flex;
+  align-items: center;
+  text-align: end;
+}
+.home .card .bottombox #qrcode {
+  width: fit-content;
+  margin-right: auto;
+  margin-left: 10px;
+}
+.home .card .bottombox .countdown-container {
+  margin-bottom: 1rem;
+}
+.home .bar {
+  display: flex;
+  background-color: #e65151;
+  padding: 15px;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.35);
+  margin: 20px auto;
+  color: white;
+  font-size: 1.5rem;
+}
+.home .bar .balance {
+  margin-left: auto;
+}
+.home .bar button {
+  border-radius: 5px;
+  padding: 10px 15px;
+  color: #e65151;
+  font-size: 1rem;
+  background-color: #fff;
+  margin-left: 1rem;
+}
+.home .transactions .title {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+.home .transactions ul li {
+  margin: 3px 0;
+  text-align: center;
+  color: #333;
+  background-color: #EEEEEE;
+  border-radius: 0;
+  transition: all 0.25s;
+}
+.home .transactions ul li:hover {
+  background-color: #E0E0E0;
+}
+.home .transactions ul li a {
+  padding: 15px;
+  display: block;
+  width: 100%;
+}
+.home .transactions ul li:first-of-type {
+  border-radius: 10px 10px 0 0;
+}
+.home .transactions ul li:last-of-type {
+  border-radius: 0 0 10px 10px;
+}

@@ -1,27 +1,9 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>出席確認完了</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+{% extends "form-base.html" %}
+{% load static %}
 
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            animation: fadeIn 0.3s ease-in;
-        }
+{% block title %}出席確認完了{% endblock title %}
+
+{% block content %}
 
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.9); }
@@ -136,56 +118,49 @@
     </style>
 </head>
 <body>
-    <div class="success-container">
-        <div class="checkmark"></div>
-        
-        <h1>出席確認完了！</h1>
-        
-        <div class="success-message">
-            出席が正常に記録されました<br>
-            ありがとうございます
+<div class="form-container">
+    <div class="form-card checkin-success">
+        <div class="icon-section">
+            <i class="fas fa-check-circle success-icon"></i>
         </div>
         
-        <div class="timestamp" id="timestamp">
-            記録時刻: <span id="currentTime"></span>
+        <div class="message-section">
+            <h2 class="success-title">出席確認完了</h2>
+            <p class="success-message">出席が正常に記録されました</p>
         </div>
         
-        <div class="loading-bar">
-            <div class="loading-progress"></div>
+        <div class="progress-section">
+            <p class="redirect-text"><span class="countdown" id="countdown">3</span>秒後にQRコード読み取り画面に戻ります...</p>
+            <div class="progress-bar">
+                <div id="countdown-progress" class="progress-fill"></div>
+            </div>
         </div>
         
-        <div class="redirect-message">
-            3秒後にQRコード読み取り画面に戻ります...
+        <div class="action-section">
+            <a href="/attendance_token/qr-scanner/" class="btn btn-primary">
+                <i class="fas fa-qrcode"></i>
+                今すぐ戻る
+            </a>
         </div>
     </div>
+</div>
 
-    <script>
-        // 現在時刻を表示
-        function updateTimestamp() {
-            const now = new Date();
-            const timeString = now.toLocaleString('ja-JP', {
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            document.getElementById('currentTime').textContent = timeString;
-        }
+<script>
+// 3秒後に自動リダイレクト
+let countdown = 3;
+const progressBar = document.getElementById('countdown-progress');
+const countdownElement = document.getElementById('countdown');
 
-        // 3秒後にQRコード読み取り画面に戻る
-        function redirectToScanner() {
-            setTimeout(() => {
-                window.location.href = '/attendance_token/qr-scanner/';
-            }, 3000);
-        }
-
-        // ページ読み込み時に実行
-        window.addEventListener('load', () => {
-            updateTimestamp();
-            redirectToScanner();
-        });
-    </script>
-</body>
-</html>
+const timer = setInterval(() => {
+    countdown--;
+    const progress = (countdown / 3) * 100;
+    progressBar.style.width = progress + '%';
+    countdownElement.textContent = countdown;
+    
+    if (countdown <= 0) {
+        clearInterval(timer);
+        window.location.href = '/attendance_token/qr-scanner/';
+    }
+}, 1000);
+</script>
+{% endblock content %}

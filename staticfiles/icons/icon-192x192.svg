@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+  <rect width="192" height="192" rx="24" fill="#007bff"/>
+  <g transform="translate(32, 32)">
+    <!-- QRコードのようなパターン -->
+    <rect x="0" y="0" width="32" height="32" fill="white"/>
+    <rect x="8" y="8" width="16" height="16" fill="#007bff"/>
+    
+    <rect x="96" y="0" width="32" height="32" fill="white"/>
+    <rect x="104" y="8" width="16" height="16" fill="#007bff"/>
+    
+    <rect x="0" y="96" width="32" height="32" fill="white"/>
+    <rect x="8" y="104" width="16" height="16" fill="#007bff"/>
+    
+    <!-- 中央のパターン -->
+    <rect x="48" y="48" width="32" height="32" fill="white"/>
+    <rect x="56" y="56" width="16" height="16" fill="#007bff"/>
+    
+    <!-- その他のドット -->
+    <rect x="40" y="8" width="8" height="8" fill="white"/>
+    <rect x="56" y="8" width="8" height="8" fill="white"/>
+    <rect x="72" y="8" width="8" height="8" fill="white"/>
+    
+    <rect x="8" y="40" width="8" height="8" fill="white"/>
+    <rect x="8" y="56" width="8" height="8" fill="white"/>
+    <rect x="8" y="72" width="8" height="8" fill="white"/>
+    
+    <rect x="120" y="40" width="8" height="8" fill="white"/>
+    <rect x="120" y="56" width="8" height="8" fill="white"/>
+    <rect x="120" y="72" width="8" height="8" fill="white"/>
+    
+    <rect x="40" y="120" width="8" height="8" fill="white"/>
+    <rect x="56" y="120" width="8" height="8" fill="white"/>
+    <rect x="72" y="120" width="8" height="8" fill="white"/>
+  </g>
+  
+  <!-- アプリ名 -->
+  <text x="96" y="170" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">出席管理</text>
+</svg>

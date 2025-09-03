@@ -3,6 +3,8 @@
 from django.db import models
 from django.utils import timezone
 from accounts.models import CustomUser as User, Lesson
+from auditlog.registry import auditlog
+from auditlog.models import AuditlogHistoryField
 from datetime import timedelta
 import secrets
 
@@ -19,6 +21,7 @@ class AttendanceToken(models.Model):
     issued_ip = models.GenericIPAddressField(null=True, blank=True, verbose_name="発行元IPアドレス")
     created = models.DateTimeField(auto_now_add=True, verbose_name="作成日時")
     updated = models.DateTimeField(auto_now=True, verbose_name="更新日時")
+    history = AuditlogHistoryField()
 
     def __str__(self):
         return f"出席トークン for {self.user.username} (Key: {self.token[:10]}...)"
@@ -109,6 +112,7 @@ class AttendanceRecord(models.Model):
     location = models.CharField(max_length=100, blank=True, null=True, verbose_name="出席場所")
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='present', verbose_name="出席状態")
     notes = models.TextField(blank=True, null=True, verbose_name="備考")
+    history = AuditlogHistoryField()
 
     def __str__(self):
         return f"{self.user.username} - {self.attended_at.strftime('%Y/%m/%d %H:%M')}"
@@ -117,4 +121,8 @@ class AttendanceRecord(models.Model):
         verbose_name = "出席記録"
         verbose_name_plural = "出席記録"
         ordering = ['-attended_at']
-        unique_together = ['user', 'token']  # 同じユーザーが同じトークンで複数回出席確認することを防ぐ
+        unique_together = ['user', 'lesson']  # 同じユーザーが同じ授業で複数回出席確認することを防ぐ
+
+# auditlogにモデルを登録
+auditlog.register(AttendanceToken)
+auditlog.register(AttendanceRecord)

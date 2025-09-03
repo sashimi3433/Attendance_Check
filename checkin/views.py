@@ -38,7 +38,11 @@ def qr_scanner(request):
     QRスキャナーページを表示
     キオスクアカウントのみアクセス可能
     """
-    current_lesson = Lesson.objects.filter(location=request.user.name, reception=True).first()
+    # キオスクプロファイルから現在のレッスンを取得
+    current_lesson = None
+    if hasattr(request.user, 'kiosk_profile') and request.user.kiosk_profile.current_lesson:
+        current_lesson = request.user.kiosk_profile.current_lesson
+    
     return render(request, 'checkin/qr_scanner.html', {'current_lesson': current_lesson})
 
 
@@ -125,6 +129,18 @@ def confirm_attendance(request):
             return JsonResponse({
                 'success': False,
                 'error': 'アクティブなレッスンがありません。チェックインは許可されていません。'
+            }, status=400)
+
+        # 重複チェックイン防止：同じユーザーが同じ授業に既に出席記録があるかチェック
+        existing_record = AttendanceRecord.objects.filter(
+            user=user,
+            lesson=current_lesson
+        ).first()
+        
+        if existing_record:
+            return JsonResponse({
+                'success': False,
+                'error': f'この授業には既にチェックイン済みです。出席時刻: {existing_record.attended_at.strftime("%Y/%m/%d %H:%M:%S")}'
             }, status=400)
 
         # 出席記録の作成

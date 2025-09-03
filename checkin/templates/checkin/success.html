@@ -1,67 +1,76 @@
-{% extends "base.html" %}
-{% load static %}
+{% extends 'form-base.html' %}
 
-{% block title %}出席確認完了 - 出席確認システム{% endblock title %}
+{% block title %}出席確認完了{% endblock title %}
+{% block mainclass %}checkin-success{% endblock mainclass %}
 
 {% block content %}
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card border-success">
-                <div class="card-header bg-success text-white">
-                    <h4 class="mb-0">
-                        <i class="fas fa-check-circle me-2"></i>
-                        出席確認完了
-                    </h4>
-                </div>
-                <div class="card-body text-center">
-                    <div class="mb-4">
-                        <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
-                    </div>
-                    <h5 class="text-success mb-3">出席確認が正常に完了しました</h5>
-                    <div class="mt-4">
-                        <div class="mb-3">
-                            <p class="text-muted">3秒後に自動でQRコード読み取りページに戻ります...</p>
-                            <div class="progress" style="height: 5px;">
-                                <div id="countdown-progress" class="progress-bar bg-success" role="progressbar" style="width: 100%"></div>
-                            </div>
-                        </div>
-                        {% if not user.invitation_code %}
-                            <a href="{% url 'checkin:qr_scanner' %}" class="btn btn-primary">
-                                <i class="fas fa-qrcode me-2"></i>
-                                QRコード読み取りに戻る
-                            </a>
-                        {% else %}
-                            <a href="{% url 'home:index' %}" class="btn btn-primary">
-                                <i class="fas fa-home me-2"></i>
-                                ホームに戻る
-                            </a>
-                        {% endif %}
-                    </div>
-                </div>
+<h2>出席確認完了</h2>
+
+<div class="card">
+    <div class="success-content">
+        <!-- 成功アイコン -->
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        
+        <!-- メッセージ -->
+        <div class="success-message">
+            <h3>出席確認が正常に完了しました</h3>
+            <p>ありがとうございます</p>
+        </div>
+        
+        <!-- プログレスバー -->
+        <div class="progress-section">
+            <p class="redirect-text">3秒後に自動でQRコード読み取りページに戻ります...</p>
+            <div class="progress-bar-container">
+                <div id="countdown-progress" class="progress-bar"></div>
             </div>
+        </div>
+        
+        <!-- ボタン -->
+        <div class="button-section">
+            {% if not user.invitation_code %}
+                <a href="{% url 'checkin:qr_scanner' %}" class="btn btn-primary">
+                    <i class="fas fa-qrcode"></i>
+                    QRコード読み取りに戻る
+                </a>
+            {% else %}
+                <a href="{% url 'home:index' %}" class="btn btn-primary">
+                    <i class="fas fa-home"></i>
+                    ホームに戻る
+                </a>
+            {% endif %}
         </div>
     </div>
 </div>
 
 <script>
-// 3秒後に自動リダイレクト
-let countdown = 3;
-const progressBar = document.getElementById('countdown-progress');
-
-const timer = setInterval(() => {
-    countdown--;
-    const progress = (countdown / 3) * 100;
-    progressBar.style.width = progress + '%';
+// 自動リダイレクト機能
+document.addEventListener('DOMContentLoaded', function() {
+    const progressBar = document.getElementById('countdown-progress');
+    const redirectTime = 3000; // 3秒
+    const updateInterval = 100; // 100ms間隔で更新
+    let currentTime = redirectTime;
     
-    if (countdown <= 0) {
-        clearInterval(timer);
-        {% if not user.invitation_code %}
-            window.location.href = "{% url 'checkin:qr_scanner' %}";
-        {% else %}
-            window.location.href = "{% url 'home:index' %}";
-        {% endif %}
-    }
-}, 1000);
+    // プログレスバーの更新
+    const timer = setInterval(function() {
+        currentTime -= updateInterval;
+        const progress = (currentTime / redirectTime) * 100;
+        
+        if (progressBar) {
+            progressBar.style.width = progress + '%';
+        }
+        
+        if (currentTime <= 0) {
+            clearInterval(timer);
+            // リダイレクト先の判定
+            {% if not user.invitation_code %}
+                window.location.href = "{% url 'checkin:qr_scanner' %}";
+            {% else %}
+                window.location.href = "{% url 'home:index' %}";
+            {% endif %}
+        }
+    }, updateInterval);
+});
 </script>
 {% endblock content %}

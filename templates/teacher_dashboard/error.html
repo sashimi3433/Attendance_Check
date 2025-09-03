@@ -1,12 +1,26 @@
-{% extends "t-base.html" %}
+{% extends "form-base.html" %}
+{% load static %}
+
 {% block title %}エラー{% endblock title %}
-{% block mainclass %}error{% endblock mainclass %}
-{% block excss %}
-{% endblock excss %}
+
 {% block content %}
-<div class="container">
-    <i class="fa-solid fa-circle-xmark"></i>
-    <p>{{ message|default:"エラーが発生しました。" }}</p>
-    <a href="{% url 'teacher_dashboard:index' %}" class="txtbtn">ダッシュボードに戻る</a>
+<div class="form-container">
+    <div class="form-card checkin-error">
+        <div class="icon-section">
+            <i class="fas fa-times-circle error-icon"></i>
+        </div>
+        
+        <div class="message-section">
+            <h2 class="error-title">エラーが発生しました</h2>
+            <p class="error-message">{{ error_message|default:"予期しないエラーが発生しました。" }}</p>
+        </div>
+        
+        <div class="action-section">
+            <a href="{% url 'teacher_dashboard:dashboard' %}" class="btn btn-primary">
+                <i class="fas fa-home"></i>
+                ダッシュボードに戻る
+            </a>
+        </div>
+    </div>
 </div>
 {% endblock content %}

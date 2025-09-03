@@ -23,10 +23,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // イベントリスナーの初期化
 function initEventListeners() {
-    // メッセージを閉じるボタン
-    document.getElementById('close-message-btn').addEventListener('click', function() {
-        resetScanner();
-    });
+    // メッセージを閉じるボタンの存在確認
+    const closeMessageBtn = document.getElementById('close-message-btn');
+    if (closeMessageBtn) {
+        closeMessageBtn.addEventListener('click', function() {
+            resetScanner();
+        });
+    } else {
+        console.warn('close-message-btnが見つかりません');
+    }
 }
 
 // リアルタイム時計を開始
@@ -44,24 +49,53 @@ function updateClock() {
 
 // スキャナーをリセット
 function resetScanner() {
-    document.getElementById('message-container').style.display = 'none';
-    document.getElementById('qr-reader').style.display = 'block';
+    const messageContainer = document.getElementById('message-container');
+    const qrReader = document.getElementById('qr-reader');
+    
+    if (messageContainer) {
+        messageContainer.style.display = 'none';
+    }
+    
+    if (qrReader) {
+        qrReader.style.display = 'block';
+    }
+    
     initQRScanner();
 }
 
 // QRコードスキャナーの初期化
 function initQRScanner() {
-    html5QrcodeScanner = new Html5QrcodeScanner(
-        "qr-reader",
-        { 
-            fps: 10,
-            qrbox: { width: 250, height: 250 },
-            aspectRatio: 1.0
-        },
-        false
-    );
-    
-    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+    // DOM要素の存在確認
+    const qrReaderElement = document.getElementById('qr-reader');
+    if (!qrReaderElement) {
+        console.error('QRリーダー要素が見つかりません');
+        return;
+    }
+
+    try {
+        // 既存のスキャナーがある場合はクリア
+        if (html5QrcodeScanner) {
+            html5QrcodeScanner.clear().catch(err => {
+                console.warn('スキャナーのクリアに失敗:', err);
+            });
+        }
+
+        html5QrcodeScanner = new Html5QrcodeScanner(
+            "qr-reader",
+            { 
+                fps: 10,
+                qrbox: { width: 250, height: 250 },
+                aspectRatio: 1.0
+            },
+            false
+        );
+        
+        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+    } catch (error) {
+        console.error('QRスキャナーの初期化に失敗:', error);
+        // エラーメッセージを表示
+        showMessage('error', 'QRスキャナーの初期化に失敗しました');
+    }
 }
 
 // QRコード読み取り成功時の処理
@@ -138,6 +172,13 @@ function showMessage(type, message) {
     const messageContainer = document.getElementById('message-container');
     const messageText = document.getElementById('message-text');
     const messageIcon = document.getElementById('message-icon');
+    const qrReader = document.getElementById('qr-reader');
+
+    // DOM要素の存在確認
+    if (!messageContainer || !messageText || !messageIcon) {
+        console.error('メッセージ表示に必要な要素が見つかりません');
+        return;
+    }
 
     messageContainer.className = `message-container ${type}`;
     messageText.textContent = message;
@@ -150,7 +191,9 @@ function showMessage(type, message) {
         messageIcon.textContent = '✗';
     }
 
-    document.getElementById('qr-reader').style.display = 'none';
+    if (qrReader) {
+        qrReader.style.display = 'none';
+    }
     messageContainer.style.display = 'block';
 
     // 3秒後に自動でスキャナーを再開

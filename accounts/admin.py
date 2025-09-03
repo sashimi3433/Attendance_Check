@@ -3,8 +3,8 @@ from .models import CustomUser, InvitationCode, Teacher, Lesson
 
 @admin.register(CustomUser)
 class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'name', 'birth_date', 'admission_year', 'department', 'invitation_code', 'date_joined')
-    list_filter = ('department', 'invitation_code', 'admission_year')
+    list_display = ('username', 'name', 'birth_date', 'admission_year', 'department', 'major', 'grade', 'invitation_code', 'date_joined')
+    list_filter = ('department', 'major', 'grade', 'invitation_code', 'admission_year')
     search_fields = ('username', 'name')
     readonly_fields = ('date_joined', 'last_login')
 

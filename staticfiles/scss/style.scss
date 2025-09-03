@@ -1,0 +1,196 @@
+@import '_variables';
+
+@font-face {
+    font-family: 'LINESeedJP';
+    src: url('../fonts/LINESeedJP_OTF_Th.woff2') format('woff2');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'LINESeedJP';
+    src: url('../fonts/LINESeedJP_OTF_Rg.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'LINESeedJP';
+    src: url('../fonts/LINESeedJP_OTF_Bd.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'LINESeedJP';
+    src: url('../fonts/LINESeedJP_OTF_Eb.woff2') format('woff2');
+    font-weight: 800;
+    font-style: normal;
+}
+
+body {
+
+    font-family: 'LINESeedJP', sans-serif;
+
+    .info {
+        padding: 15px;
+        border-radius: 15px;
+        font-size: 1.2rem;
+
+        .value {
+            padding: 15px;
+            text-align: start;
+            background-color: #ffffff;
+            margin: 3px 0;
+
+            &:first-of-type {
+                border-radius: 10px 10px 0 0;
+            }
+
+            &:last-of-type {
+                border-radius: 0 0 10px 10px;
+            }
+        }
+    }
+
+    .menu {
+        background-color: $theme_color;
+        min-height: 100vh;
+
+        h2 {
+            color: white;
+            padding: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .card {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 15px 15px 0 0;
+            min-height: 95vh;
+            max-width: 800px;
+            margin: 0 auto;
+
+            ul {
+                margin: 5vh auto;
+
+                li {
+                    margin: 3px 0;
+                    text-align: center;
+                    color: #333;
+                    background-color: $GRAY_200;
+                    border-radius: 0;
+                    transition: all .25s;
+
+                    &:hover {
+                        background-color: $GRAY_300;
+                    }
+
+                    a {
+                        padding: 15px;
+                        display: block;
+                        width: 100%;
+                    }
+
+                    &:first-of-type {
+                        border-radius: 10px 10px 0 0;
+                    }
+
+                    &:last-of-type {
+                        border-radius: 0 0 10px 10px;
+                    }
+
+                }
+            }
+        }
+    }
+
+    main {
+
+        .txtbtn {
+            padding: 15px;
+            color: $theme_color;
+        }
+
+        .danger {
+            color: $RED_A700;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+
+            th,
+            td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+            th {
+                background-color: $GRAY_200;
+                font-weight: bold;
+            }
+
+            tr:hover {
+                background-color: $GRAY_100;
+            }
+
+            a {
+                color: $theme_color;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    .bottombar {
+        width: 100%;
+        position: sticky;
+        bottom: 0;
+        left: 0;
+        box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.555);
+        background-color: #fff;
+
+        .bottombar-inner {
+            max-width: 1000px;
+            padding: 20px 15px 15px 15px;
+            margin: 0 auto;
+
+            nav {
+                margin: 0 auto;
+
+                ul {
+                    display: flex;
+                    justify-content: space-around;
+
+                    li {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        flex-direction: column;
+                        color: #333;
+                        text-align: center;
+                        width: 30%;
+                        min-height: auto;
+
+                        i {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            flex-direction: column;
+                            font-size: 2rem;
+                            margin-bottom: 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

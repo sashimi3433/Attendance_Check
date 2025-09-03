@@ -1,0 +1,30 @@
+{
+  "name": "出席管理システム",
+  "short_name": "出席管理",
+  "description": "QRコードを使用した出席管理システム",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#e65151",
+  "orientation": "portrait",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/static/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/static/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "categories": [
+    "education",
+    "productivity"
+  ],
+  "lang": "ja"
+}

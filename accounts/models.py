@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from auditlog.registry import auditlog
+from auditlog.models import AuditlogHistoryField
 import random
 import string
 
@@ -13,6 +15,19 @@ department_choices = (
     ('other', 'その他'),
 )
 
+# 専攻の選択肢
+major_choices = (
+    ('SE', 'システムエンジニア専攻'),
+    ('WEB', 'WEBエンジニア専攻'),
+)
+
+# 学年の選択肢
+grade_choices = (
+    ('1', '1年'),
+    ('2', '2年'),
+    ('3', '3年'),
+)
+
 class InvitationCode(models.Model):
     """
     招待コード管理モデル
@@ -24,6 +39,7 @@ class InvitationCode(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='作成日時')
     is_active = models.BooleanField(default=True, verbose_name='有効フラグ')
     used_count = models.IntegerField(default=0, verbose_name='使用回数')
+    history = AuditlogHistoryField()
     
     class Meta:
         verbose_name = '招待コード'
@@ -71,12 +87,34 @@ class CustomUser(AbstractUser):
         blank=True,
         verbose_name='使用した招待コード'
     )
+    current_session_key = models.CharField(
+        max_length=40,
+        null=True,
+        blank=True,
+        verbose_name='現在のセッションキー'
+    )
+    major = models.CharField(
+        max_length=20,
+        choices=major_choices,
+        blank=True,
+        default='',
+        verbose_name='専攻'
+    )
+    grade = models.CharField(
+        max_length=1,
+        choices=grade_choices,
+        blank=True,
+        default='',
+        verbose_name='学年'
+    )
+    history = AuditlogHistoryField()
 
 
 
 class Teacher(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, limit_choices_to={'invitation_code__type': 'teacher'}, related_name='teacher_profile')
     subject = models.CharField(max_length=20, default='デフォルト科目')
+    history = AuditlogHistoryField()
 
     def __str__(self):
         return f"{self.user.username} - {self.subject}"
@@ -86,6 +124,7 @@ class Kiosk(models.Model):
     location = models.CharField(max_length=100, verbose_name='場所')
     current_lesson = models.ForeignKey('Lesson', on_delete=models.SET_NULL, null=True, blank=True, related_name='active_kiosks', verbose_name='現在のレッスン')
     is_active = models.BooleanField(default=True, verbose_name='有効')
+    history = AuditlogHistoryField()
 
     def __str__(self):
         return f"{self.user.username} - {self.location}"
@@ -99,6 +138,28 @@ class Lesson(models.Model):
     reception = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=False, verbose_name='アクティブ')
+    target_grade = models.CharField(
+        max_length=1,
+        choices=grade_choices,
+        blank=True,
+        default='',
+        verbose_name='対象学年'
+    )
+    target_major = models.CharField(
+        max_length=20,
+        choices=major_choices,
+        blank=True,
+        default='',
+        verbose_name='対象専攻'
+    )
+    history = AuditlogHistoryField()
 
     def __str__(self):
         return f"{self.subject} - {self.teacher.user.username} (第{self.lesson_times}回)"
+
+# auditlogにモデルを登録
+auditlog.register(InvitationCode)
+auditlog.register(CustomUser)
+auditlog.register(Teacher)
+auditlog.register(Kiosk)
+auditlog.register(Lesson)

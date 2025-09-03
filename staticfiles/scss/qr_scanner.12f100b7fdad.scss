@@ -1,0 +1,23 @@
+.qr_scanner {
+
+    .card {
+
+        #qr-reader {
+            width: 100%;
+            max-width: 500px;
+            height: 400px;
+            margin: 0 auto;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .txtbtn {
+            width: 100%;
+            margin: 10px 0;
+        }
+    }
+}
+
+.success {}
+
+.error {}

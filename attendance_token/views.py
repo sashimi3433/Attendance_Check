@@ -98,13 +98,32 @@ def attendance_detail(request, record_id):
     """
     try:
         # ユーザー自身の出席記録のみ取得可能
-        record = AttendanceRecord.objects.get(
+        record = AttendanceRecord.objects.select_related(
+            'lesson__teacher__user', 'lesson'
+        ).get(
             id=record_id,
             user=request.user
         )
         
+        # 担当講師名を取得
+        teacher_name = ""
+        if record.lesson and record.lesson.teacher:
+            teacher_name = record.lesson.teacher.user.name or record.lesson.teacher.user.username
+        
+        # キオスク名を取得（レッスンの場所に基づいて）
+        kiosk_name = ""
+        if record.lesson and record.lesson.location:
+            from accounts.models import Kiosk
+            try:
+                kiosk = Kiosk.objects.get(location=record.lesson.location)
+                kiosk_name = kiosk.user.name or kiosk.user.username
+            except Kiosk.DoesNotExist:
+                kiosk_name = record.lesson.location  # キオスクが見つからない場合は場所名を表示
+        
         context = {
-            'record': record
+            'record': record,
+            'teacher_name': teacher_name,
+            'kiosk_name': kiosk_name
         }
         
         return render(request, 'attendance_token/attendance_detail.html', context)

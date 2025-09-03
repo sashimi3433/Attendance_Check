@@ -17,6 +17,23 @@
         <label for="">生成個数</label>
         <input type="number" name="lesson_count" id="">
         </div>
+        <div class="fieldWrapper">
+        <label for="target_grade">対象学年</label>
+        <select name="target_grade" id="target_grade">
+            <option value="">-- 学年を選択 --</option>
+            <option value="1">1年</option>
+            <option value="2">2年</option>
+            <option value="3">3年</option>
+        </select>
+        </div>
+        <div class="fieldWrapper">
+        <label for="target_major">対象専攻</label>
+        <select name="target_major" id="target_major">
+            <option value="">-- 専攻を選択 --</option>
+            <option value="SE">システムエンジニア専攻</option>
+            <option value="WEB">WEBエンジニア専攻</option>
+        </select>
+        </div>
         <button type="submit">授業を生成</button>
         <a href="{% url 'teacher_dashboard:index' %}" class="txtbtn">キャンセル</a>
     </form>

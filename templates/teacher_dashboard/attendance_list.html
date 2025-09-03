@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>出席者一覧 - 講師ダッシュボード</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .dashboard-header {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+        }
+        .card-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            border-radius: 12px 12px 0 0 !important;
+            font-weight: 600;
+        }
+        .btn-primary {
+            background-color: #2563eb;
+            border-color: #2563eb;
+            border-radius: 6px;
+        }
+        .btn-primary:hover {
+            background-color: #1d4ed8;
+            border-color: #1d4ed8;
+        }
+        .table th {
+            background-color: #f8f9fa;
+            border-top: none;
+            font-weight: 600;
+            color: #495057;
+        }
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        .status-present {
+            background-color: #d1f2eb;
+            color: #0f5132;
+        }
+        .status-late {
+            background-color: #fff3cd;
+            color: #664d03;
+        }
+        .filter-sidebar {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        .stats-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+        .stats-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        .stats-label {
+            color: #6c757d;
+            font-size: 0.875rem;
+        }
+        @media (max-width: 768px) {
+            .table-responsive {
+                font-size: 0.875rem;
+            }
+            .filter-sidebar {
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="mb-0"><i class="fas fa-users me-3"></i>出席者一覧</h1>
+                    <p class="mb-0 mt-2">授業の出席状況を確認・管理できます</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <a href="{% url 'teacher_dashboard:index' %}" class="btn btn-light">
+                        <i class="fas fa-arrow-left me-2"></i>ダッシュボードに戻る
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- 授業選択セクション -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-chalkboard-teacher me-2"></i>授業選択</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <select class="form-select" id="lessonSelect" onchange="selectLesson()">
+                            <option value="">授業を選択してください</option>
+                            {% for lesson in lessons %}
+                                <option value="{{ lesson.id }}" {% if selected_lesson and lesson.id == selected_lesson.id %}selected{% endif %}>
+                                    {{ lesson.subject }} - {{ lesson.lesson_date|date:"Y年m月d日" }} ({{ lesson.lesson_times }}回目)
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        {% if selected_lesson %}
+                            <a href="{% url 'teacher_dashboard:attendance_export' selected_lesson.id %}" class="btn btn-success w-100">
+                                <i class="fas fa-download me-2"></i>CSVエクスポート
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if selected_lesson %}
+            <!-- 統計情報 -->
+            <div class="row mb-4">
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <div class="stats-number">{{ total_count }}</div>
+                        <div class="stats-label">総出席者数</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <div class="stats-number text-success">{{ present_count }}</div>
+                        <div class="stats-label">出席</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <div class="stats-number text-warning">{{ late_count }}</div>
+                        <div class="stats-label">遅刻</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stats-card">
+                        <div class="stats-number text-info">{{ present_count|add:late_count|floatformat:0 }}%</div>
+                        <div class="stats-label">出席率</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- フィルタリングサイドバー -->
+                <div class="col-md-3">
+                    <div class="filter-sidebar">
+                        <h6 class="mb-3"><i class="fas fa-filter me-2"></i>フィルタリング</h6>
+                        <form method="GET" id="filterForm">
+                            <div class="mb-3">
+                                <label class="form-label">出席状況</label>
+                                <select name="status" class="form-select form-select-sm" onchange="applyFilters()">
+                                    <option value="">すべて</option>
+                                    <option value="present" {% if current_filters.status == 'present' %}selected{% endif %}>出席</option>
+                                    <option value="late" {% if current_filters.status == 'late' %}selected{% endif %}>遅刻</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">学年</label>
+                                <select name="grade" class="form-select form-select-sm" onchange="applyFilters()">
+                                    <option value="">すべて</option>
+                                    {% for grade in grades %}
+                                        <option value="{{ grade }}" {% if current_filters.grade == grade %}selected{% endif %}>{{ grade }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">専攻</label>
+                                <select name="major" class="form-select form-select-sm" onchange="applyFilters()">
+                                    <option value="">すべて</option>
+                                    {% for major in majors %}
+                                        <option value="{{ major }}" {% if current_filters.major == major %}selected{% endif %}>{{ major }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <button type="button" class="btn btn-outline-secondary btn-sm w-100" onclick="clearFilters()">
+                                <i class="fas fa-times me-2"></i>フィルタをクリア
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- 出席者一覧テーブル -->
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">{{ selected_lesson.subject }} - 出席者一覧</h5>
+                            <small class="text-muted">{{ selected_lesson.lesson_date|date:"Y年m月d日" }}</small>
+                        </div>
+                        <div class="card-body p-0">
+                            {% if attendance_records %}
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>学生番号</th>
+                                                <th>氏名</th>
+                                                <th>学年</th>
+                                                <th>専攻</th>
+                                                <th>出席状況</th>
+                                                <th>出席時間</th>
+                                                <th>終了時間</th>
+                                                <th>操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for record in attendance_records %}
+                                                <tr>
+                                                    <td>{{ record.user.username }}</td>
+                                                    <td>{{ record.user.name|default:record.user.username }}</td>
+                                                    <td>{{ record.user.grade|default:"-" }}</td>
+                                                    <td>{{ record.user.major|default:"-" }}</td>
+                                                    <td>
+                                                        {% if record.status == 'present' %}
+                                                            <span class="status-badge status-present">出席</span>
+                                                        {% elif record.status == 'late' %}
+                                                            <span class="status-badge status-late">遅刻</span>
+                                                        {% else %}
+                                                            <span class="status-badge">{{ record.status }}</span>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>{{ record.attended_at|date:"H:i" }}</td>
+                                                    <td>{{ record.end_time|date:"H:i"|default:"-" }}</td>
+                                                    <td>
+                                                        <a href="{% url 'teacher_dashboard:attendance_detail' record.id %}" class="btn btn-sm btn-outline-primary">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% else %}
+                                <div class="text-center py-5">
+                                    <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                                    <h5 class="text-muted">出席者がいません</h5>
+                                    <p class="text-muted">この授業にはまだ出席者がいません。</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="card">
+                <div class="card-body text-center py-5">
+                    <i class="fas fa-chalkboard-teacher fa-3x text-muted mb-3"></i>
+                    <h5 class="text-muted">授業を選択してください</h5>
+                    <p class="text-muted">上記のドロップダウンから授業を選択すると、出席者一覧が表示されます。</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function selectLesson() {
+            const select = document.getElementById('lessonSelect');
+            const lessonId = select.value;
+            if (lessonId) {
+                window.location.href = `{% url 'teacher_dashboard:attendance_list' %}${lessonId}/`;
+            } else {
+                window.location.href = `{% url 'teacher_dashboard:attendance_list' %}`;
+            }
+        }
+
+        function applyFilters() {
+            const form = document.getElementById('filterForm');
+            const formData = new FormData(form);
+            const params = new URLSearchParams();
+            
+            for (let [key, value] of formData.entries()) {
+                if (value) {
+                    params.append(key, value);
+                }
+            }
+            
+            const currentUrl = window.location.pathname;
+            const newUrl = currentUrl + (params.toString() ? '?' + params.toString() : '');
+            window.location.href = newUrl;
+        }
+
+        function clearFilters() {
+            const currentUrl = window.location.pathname;
+            window.location.href = currentUrl;
+        }
+    </script>
+</body>
+</html>

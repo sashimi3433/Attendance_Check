@@ -1,0 +1,158 @@
+@font-face {
+  font-family: "LINESeedJP";
+  src: url("../fonts/LINESeedJP_OTF_Th.933eae666675.woff2") format("woff2");
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: "LINESeedJP";
+  src: url("../fonts/LINESeedJP_OTF_Rg.b4739e785d30.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "LINESeedJP";
+  src: url("../fonts/LINESeedJP_OTF_Bd.d1be894884f8.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "LINESeedJP";
+  src: url("../fonts/LINESeedJP_OTF_Eb.a93d57a1ba55.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+}
+body {
+  font-family: "LINESeedJP", sans-serif;
+}
+body .info {
+  padding: 15px;
+  border-radius: 15px;
+  font-size: 1.2rem;
+}
+body .info .value {
+  padding: 15px;
+  text-align: start;
+  background-color: #ffffff;
+  margin: 3px 0;
+}
+body .info .value:first-of-type {
+  border-radius: 10px 10px 0 0;
+}
+body .info .value:last-of-type {
+  border-radius: 0 0 10px 10px;
+}
+body .menu {
+  background-color: #e65151;
+  min-height: 100vh;
+}
+body .menu h2 {
+  color: white;
+  padding: 20px;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+}
+body .menu .card {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 15px 15px 0 0;
+  min-height: 95vh;
+  max-width: 800px;
+  margin: 0 auto;
+}
+body .menu .card ul {
+  margin: 5vh auto;
+}
+body .menu .card ul li {
+  margin: 3px 0;
+  text-align: center;
+  color: #333;
+  background-color: #EEEEEE;
+  border-radius: 0;
+  transition: all 0.25s;
+}
+body .menu .card ul li:hover {
+  background-color: #E0E0E0;
+}
+body .menu .card ul li a {
+  padding: 15px;
+  display: block;
+  width: 100%;
+}
+body .menu .card ul li:first-of-type {
+  border-radius: 10px 10px 0 0;
+}
+body .menu .card ul li:last-of-type {
+  border-radius: 0 0 10px 10px;
+}
+body main .txtbtn {
+  padding: 15px;
+  color: #e65151;
+}
+body main .danger {
+  color: #D50000;
+}
+body main table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+body main table th,
+body main table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+body main table th {
+  background-color: #EEEEEE;
+  font-weight: bold;
+}
+body main table tr:hover {
+  background-color: #F5F5F5;
+}
+body main table a {
+  color: #e65151;
+  text-decoration: none;
+}
+body main table a:hover {
+  text-decoration: underline;
+}
+body .bottombar {
+  width: 100%;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.555);
+  background-color: #fff;
+}
+body .bottombar .bottombar-inner {
+  max-width: 1000px;
+  padding: 20px 15px 15px 15px;
+  margin: 0 auto;
+}
+body .bottombar .bottombar-inner nav {
+  margin: 0 auto;
+}
+body .bottombar .bottombar-inner nav ul {
+  display: flex;
+  justify-content: space-around;
+}
+body .bottombar .bottombar-inner nav ul li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: #333;
+  text-align: center;
+  width: 30%;
+  min-height: auto;
+}
+body .bottombar .bottombar-inner nav ul li i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 2rem;
+  margin-bottom: 5px;
+}

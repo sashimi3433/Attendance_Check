@@ -1,0 +1,150 @@
+{% extends 't-base.html' %}
+{% load static %}
+
+{% block title %}生徒データインポート{% endblock %}
+
+{% block excss %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">生徒データCSVインポート</h4>
+                </div>
+                <div class="card-body">
+                    <!-- メッセージ表示セクション -->
+                    <div class="message-section">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                    {{ message|linebreaksbr }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <!-- CSVアップロードフォームセクション -->
+                    <div class="upload-form-section">
+                        <form method="post" enctype="multipart/form-data" id="upload-form">
+                            {% csrf_token %}
+                            <!-- 統合アップロードセクション -->
+                            <div class="upload-section mb-4">
+                                <label class="form-label">CSVファイルを選択</label>
+                                <!-- ドラッグ&ドロップエリア -->
+                                <div id="drop-zone" class="drop-zone">
+                                    <div class="drop-zone-content">
+                                        <i class="fas fa-cloud-upload-alt fa-3x mb-3"></i>
+                                        <p class="mb-2">CSVファイルをドラッグ&ドロップするか、クリックして選択してください</p>
+                                        <p class="text-muted small">UTF-8エンコーディングのCSVファイルのみ対応</p>
+                                    </div>
+                                    <input type="file" id="csv_file" name="csv_file" accept=".csv" style="display: none;" required>
+                                </div>
+                                <!-- 選択されたファイル表示 -->
+                                <div id="file-info" class="file-info mt-2" style="display: none;">
+                                    <small class="text-muted">選択されたファイル: <span id="file-name"></span></small>
+                                </div>
+                                <!-- プログレスバー -->
+                                <div id="progress-container" class="progress-container mt-3" style="display: none;">
+                                    <div class="progress">
+                                        <div id="progress-bar" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                                    </div>
+                                    <small id="progress-text" class="text-muted mt-1">アップロード準備中...</small>
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary" id="upload-btn">
+                                    <i class="fas fa-upload"></i> インポート実行
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- CSVフォーマット説明セクション -->
+                    <div class="format-section">
+                        <h5>CSVファイル形式</h5>
+                        <div class="alert alert-info">
+                            <h6>必要な列（順序通りに配置）：</h6>
+                            <ol class="mb-2">
+                                <li><strong>ユーザー名</strong>（必須・重複不可）</li>
+                                <li><strong>名前</strong></li>
+                                <li><strong>生年月日</strong>（YYYY-MM-DD形式、例：2000-01-01）</li>
+                                <li><strong>入学年度</strong>（数値、例：2023）</li>
+                                <li><strong>学科</strong></li>
+                                <li><strong>専攻</strong></li>
+                                <li><strong>学年</strong></li>
+                            </ol>
+
+                            <h6>学科の選択肢：</h6>
+                            <ul class="mb-2">
+                                <li>情報工学科</li>
+                                <li>電子工学科</li>
+                                <li>機械工学科</li>
+                                <li>建築学科</li>
+                                <li>その他</li>
+                            </ul>
+
+                            <h6>専攻の選択肢：</h6>
+                            <ul class="mb-2">
+                                <li>AI・データサイエンス</li>
+                                <li>ソフトウェア開発</li>
+                                <li>ネットワーク・セキュリティ</li>
+                                <li>ゲーム開発</li>
+                                <li>Web開発</li>
+                                <li>その他</li>
+                            </ul>
+
+                            <h6>学年の選択肢：</h6>
+                            <ul class="mb-0">
+                                <li>1年生</li>
+                                <li>2年生</li>
+                                <li>3年生</li>
+                                <li>4年生</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- サンプルCSVセクション -->
+                    <div class="sample-section">
+                        <h5>サンプルCSV</h5>
+                        <div class="alert alert-secondary">
+                            <pre class="mb-0">ユーザー名,名前,生年月日,入学年度,学科,専攻,学年
+student001,山田太郎,2000-04-01,2023,情報工学科,AI・データサイエンス,1年生
+student002,佐藤花子,2001-03-15,2023,情報工学科,ソフトウェア開発,1年生</pre>
+                        </div>
+                    </div>
+
+                    <!-- 注意事項セクション -->
+                    <div class="notes-section">
+                        <h5>注意事項</h5>
+                        <div class="alert alert-warning">
+                            <ul class="mb-0">
+                                <li>ファイルはUTF-8エンコーディングで保存してください</li>
+                                <li>ヘッダー行は自動的にスキップされます</li>
+                                <li>ユーザー名が既に存在する場合はスキップされます</li>
+                                <li>エラーがある行はスキップされ、詳細がメッセージで表示されます</li>
+                                <li>大量のデータをインポートする場合は時間がかかることがあります</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 戻るボタンセクション -->
+                    <div class="action-section">
+                        <a href="{% url 'accounts:student_management' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> 生徒管理に戻る
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for drag & drop and progress -->
+<script src="{% static 'js/import_students.js' %}"></script>
+{% endblock %}

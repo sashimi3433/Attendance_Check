@@ -1,0 +1,111 @@
+.form{background-color:#e65151;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center}.form h2{color:#fff;padding:20px;font-size:2rem;font-weight:bold}.form .card{background-color:#efefef;padding:15px;border-radius:15px 15px 0 0;min-height:95vh;max-width:800px;width:100%;margin:0 auto}.form .card form .fieldWrapper{display:block}.form .card form .fieldWrapper label{display:block;margin-top:20px}.form .card form .fieldWrapper input[type=text],.form .card form .fieldWrapper input[type=number],.form .card form .fieldWrapper input[type=password],.form .card form .fieldWrapper select{display:block;border-bottom:1px solid #e65151;padding:15px;width:100%;margin:10px 0;background-color:#fff}.form .card form .fieldWrapper input[type=text]:focus,.form .card form .fieldWrapper input[type=number]:focus,.form .card form .fieldWrapper input[type=password]:focus,.form .card form .fieldWrapper select:focus{outline:none}.form .card form .fieldWrapper input[type=number]::-webkit-outer-spin-button,.form .card form .fieldWrapper input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}.form .card form .fieldWrapper input[type=radio]{display:inline;width:auto;appearance:revert}.form .card form button{background-color:#fff;border:#e65151 solid 1px;color:#e65151;padding:10px;font-size:1.2rem;border-radius:5px;width:100%;text-align:center;transition:all .25s;margin:20px auto}.form .card form button:hover{background-color:#e65151;color:#fff}.form .card form .messages{background-color:#e65151;color:#fff;border-radius:5px;padding:10px;width:100%;margin:20px auto;text-align:center}.form .card form .messages p{margin-bottom:25px;font-size:1.75rem;font-weight:bold}.form .txtbtn{text-align:center;display:block;transition:all .25s;padding:10px;border-radius:5px}.form .txtbtn a{display:block;padding:10px;text-decoration:none;color:inherit}.form .txtbtn:hover{background-color:rgba(0,0,0,.0666666667)}.drop-zone{border:2px dashed #ccc;border-radius:8px;padding:40px 20px;text-align:center;background-color:#f8f9fa;transition:all .3s ease;cursor:pointer;position:relative}.drop-zone:hover{border-color:#e65151;background-color:rgba(230,81,81,.05)}.drop-zone.dragover{border-color:#e65151;background-color:rgba(230,81,81,.1);transform:scale(1.02)}.drop-zone .drop-zone-content{pointer-events:none}.drop-zone .drop-zone-content i{color:#6c757d;transition:color .3s ease}.drop-zone .drop-zone-content p{margin:0;color:#495057}.file-info{background-color:#e9ecef;border-radius:4px;padding:8px 12px;border-left:4px solid #e65151}.upload-section{background-color:#f8f9fa;border:1px solid #dee2e6;border-radius:8px;padding:20px;margin-bottom:20px}.upload-section .form-label{font-weight:600;color:#495057;margin-bottom:15px}.upload-section .drop-zone{margin-bottom:15px}.upload-section .file-info{margin-top:10px;margin-bottom:15px}.progress-container .progress{height:8px;background-color:#e9ecef;border-radius:4px;overflow:hidden}.progress-container .progress .progress-bar{background:linear-gradient(90deg, #e65151, rgb(236.4070351759, 125.5929648241, 125.5929648241));transition:width .3s ease;border-radius:4px}.progress-container #progress-text{display:block;text-align:center;font-size:.875rem}.message-section{margin-bottom:20px}.upload-form-section{margin-bottom:20px}.format-section{margin-bottom:20px}.sample-section{margin-bottom:20px}.notes-section{margin-bottom:20px}.action-section{margin-top:20px}
+
+/* チェックイン成功画面のスタイル */
+.checkin-success .card {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.checkin-success .success-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.checkin-success .success-icon {
+    font-size: 5rem;
+    color: #e65151;
+    margin-bottom: 10px;
+}
+
+.checkin-success .success-message h3 {
+    color: #333;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.checkin-success .success-message p {
+    color: #666;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.checkin-success .progress-section {
+    width: 100%;
+    max-width: 300px;
+}
+
+.checkin-success .redirect-text {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.checkin-success .progress-bar-container {
+    width: 100%;
+    height: 6px;
+    background-color: #f0f0f0;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.checkin-success .progress-bar {
+    height: 100%;
+    background-color: #e65151;
+    border-radius: 3px;
+    transition: width 0.1s linear;
+    width: 100%;
+}
+
+.checkin-success .button-section {
+    margin-top: 10px;
+}
+
+.checkin-success .btn {
+    background-color: #fff;
+    border: 2px solid #e65151;
+    color: #e65151;
+    padding: 12px 24px;
+    font-size: 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.checkin-success .btn:hover {
+    background-color: #e65151;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(230, 81, 81, 0.3);
+}
+
+.checkin-success .btn i {
+    font-size: 1.1rem;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .checkin-success .success-icon {
+        font-size: 4rem;
+    }
+    
+    .checkin-success .success-message h3 {
+        font-size: 1.3rem;
+    }
+    
+    .checkin-success .success-content {
+        gap: 25px;
+    }
+    
+    .checkin-success .card {
+        padding: 30px 15px;
+    }
+}
+
+/*# sourceMappingURL=form.css.78afd6196831.map */

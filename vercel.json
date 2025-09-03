@@ -1,1 +1,21 @@
-{"rewrites":[{"source":"/(.*)","destination":"/index.html"}]}
+{
+  "builds": [
+    {
+      "src": "myapp/wsgi.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "myapp/wsgi.py"
+    }
+  ],
+  "env": {
+    "DJANGO_SETTINGS_MODULE": "myapp.settings"
+  }
+}
